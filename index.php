@@ -12,8 +12,8 @@ $_SESSION["Gconvenio"] = "1234567";
 $_SESSION["Gedital"] = "130";
 $_SESSION["Gano"] = "2011";
 $_SESSION["Gpaginaconcurso"] = "http://www.ifbaiano.edu.br/concursos/portal/temporario20112/";
-$_SESSION["Gusrmail"] = "temporario2011@ifbaiano.edu.br";
-$_SESSION["Gpwdmail"] = "temp@@2012";
+$_SESSION["Gusrmail"] = "temporario@ifbaiano.edu.br";
+$_SESSION["Gpwdmail"] = "temp";
 
 //ATENÇÃO: Lembrar de dar permissão de escrita na pasta do servidor WEB
 $_SESSION["Gcaminhoupload"]= "E:/home/ifbaiano/Web/concursos/aplicacoes/20112_docente/pagamento/retorno/";
