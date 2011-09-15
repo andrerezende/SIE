@@ -2,10 +2,10 @@
 //Variáveis de sessão para parametrização - Serão extraídas do Banco de Dados
 
 session_start("SELECAO");
-$_SESSION["Gnomeprocessoseletivo"] 	= "Processo Seletivo para Curso de Especialização";
-$_SESSION["Gdatainicio"]  			= mktime(0, 0, 0, 1, 9, 2011);
-$_SESSION["Gdatatermino"]			= mktime(0, 0, 0, 13, 9, 2011); 
-$_SESSION["Gdataterminoisencao"]		= mktime(0, 0, 0, 7, 9, 2011); 
+$_SESSION["Gnomeprocessoseletivo"]    = "Processo Seletivo para Curso de Especialização";
+$_SESSION["Gdatainicio"]  			  = mktime(0, 0, 0, 9, 23, 2011);
+$_SESSION["Gdatatermino"]			  = mktime(0, 0, 0, 10, 05, 2011);
+$_SESSION["Gdataterminoisencao"]	  = mktime(0, 0, 0, 10, 27, 2011);
 
 $_SESSION["Gvalorboleto"] = "00,00";
 $_SESSION["Gconvenio"] = "1234567";

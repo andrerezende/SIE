@@ -73,7 +73,7 @@ if (empty($objinscrito)) {
 
 // DADOS DO BOLETO PARA O SEU CLIENTE
 //Variavéis da session
-$data_venc     = $_SESSION["Gdatatermino"];  // Prazo de X dias OU informe data: "13/04/2006";
+$data_venc     = date('d/m/Y', $_SESSION["Gdatatermino"]); // Prazo de X dias OU informe data: "13/04/2006";
 $valor_cobrado = $_SESSION["Gvalorboleto"];  // Valor - REGRA: Sem pontos na milhar e tanto faz com "." ou "," ou com 1 ou 2 ou sem casa decimal
 $nome_selecao  = $_SESSION["Gnomeprocessoseletivo"];
 
