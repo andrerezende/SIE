@@ -1,10 +1,10 @@
 <?php
 session_start("SELECAO"); //sempre session_start antes de usar sessions
 
-//Atribuição da página parametrizada responsável pelo cadastro do candidato 
+//Atribuiï¿½ï¿½o da pï¿½gina parametrizada responsï¿½vel pelo cadastro do candidato 
 $pagina_cadastro = $_SESSION["Gpaginacadastro"];
 
-//Controle de término do processo seletivo
+//Controle de tÃ©rmino do processo seletivo
 $data_incio   = $_SESSION["Gdatainicio"];
 $data_fim     = $_SESSION["Gdatatermino"];
 $data_atual   = strtotime(date("d/m/Y")); 
