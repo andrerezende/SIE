@@ -592,12 +592,12 @@
 					<td height="28" align='right'><label for=especial>Necessidade Especial:</label></td>
 					<td>
 						<select name="especial" id="especial" tabindex=23 onchange="javascript:necessidadeEspecial()">
-							<option value="NAO" selected="selected">N&Atilde;O</option>
+							<option value="NAO" selected="selected">NAO</option>
 							<option value="VISUAL - CEGUEIRA">VISUAL - CEGUEIRA</option>
-							<option value="VISUAL - BAIXA VISAO">VISUAL - BAIXA VIS�O</option>
+							<option value="VISUAL - BAIXA VISAO">VISUAL - BAIXA VISAO</option>
 							<option value="MOTORA">MOTORA</option>
 							<option value="AUDITIVA">AUDITIVA</option>
-							<option value="MULTIPLAS">M&Uacute;LTIPLAS</option>
+							<option value="MULTIPLAS">MULTIPLAS</option>
 							<option value="OUTRA">OUTRA</option>
 						</select>
 						<span class="textoSobrescrito">*</span>
