@@ -1,8 +1,8 @@
 <?php 
-//Variáveis de sessão para parametrização - Serão extraídas do Banco de Dados
+//Variï¿½veis de sessï¿½o para parametrizaï¿½ï¿½o - Serï¿½o extraï¿½das do Banco de Dados
 
 session_start("SELECAO");
-$_SESSION["Gnomeprocessoseletivo"]    = "Processo Seletivo para Curso de Especialização";
+$_SESSION["Gnomeprocessoseletivo"]    = "Processo Seletivo para Curso de EspecializaÃ§Ã£o";
 $_SESSION["Gdatainicio"]  			  = mktime(0, 0, 0, 9, 23, 2011);
 $_SESSION["Gdatatermino"]			  = mktime(0, 0, 0, 10, 05, 2011);
 $_SESSION["Gdataterminoisencao"]	  = mktime(0, 0, 0, 10, 27, 2011);
@@ -15,10 +15,10 @@ $_SESSION["Gpaginaconcurso"] = "http://www.ifbaiano.edu.br/concursos/portal/temp
 $_SESSION["Gusrmail"] = "temporario@ifbaiano.edu.br";
 $_SESSION["Gpwdmail"] = "temp";
 
-//ATENÇÃO: Lembrar de dar permissão de escrita na pasta do servidor WEB
+//ATENï¿½ï¿½O: Lembrar de dar permissï¿½o de escrita na pasta do servidor WEB
 $_SESSION["Gcaminhoupload"]= "E:/home/ifbaiano/Web/concursos/aplicacoes/20112_docente/pagamento/retorno/";
 
-//Atribuição da página parametrizada responsável pelo cadastro,edição e impressão do candidato 
+//Atribuiï¿½ï¿½o da pï¿½gina parametrizada responsï¿½vel pelo cadastro,ediï¿½ï¿½o e impressï¿½o do candidato 
 $_SESSION["Gpaginaeditar"]			="esp-editar.php";		   
 $_SESSION["Gpaginaimpressao"]		="esp-impressao.php";
 $_SESSION["Gpaginacadastro"]		="esp-cadastro.php";
