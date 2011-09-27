@@ -1,9 +1,9 @@
 <?php session_start("SELECAO"); ?>
 <?php	
-	//Trecho que automatiza o encerramento do Período de Isenção
+	//Trecho que automatiza o encerramento do PerÃ­odo de Isento
 	$data_fim_isencao  	= strtotime($_SESSION["Gdataterminoisencao"]);
 
-	//Trecho que automatiza o encerramento do Processo seletivo em vigência
+	//Trecho que automatiza o encerramento do Processo seletivo em vigÃªncia
 	$data_incio   	= $_SESSION["Gdatainicio"];
 	$data_fim     	= $_SESSION["Gdatatermino"];
 	$data_atual   	= strtotime(date("d/m/Y")); 
@@ -44,7 +44,7 @@
 		var endereco        = document.getElementById("endereco");
 		var bairro          = document.getElementById("bairro");
 		var cep             = document.getElementById("cep");
-		var cidade          = document.getElementById("cidade");
+		var municipio       = document.getElementById("municipio");
 		var estado          = document.getElementById("estado");
 		var rg              = document.getElementById("rg");
 		var cpf             = document.getElementById("cpf");
@@ -131,9 +131,9 @@
 			alert('Informe o CEP!');
 			cep.focus();
 			resultado = false;
-		} else if (cidade.value == "") {
-			alert('Informe a cidade!');
-			cidade.focus();
+		} else if (municipio.value == "") {
+			alert('Informe a municipio!');
+			municipio.focus();
 			resultado = false;
 		} else if (estado.value == "") {
 			alert('Informe o estado!');
@@ -381,6 +381,16 @@
 				}
 			)
 		})
+                
+                $("select[name=uf]").change(function() {
+			$("select[name=municipio]").html('<option value="0">Carregando...</option>');
+			$.post("municipios.php",
+				{uf:$(this).val()},
+				function(valor) {
+					$("select[name=municipio]").html(valor);
+				}
+			)
+		})
 	})
 	</script>
 </head>
@@ -443,7 +453,7 @@
 					<td>
 						<input class="alpha" style="text-transform:uppercase" name="orgaoexpedidor" id="orgaoexpedidor"  type="text" tabindex=6 size="8" maxlength="8" alt="Ã“rgÃ£o Expedidor" />
 						&nbsp;&nbsp;UF:&nbsp;&nbsp;
-						<select name="uf" id="uf" tabindex=7>
+						<select name="uf_orgao_exp" id="uf_orgao_exp" tabindex=7>
 							<option value="AC">AC</option>
 							<option value="AL">AL</option>
 							<option value="BA" selected="selected">BA</option>
@@ -518,30 +528,45 @@
 				</tr>
 
 				<tr>
-					<td align='right'><label for=cidade>Cidade:</label></td>
+					<td align='right'><label for=uf>UF:</label></td>
 					<td>
-						<input style="text-transform:uppercase" name="cidade" id="cidade"  type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" />
-						<span class="textoSobrescrito">*</span>
-						&nbsp;&nbsp;Estado:&nbsp;&nbsp;
-						<select name="estado" id="estado" tabindex=16 >
-							<option value="AC">AC</option>
-							<option value="AL">AL</option>
-							<option value="BA" selected="selected">BA</option>
-							<option value="CE">CE</option>
-							<option value="DF">DF</option>
-							<option value="ES">ES</option>
-							<option value="MA">MA</option>
-							<option value="MG">MG</option>
-							<option value="MS">MS</option>
-							<option value="MT">MT</option>
-							<option value="PE">PE</option>
-							<option value="PI">PI</option>
-							<option value="PR">PR</option>
-							<option value="RJ">RJ</option>
-							<option value="RR">RR</option>
-							<option value="RS">RS</option>
-							<option value="SE">SE</option>
-							<option value="SP">SP</option>
+                                            <select id="uf" name="uf" tabindex="15" >
+                                                <option value="0" selected="selected">Escolha um Estado</option>
+                                                <?php
+                                                    include_once ("../classes/DB.php");
+                                                    include_once ("../classes/UnidadeFederativa.php");
+                                                    $banco = DB::getInstance();
+                                                    $conexao = $banco->ConectarDB();
+
+                                                    $unidadefederativa = new UnidadeFederativa(null, null);
+                                                    $vetorunidadefederativa = $unidadefederativa->SelectByAll($conexao);
+
+                                                    /* Varaveis auxiliares */
+                                                    $i = 0;
+                                                    $sel = "selected";
+                                                    $total = count($vetorunidadefederativa);
+
+                                                    while ($total > $i) {
+                                                            $nome = $vetorunidadefederativa[$i]->getNome();
+                                                            $codigo = $vetorunidadefederativa[$i]->getIdUnidadeFederativa();
+                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            $i = $i + 1;
+                                                    }
+                                                    ?>
+                                            </select>
+                                            
+                                            <span class="textoSobrescrito">*</span>
+				
+					</td>
+				</tr>
+                            
+                                <tr>
+					<td align='right' width="200px">
+                                            <label for=municipio>Munic&iacute;pio:</label>
+					</td>
+					<td>
+						<select id="municipio" name="municipio" tabindex="16">
+							<option value="0" disabled="disabled">Escolha um Estado primeiro</option>
 						</select>
 						<span class="textoSobrescrito">*</span>
 					</td>
@@ -670,7 +695,7 @@
                         <select name="isencao" id="isencao" tabindex=28>
                              <option value="NAO" selected="selected">N&Atilde;O</option>
 				 <?php	
-					//Verifica o término do período de isenção
+					//Verifica o tï¿½rmino do perï¿½odo de isenï¿½ï¿½o
 					if ($data_fim_isencao >= $data_atual){
  						echo("<option value='SIM'/>SIM</option>");
 					}
