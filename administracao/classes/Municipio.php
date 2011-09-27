@@ -1,11 +1,12 @@
 <?php
 
+
 class Municipio {
 	protected $id;
 	protected $nome;
         protected $unidade_federativa_id;
 
-	public function Municipio($pid = null, $pnome = null, $punidade_federativa_id) {
+	public function Municipio($pid = null, $pnome = null, $punidade_federativa_id = null) {
 		$this->id = $pid;
 		$this->nome = $pnome;
                 $this->unidade_federativa_id = $unidade_federativa_id;
