@@ -1,7 +1,7 @@
 <?php session_start("SELECAO"); 
 
-//Atribuição da página parametrizada responsável pelo edição e impressão do cadastro do candidato 
-$pagina_editar	= $_SESSION["Gpaginaeditar"];		   
+//Atribuiï¿½ï¿½o da pï¿½gina parametrizada responsï¿½vel pelo ediï¿½ï¿½o e impressï¿½o do cadastro do candidato 
+$pagina_editar	      = $_SESSION["Gpaginaeditar"];		   
 $pagina_impressao	= $_SESSION["Gpaginaimpressao"];
 
 ?>

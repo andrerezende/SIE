@@ -609,7 +609,7 @@ if (count($objinscrito) == 0){
 						$i = 0;
 						while ($total > $i) {
 							if ($especial[$i] != $objinscrito[0]->getespecial()) {
-								echo("	<option value=".$especial[$i].">".$especial[$i]."</option>\n");
+								echo("	<option value="."'".$especial[$i]."'".">".$especial[$i]."</option>\n");
 							} else {
 								echo("	<option selected value=".$especial[$i].">".$especial[$i]."</option>\n");
 							}
