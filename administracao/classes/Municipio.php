@@ -1,6 +1,5 @@
 <?php
 
-
 class Municipio {
 	protected $id;
 	protected $nome;
@@ -58,61 +57,5 @@ class Municipio {
 		$linha = mysql_fetch_row($rs);
 		return new Municipio($linha[0], $linha[1], $linha[2]);
 	}
-
-//	public function Inserir($sock) {
-//		$ssql = 'INSERT INTO campus (nome) VALUES ';
-//		$ssql .= " ('". $this->nome . "')";
-//
-//		$rs = mysql_query($ssql, $sock);
-//
-//		return $rs;
-//	}
-//
-//	public function existeCandidatoAssociado($sock, $id) {
-//		$ssql = "SELECT * FROM inscrito";
-//		$ssql .= " WHERE curso = " . $id;
-//
-//		$rs = mysql_query($ssql, $sock);
-//
-//		$linha = mysql_affected_rows();
-//
-//		if ($linha > 0) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-//
-//	public function inativar($sock, $id) {
-//		$ssql = "UPDATE campus SET";
-//		$ssql .= " ativo = 'N'";
-//		$ssql .= " WHERE id = ".$id;
-//
-//		$rs = mysql_query($ssql, $sock);
-//
-//		$linha = mysql_affected_rows();
-//
-//		if ($linha > 0) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-//
-//	public function apagar($sock, $id) {
-//		$ssql = "DELETE FROM campus";
-//		$ssql .= " WHERE id = ".$id;
-//
-//		$rs = mysql_query($ssql, $sock);
-//
-//		$linha = mysql_affected_rows();
-//
-//		if ($linha > 0) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-
-        
+   
 }
