@@ -1,7 +1,7 @@
 <?php
 session_start("SELECAO"); //sempre session_start antes de usar sessions
 
-//Atribuição da página parametrizada respons�vel pelo cadastro do candidato 
+//Atribuição da página parametrizada responsável pelo cadastro do candidato 
 $pagina_cadastro = $_SESSION["Gpaginacadastro"];
 
 //Controle de término do processo seletivo
