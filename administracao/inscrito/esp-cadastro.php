@@ -470,28 +470,6 @@
                                                     }
                                                     ?>
                                                 </select>
-
-
-<!--						<select name="uf_orgao_exp" id="uf_orgao_exp" tabindex=7>
-							<option value="AC">AC</option>
-							<option value="AL">AL</option>
-							<option value="BA" selected="selected">BA</option>
-							<option value="CE">CE</option>
-							<option value="DF">DF</option>
-							<option value="ES">ES</option>
-							<option value="MA">MA</option>
-							<option value="MG">MG</option>
-							<option value="MS">MS</option>
-							<option value="MT">MT</option>
-							<option value="PE">PE</option>
-							<option value="PI">PI</option>
-							<option value="PR">PR</option>
-							<option value="RJ">RJ</option>
-							<option value="RR">RR</option>
-							<option value="RS">RS</option>
-							<option value="SE">SE</option>
-							<option value="SP">SP</option>
-						</select>-->
 					</td>
 				</tr>
 
