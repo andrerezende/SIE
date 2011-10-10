@@ -10,9 +10,53 @@
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
 
+$nome=null;
+$endereco=null;
+$bairro=null;
+$cep=null;
+$municipio=null;
+$uf=null;
+$email=null;
+$cpf=null;
+$rg=null;
+$especial=null;
+$senha=null;
+$nacionalidade=null;
+$telefone=null;
+$telefone2=null;
+$celular=null;
+$datanascimento=null;
+$sexo=null;
+$estadocivil=null;
+$orgaoexpedidor=null;
+$uf_org_exp=null;
+$dataexpedicao=null;
+$especial_descricao=null;
+$responsavel=null;
+$isencao=null;
+$declaracao=null;
+$localprova=null;
+$numinscricao=null;
+$especial_prova=null;
+$especial_prova_descricao=null;
+$vaga_especial=null;
+$vaga_rede_publica=null;
+$vaga_rural=null;
+$campus=null;
+$data_cadastro=null;
+$ultima_alteracao=null;
+$curso=null;
+$nis=null;
+$nota=null;
+
+
+//$i=1;
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
+//        echo($i++." - ".$key."<br />");
 }
+
+//exit;
 
 /*Acesso ao banco de dados */
 $banco    = DB::getInstance();
@@ -24,11 +68,60 @@ $id = $resultado['novo_id'];
 $numinscricao = substr($cpf, 0,4).$id;
 
 /*Verificar se possui cadastrado na base*/
-$inscrito = new Inscrito($nome, $endereco, $bairro, $cep, $cidade, $estado,
-			$email, $cpf, $rg, $especial, $senha, $nacionalidade, $telefone, null, $celular, $datanascimento,
-			$sexo, $estadocivil, $orgaoexpedidor, $uf, $dataexpedicao, $especial_descricao, $responsavel,
-			$isencao, $declaracao, $localprova, $numinscricao, $especial_prova, $especial_prova_descricao,
-			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, null, null, null, $curso, $nis);
+//$inscrito = new Inscrito($nome, $endereco, $bairro, $cep, $municipio, $uf,
+//			$email, $cpf, $rg, $especial, $senha, $nacionalidade, $telefone, null, $celular, $datanascimento,
+//			$sexo, $estadocivil, $orgaoexpedidor, $uf_org_exp, $dataexpedicao, $especial_descricao, $responsavel,
+//			$isencao, $declaracao, $localprova, $numinscricao, $especial_prova, $especial_prova_descricao,
+//			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, null, null, null, $curso, $nis);
+
+
+
+
+
+$inscrito = new Inscrito();
+//$inscrito->setcpf($cpf);
+//echo($inscrito->getcpf());
+//exit;
+
+$inscrito->setnome($nome);
+$inscrito->setendereco($endereco);
+$inscrito->setbairro($bairro);
+$inscrito->setcep($cep);
+$inscrito->setcidade($municipio);
+$inscrito->setestado($uf);
+$inscrito->setemail($email);
+$inscrito->setcpf($cpf);
+$inscrito->setrg($rg);
+$inscrito->setespecial($especial);
+$inscrito->setsenha($senha);
+$inscrito->setnacionalidade($nacionalidade);
+$inscrito->settelefone($telefone);
+$inscrito->settelefone2($telefone2);
+$inscrito->setcelular($celular);
+$inscrito->setdatanascimento($datanascimento);
+$inscrito->setsexo($sexo);
+$inscrito->setestadocivil($estadocivil);
+$inscrito->setorgaoexpedidor($orgaoexpedidor);
+$inscrito->setuf($uf_org_exp);
+$inscrito->setdataexpedicao($dataexpedicao);
+$inscrito->setespecialdescricao($especial_descricao);
+$inscrito->setresponsavel($responsavel);
+$inscrito->setisencao($isencao);
+$inscrito->setdeclaracao($declaracao);
+$inscrito->setlocalprova($localprova);
+$inscrito->setnuminscricao($numinscricao);
+$inscrito->setespecialprova($especial_prova);
+$inscrito->setespecialprovadescricao($especial_prova_descricao);
+$inscrito->setvagaespecial($vaga_especial);
+$inscrito->setvagaredepublica($vaga_rede_publica);
+$inscrito->setvagarural($vaga_rural);
+$inscrito->setcampus($campus);
+$inscrito->setdatacadastro($data_cadastro);
+$inscrito->setultimaalteracao($ultima_alteracao);
+$inscrito->setcurso($curso);
+$inscrito->setnis($nis);
+$inscrito->setnota($nota);
+
 $existe = $inscrito->Existe($conexao);
 
 if ($existe) {
