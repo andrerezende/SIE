@@ -1,6 +1,6 @@
 <?php session_start("SELECAO"); 
 
-//Atribuição da página parametrizada responsável pelo edição e impressão do cadastro do candidato 
+//AtribuiÃ§Ã£oo da pÃ¡gina parametrizada responsÃ¡vel pelo ediÃ§Ã£o e impressÃ£o do cadastro do candidato 
 $pagina_editar	= $_SESSION["Gpaginaeditar"];		   
 $pagina_impressao	= $_SESSION["Gpaginaimpressao"];
 
@@ -14,14 +14,15 @@ require_once("../classes/Campus.php");
 require_once("../classes/Localprova.php");
 
 $cpf 		= addslashes($_POST['cpf']);
-$senha 	= addslashes($_POST['pwd']);
+$senha          = addslashes($_POST['pwd']);
 $mensagem 	= addslashes($_POST['mensagem']);
 
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
 
-$inscrito = new Inscrito(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null); //36
+//$inscrito = new Inscrito(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null); //36
+$inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
 
 if (empty($objinscrito)) {
