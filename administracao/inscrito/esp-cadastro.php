@@ -131,24 +131,16 @@
 			alert('Informe o CEP!');
 			cep.focus();
 			resultado = false;
-		} else if (municipio.value == "") {
-			alert('Informe a municipio!');
+		} else if (municipio.value == "" || municipio.value == "0") {
+			alert('Informe o Estado e Municipio!');
 			municipio.focus();
 			resultado = false;
-		} else if (estado.value == "") {
-			alert('Informe o estado!');
-			estado.focus();
-			resultado = false;
-		} else if (campus.value <= 0) {
-			alert('Favor preencher o Campus e Area!');
+		
+                } else if (campus.value == "" || campus.value == "0") {
+			alert('Informe o Campus e Area!');
 			campus.focus();
 			resultado = false;
 		} 
-		//else if (especial.value == "") {
-		//	alert('Informe se possui necessidades especiais!');
-		//	especial.focus();
-		//	resultado = false;
-		//}
 		return resultado;
 	}
 
@@ -453,7 +445,34 @@
 					<td>
 						<input class="alpha" style="text-transform:uppercase" name="orgaoexpedidor" id="orgaoexpedidor"  type="text" tabindex=6 size="8" maxlength="8" alt="Órgão Expedidor" />
 						&nbsp;&nbsp;UF:&nbsp;&nbsp;
-						<select name="uf_orgao_exp" id="uf_orgao_exp" tabindex=7>
+                                                
+                                                <select id="uf_org_exp" name="uf_org_exp" tabindex="7" >
+                                                <option value="0" selected="selected">Escolha um Estado</option>
+                                                <?php
+                                                    include_once ("../classes/DB.php");
+                                                    include_once ("../classes/UnidadeFederativa.php");
+                                                    $banco = DB::getInstance();
+                                                    $conexao = $banco->ConectarDB();
+
+                                                    $uforgexp = new UnidadeFederativa(null, null);
+                                                    $vetoruforgexp = $uforgexp->SelectByAll($conexao);
+
+                                                    /* Varaveis auxiliares */
+                                                    $i = 0;
+                                                    $sel = "selected";
+                                                    $total = count($vetoruforgexp);
+
+                                                    while ($total > $i) {
+                                                            $nome = $vetoruforgexp[$i]->getNome();
+                                                            $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
+                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            $i = $i + 1;
+                                                    }
+                                                    ?>
+                                                </select>
+
+
+<!--						<select name="uf_orgao_exp" id="uf_orgao_exp" tabindex=7>
 							<option value="AC">AC</option>
 							<option value="AL">AL</option>
 							<option value="BA" selected="selected">BA</option>
@@ -472,14 +491,15 @@
 							<option value="RS">RS</option>
 							<option value="SE">SE</option>
 							<option value="SP">SP</option>
-						</select>
+						</select>-->
 					</td>
 				</tr>
 
 				<tr>
 					<td align='right'><label for=dataexpedicao>Data de Expedi&ccedil;&atilde;o:</label></td>
 					<td>
-						<input name="dataexpedicao" id="dataexpedicao" type="text" tabindex=8 size="12" maxlength="10" alt="Data de Expedi&ccedil;&atilde;o (RG)" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" />
+						<input name="dataexpedicao" id="dataexpedicao" type="text" tabindex=8 size="12" maxlength="10" alt="Data de Expedi&ccedil;&atilde;o (RG)" on
+                                                       press="Mascara('DATA',this,event); return Onlynumber(event);" />
 					</td>
 				</tr>
 
@@ -533,8 +553,7 @@
                                             <select id="uf" name="uf" tabindex="15" >
                                                 <option value="0" selected="selected">Escolha um Estado</option>
                                                 <?php
-                                                    include_once ("../classes/DB.php");
-                                                    include_once ("../classes/UnidadeFederativa.php");
+                                                    
                                                     $banco = DB::getInstance();
                                                     $conexao = $banco->ConectarDB();
 
