@@ -2,7 +2,7 @@
 <?php session_start();?>
 
 <?php	
-	//Trecho que automatiza o encerramento do Período de Isenção
+	//Trecho que automatiza o encerramento do PerÃ­odo de IsenÃ§Ã£oo
 	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
 	$data_atual   	= strtotime(date("d/m/Y")); 
 
@@ -722,7 +722,7 @@ if (count($objinscrito) == 0){
 				<td>
 
 				 	<?php	
-						//Verifica o término do período de isenção					
+						//Verifica o tï¿½rmino do perï¿½odo de isenï¿½ï¿½o					
 						if ($data_fim_isencao >= $data_atual){
 							echo("<select name='isencao' id='isencao' tabindex=28>");
 						}else{
