@@ -25,6 +25,16 @@ $conexao = $banco->ConectarDB();
 $inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
 
+// INÍCIO DEPURAÇÃO
+//echo ($objinscrito[0]->getnome());
+//echo ($cpf." - ");
+//echo ($senha);
+//echo ("------------");
+//var_dump($objinscrito);
+//echo ("------------");
+//exit;
+// FIM DEPURAÇÃO
+
 if (empty($objinscrito)) {
 	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
@@ -74,7 +84,7 @@ if (count($objinscrito)==0){
 					<a href="#" onclick="document.forms['frmeditar'].submit();">Editar Inscri&ccedil;&atilde;o</a>
 				</form>
 			</div>
-
+                    
 		<div align="center">
 			<form id="frmimpressao" name="frmimpressao" action="<?php echo($pagina_impressao)?>" method="post">
 				<input type="hidden" name="cpf" value="<?php echo($cpf);?>" />
