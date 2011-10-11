@@ -3,9 +3,9 @@
 
 session_start("SELECAO");
 $_SESSION["Gnomeprocessoseletivo"]    = "Processo Seletivo para Curso de Especializa&ccedil;&atilde;o";
-$_SESSION["Gdatainicio"]  			  = mktime(0, 0, 0, 9, 23, 2011);
-$_SESSION["Gdatatermino"]			  = mktime(0, 0, 0, 10, 05, 2011);
-$_SESSION["Gdataterminoisencao"]	  = mktime(0, 0, 0, 10, 27, 2011);
+$_SESSION["Gdatainicio"]            = mktime(0, 0, 0, 9, 23, 2015);
+$_SESSION["Gdatatermino"]           = mktime(0, 0, 0, 12, 05, 2015);
+$_SESSION["Gdataterminoisencao"]    = mktime(0, 0, 0, 12, 27, 2015);
 
 $_SESSION["Gvalorboleto"] = "00,00";
 $_SESSION["Gconvenio"] = "1234567";
