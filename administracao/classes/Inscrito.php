@@ -42,55 +42,6 @@ class Inscrito {
 
         public function _construct(){}
         
-//	public function Inscrito($pnome = null, $pendereco = null, $pbairro = null, $pcep = null, $pcidade = null, $pestado = null, $pemail = null,
-//								$pcpf = null, $prg = null, $pespecial = null, $psenha = null, $pnacionalidade = null, $ptelefone = null,
-//								$ptelefone2 = null, $pcelular = null, $pdatanascimento = null, $psexo = null, $pestadocivil = null,
-//								$porgaoexpedidor = null, $puf = null, $pdataexpedicao = null, $pespecial_descricao = null, $presponsavel = null,
-//								$pisencao = null, $pdeclaracao = null, $plocalprova = null, $pnuminscricao = null, $pespecial_prova = null,
-//								$pespecial_prova_descricao = null, $pvaga_especial = null, $pvaga_rede_publica = null, $pvaga_rural = null,
-//								$pcampus = null, $pid = null, $pdata_cadastro = null, $pultima_alteracao = null, $pcurso = null, $pnis = null, $pnota = null
-//	) {
-//
-//		$this->id = $pid;
-//		$this->nome = $pnome;
-//		$this->endereco = $pendereco;
-//		$this->bairro = $pbairro;
-//		$this->cep = $pcep;
-//		$this->cidade = $pcidade;
-//		$this->estado = $pestado;
-//		$this->email = $pemail;
-//		$this->cpf = $pcpf;
-//		$this->rg = $prg;
-//		$this->especial = $pespecial;
-//		$this->senha = $psenha;
-//		$this->nacionalidade = $pnacionalidade;
-//		$this->telefone = $ptelefone;
-//		$this->telefone2 = $ptelefone2;
-//		$this->celular = $pcelular;
-//		$this->datanascimento = $pdatanascimento;
-//		$this->sexo = $psexo;
-//		$this->estadocivil = $pestadocivil;
-//		$this->orgaoexpedidor = $porgaoexpedidor;
-//		$this->uf = $puf;
-//		$this->dataexpedicao = $pdataexpedicao;
-//		$this->especial_descricao = $pespecial_descricao;
-//		$this->responsavel = $presponsavel;
-//		$this->isencao = $pisencao;
-//		$this->declaracao = $pdeclaracao;
-//		$this->localprova = $plocalprova;
-//		$this->numinscricao = $pnuminscricao;
-//		$this->especial_prova = $pespecial_prova;
-//		$this->especial_prova_descricao = $pespecial_prova_descricao;
-//		$this->vaga_especial = $pvaga_especial;
-//		$this->vaga_rede_publica = $pvaga_rede_publica;
-//		$this->vaga_rural = $pvaga_rural;
-//		$this->campus = $pcampus;
-//		$this->data_cadastro = $pdata_cadastro;
-//		$this->ultima_alteracao = $pultima_alteracao;
-//		$this->curso = $pcurso;
-//		$this->nis = $pnis;
-//		$this->nota = $pnota;
-//	}
 
 	public function getid() {
 		return $this->id;
@@ -507,19 +458,33 @@ class Inscrito {
 		return ($ar);
 	}
 
-	public function SelectByPrimaryKey($sock,$codigo,$senha) {
+//	public function SelectByPrimaryKey($sock,$codigo,$senha) {
+//		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota FROM inscrito A " ;
+//		$ssql = $ssql . " WHERE cpf=" .$codigo." AND senha = '" .$senha."'";
+//
+//		$rs = mysql_query($ssql, $sock);
+//
+//		$ar = array();
+//
+//		while ($linha = mysql_fetch_row($rs)) {
+//			//$obj = new Inscrito($linha[0],$linha[1],$linha[2],$linha[3],$linha[4],$linha[5],$linha[6],$linha[7],$linha[8],$linha[9],$linha[10],$linha[11],$linha[12],$linha[13],$linha[14],$linha[15],$linha[16],$linha[17],$linha[18],$linha[19],$linha[20],$linha[21],$linha[22],$linha[23],$linha[24],$linha[25],$linha[26],$linha[27],$linha[28],$linha[29],$linha[30],$linha[31],$linha[32],$linha[33],null,null,$linha[34],$linha[35],$linha[36]);
+//			$obj = new Inscrito($linha[0],$linha[1],$linha[2],$linha[3],$linha[4],$linha[5],$linha[6],$linha[7],$linha[8],$linha[9],$linha[10],$linha[11],$linha[12],$linha[13],$linha[14],$linha[15],$linha[16],$linha[17],$linha[18],$linha[19],$linha[20],$linha[21],$linha[22],$linha[23],$linha[24],$linha[25],$linha[26],$linha[27],$linha[28],$linha[29],$linha[30],$linha[31],$linha[32],$linha[33],$linha[34],$linha[35],$linha[36]);
+//                        $ar[] = $obj;
+//		}
+//		return $ar;
+//	}
+        
+        public function SelectByPrimaryKey($sock,$codigo,$senha) {
 		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota FROM inscrito A " ;
 		$ssql = $ssql . " WHERE cpf=" .$codigo." AND senha = '" .$senha."'";
 
 		$rs = mysql_query($ssql, $sock);
+                
+                $obj = mysql_fetch_object($rs, "Inscrito");
 
-		$ar = array();
+                $ar[] = $obj;
 
-		while ($linha = mysql_fetch_row($rs)) {
-			$obj = new Inscrito($linha[0],$linha[1],$linha[2],$linha[3],$linha[4],$linha[5],$linha[6],$linha[7],$linha[8],$linha[9],$linha[10],$linha[11],$linha[12],$linha[13],$linha[14],$linha[15],$linha[16],$linha[17],$linha[18],$linha[19],$linha[20],$linha[21],$linha[22],$linha[23],$linha[24],$linha[25],$linha[26],$linha[27],$linha[28],$linha[29],$linha[30],$linha[31],$linha[32],$linha[33],null,null,$linha[34],$linha[35],$linha[36]);
-			$ar[] = $obj;
-		}
-		return $ar;
+                return $ar;
 	}
 
 	public function SelectByRg($sock,$codigo) {
