@@ -442,19 +442,32 @@ if (count($objinscrito) == 0){
 				<td>
 					<input class="alpha" style="text-transform:uppercase" name="orgaoexpedidor" id="orgaoexpedidor" type="text" tabindex=6 size="8" maxlength="8" alt="Órgão Expedidor" value="<?php echo ($objinscrito[0]->getorgaoexpedidor()); ?>" />
 					&nbsp;&nbsp;UF:&nbsp;&nbsp;
-					<select name="uf" id="uf" tabindex=7>
+					
+                                        <select name="uf_org_exp" id="uf_org_exp" tabindex=7>
 						<?php
-						$uf = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
-						$total = count($uf);
-						$i = 0;
-						while ($total > $i) {
-							if ($uf[$i] != $objinscrito[0]->getuf()) {
-								echo("	<option value=".$uf[$i].">".$uf[$i]."</option>\n");
-							} else {
-								echo("	<option selected value=".$uf[$i].">".$uf[$i]."</option>\n");
-							}
-							$i = $i + 1;
-						}
+                                                    //$uf_org_exp = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
+                                                    
+                                                    $uforgexp = new UnidadeFederativa(null, null);
+                                                    $vetoruforgexp = $uforgexp->SelectByAll($conexao);
+                                                    
+                                                    var_dump($vetoruforgexp);
+                                                    
+                                                    $total = count($vetoruforgexp);
+                                                    $i = 0;
+                                                    while ($total > $i) {
+                                                            if ($vetoruforgexp[$i] != $objinscrito[0]->getuf()) {
+                                                                    echo("	<option value=".$vetoruforgexp[$i].">".$vetoruforgexp[$i]."</option>\n");
+                                                            } else {
+                                                                    echo("	<option selected value=".$vetoruforgexp[$i].">".$vetoruforgexp[$i]."</option>\n");
+                                                            }
+                                                            $i = $i + 1;
+                                                    }
+//                                                    while ($total > $i) {
+//                                                            $nome = $vetoruforgexp[$i]->getNome();
+//                                                            $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
+//                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+//                                                            $i = $i + 1;
+//                                                    }
 						?>
 					</select>
 				</td>
@@ -532,17 +545,17 @@ if (count($objinscrito) == 0){
 					&nbsp;&nbsp;Estado:&nbsp;&nbsp;
 					<select name="estado" id="estado" tabindex=16>
 						<?php
-						$estado = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
-						$total = count($estado);
-						$i = 0;
-						while ($total > $i) {
-							if ($estado[$i] != $objinscrito[0]->getestado()) {
-								echo("	<option value=".$estado[$i].">".$estado[$i]."</option>\n");
-							} else {
-								echo("	<option selected value=".$estado[$i].">".$estado[$i]."</option>\n");
-							}
-							$i = $i + 1;
-						}
+                                                    $estado = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
+                                                    $total = count($estado);
+                                                    $i = 0;
+                                                    while ($total > $i) {
+                                                            if ($estado[$i] != $objinscrito[0]->getestado()) {
+                                                                    echo("	<option value=".$estado[$i].">".$estado[$i]."</option>\n");
+                                                            } else {
+                                                                    echo("	<option selected value=".$estado[$i].">".$estado[$i]."</option>\n");
+                                                            }
+                                                            $i = $i + 1;
+                                                    }
 						?>
 					</select>
 					<span class="textoSobrescrito">*</span>
