@@ -1,10 +1,13 @@
 <?php session_start("SELECAO"); ?>
 <?php
+
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
-include_once ("../classes/Campus.php");
 include_once ("../classes/Curso.php");
+include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
+include_once ("../classes/UnidadeFederativa.php");
+include_once ("../classes/Municipio.php");
 
 $cpf = addslashes($_POST['cpf']);
 $id = $_POST['id'];
@@ -12,12 +15,18 @@ $id = $_POST['id'];
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
+
 $inscrito = new Inscrito();
+
 if ($id) {
 	$objinscrito = $inscrito->SelectById($conexao, $id);
 } elseif ($cpf) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
+
+var_dump($objinscrito);
+exit;
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
