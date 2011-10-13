@@ -25,6 +25,8 @@ $conexao = $banco->ConectarDB();
 $inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
 
+
+
 // INÍCIO DEPURAÇÃO
 //echo ($objinscrito[0]->getnome());
 //echo ($cpf." - ");
