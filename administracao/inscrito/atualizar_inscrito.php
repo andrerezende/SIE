@@ -15,10 +15,14 @@ $pagina_impressao	= $_SESSION["Gpaginaimpressao"];
 <body>
 
 <?php
-include("../classes/DB.php");
-include("../classes/Inscrito.php");
-include("../classes/Campus.php");
-include("../classes/Localprova.php");
+
+include_once ("../classes/DB.php");
+include_once ("../classes/Inscrito.php");
+include_once ("../classes/Curso.php");
+include_once ("../classes/Campus.php");
+include_once ("../classes/Localprova.php");
+include_once ("../classes/UnidadeFederativa.php");
+include_once ("../classes/Municipio.php");
 
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
@@ -30,12 +34,52 @@ $conexao  = $banco->ConectarDB();
 
 /*Verificar se possui cadastrado na base*/
 $banco->startTransaction();
-$inscrito = new Inscrito($nome, $endereco, $bairro, $cep, $cidade, $estado,
-			$email, $cpf, $rg, $especial, $senha, $nacionalidade, $telefone, null, $celular, $datanascimento,
-			$sexo, $estadocivil, $orgaoexpedidor, $uf, $dataexpedicao, $especial_descricao, $responsavel,
-			$isencao, $declaracao, $localprova, $numinscricao, $especial_prova, $especial_prova_descricao,
-			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, $id, null, null, $curso, $nis, $nota);
+
+$inscrito = new Inscrito();
+
+$inscrito->setid($id);
+$inscrito->setnome($nome);
+$inscrito->setendereco($endereco);
+$inscrito->setbairro($bairro);
+$inscrito->setcep($cep);
+$inscrito->setcidade($municipio);
+$inscrito->setestado($uf);
+$inscrito->setemail($email);
+$inscrito->setcpf($cpf);
+$inscrito->setrg($rg);
+$inscrito->setespecial($especial);
+$inscrito->setsenha($senha);
+$inscrito->setnacionalidade($nacionalidade);
+$inscrito->settelefone($telefone);
+$inscrito->settelefone2($telefone2);
+$inscrito->setcelular($celular);
+$inscrito->setdatanascimento($datanascimento);
+$inscrito->setsexo($sexo);
+$inscrito->setestadocivil($estadocivil);
+$inscrito->setorgaoexpedidor($orgaoexpedidor);
+$inscrito->setuf($uf_org_exp);
+$inscrito->setdataexpedicao($dataexpedicao);
+$inscrito->setespecialdescricao($especial_descricao);
+$inscrito->setresponsavel($responsavel);
+$inscrito->setisencao($isencao);
+$inscrito->setdeclaracao($declaracao);
+$inscrito->setlocalprova($localprova);
+$inscrito->setnuminscricao($numinscricao);
+$inscrito->setespecialprova($especial_prova);
+$inscrito->setespecialprovadescricao($especial_prova_descricao);
+$inscrito->setvagaespecial($vaga_especial);
+$inscrito->setvagaredepublica($vaga_rede_publica);
+$inscrito->setvagarural($vaga_rural);
+$inscrito->setcampus($campus);
+$inscrito->setdatacadastro($data_cadastro);
+$inscrito->setultimaalteracao($ultima_alteracao);
+$inscrito->setcurso($curso);
+$inscrito->setnis($nis);
+$inscrito->setnota($nota);
+
 $resultado = $inscrito->atualizar($conexao);
+
+
 
 if ($resultado) {
 	$banco->commitTransaction();
