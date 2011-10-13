@@ -34,17 +34,23 @@ class Inscrito {
 	protected $vaga_rede_publica;
 	protected $vaga_rural;
 	protected $campus;
-	protected $data_cadastro;
-	protected $ultima_alteracao;
 	protected $curso;
 	protected $nis;
 	protected $nota;
+        protected $data_cadastro;
+	protected $ultima_alteracao;
+//        protected $isento_homologado;
+	
 
         public function _construct(){}
         
 
 	public function getid() {
 		return $this->id;
+	}
+        
+        public function setid($pid) {
+		$this->id = $pid;
 	}
 
 	public function getnome() {
@@ -388,6 +394,7 @@ class Inscrito {
 
 	public function atualizar($sock) {
 		$this->ultima_alteracao = date('Y-m-d H:i:s');
+                
 		$ssql = "UPDATE inscrito SET";
 
 		$ssql .= " nome = '" . $this->nome . "', endereco = '" . $this->endereco . "',";
@@ -479,6 +486,8 @@ class Inscrito {
 		$ssql = $ssql . " WHERE cpf=" .$codigo." AND senha = '" .$senha."'";
 
 		$rs = mysql_query($ssql, $sock);
+                
+                $ar = array();
                 
                 $obj = mysql_fetch_object($rs, "Inscrito");
 
