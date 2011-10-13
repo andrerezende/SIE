@@ -265,14 +265,6 @@
 			});
 		});
 
-		$(".notas").priceFormat({
-		    prefix: '',
-		    limit: 3,
-		    centsLimit: 1,
-		    centsSeparator: '.',
-		    thousandsSeparator: ''
-		});
-
 		$("#vaga_especial").change(function() {
 			if ($(this).val() == "SIM") {
 				$("#vaga_rede_publica").val("NAO");
@@ -285,19 +277,8 @@
 			}
 		});
 
-		if ($("#especial option:selected").val() == 'OUTRA') {
-			$("#especial_descricao").removeAttr("disabled");
-		} else {
-			$("#especial_descricao").val("");
-			$("#especial_descricao").attr("disabled", true);
-		}
-
-		if ($("#especial_prova option:selected").val() == 'SIM') {
-			$("#especial_prova_descricao").removeAttr("disabled");
-		} else {
-			$("#especial_prova_descricao").val("");
-			$("#especial_prova_descricao").attr("disabled", true);
-		}
+		$("#especial_prova_descricao").attr("disabled", true);
+		// $("#especial_descricao").attr("disabled", true);
 
 		$("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
@@ -310,33 +291,32 @@
 			});
 		});
 
-		$("#especial").change(function() {
-			$("#especial option:selected").each(function() {
-				if (this.value == "OUTRA") {
-					$("#especial_descricao").removeAttr("disabled");
-				} else {
-					$("#especial_descricao").val("");
-					$("#especial_descricao").attr("disabled", true);
-				}
-			});
-		});
-
-		$("select[name=campus]").change(function(){
+		$("select[name=campus]").change(function() {
 			$("select[name=curso]").html('<option value="0">Carregando...</option>');
 			$.post("cursos.php",
 				{campus:$(this).val()},
-				function(valor){
+				function(valor) {
 					$("select[name=curso]").html(valor);
 				}
 			)
 		})
 
-		$("select[name=campus]").change(function(){
+		$("select[name=campus]").change(function() {
 			$("select[name=localprova]").html('<option value="0">Carregando...</option>');
 			$.post("locais.php",
 				{campus:$(this).val()},
-				function(valor){
+				function(valor) {
 					$("select[name=localprova]").html(valor);
+				}
+			)
+		})
+                
+                $("select[name=uf]").change(function() {
+			$("select[name=municipio]").html('<option value="0">Carregando...</option>');
+			$.post("municipios.php",
+				{uf:$(this).val()},
+				function(valor) {
+					$("select[name=municipio]").html(valor);
 				}
 			)
 		})
@@ -350,6 +330,8 @@ include_once ("../classes/Inscrito.php");
 include_once ("../classes/Curso.php");
 include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
+include_once ("../classes/UnidadeFederativa.php");
+include_once ("../classes/Municipio.php");
 
 $id = $_POST['id'];
 
@@ -445,29 +427,27 @@ if (count($objinscrito) == 0){
 					
                                         <select name="uf_org_exp" id="uf_org_exp" tabindex=7>
 						<?php
-                                                    //$uf_org_exp = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
-                                                    
+//                                                    $banco = DB::getInstance();
+//                                                    $conexao = $banco->ConectarDB();
+
                                                     $uforgexp = new UnidadeFederativa(null, null);
                                                     $vetoruforgexp = $uforgexp->SelectByAll($conexao);
-                                                    
-                                                    var_dump($vetoruforgexp);
-                                                    
-                                                    $total = count($vetoruforgexp);
+
+                                                    /* Varaveis auxiliares */
                                                     $i = 0;
+                                                    $total = count($vetoruforgexp);
+
                                                     while ($total > $i) {
-                                                            if ($vetoruforgexp[$i] != $objinscrito[0]->getuf()) {
-                                                                    echo("	<option value=".$vetoruforgexp[$i].">".$vetoruforgexp[$i]."</option>\n");
+                                                            $nome = $vetoruforgexp[$i]->getNome();
+                                                            $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
+                                                            
+                                                            if ($codigo != $objinscrito[0]->getuf()) {
+                                                                echo("<option value=".$codigo.">".$nome."</option>\n");
                                                             } else {
-                                                                    echo("	<option selected value=".$vetoruforgexp[$i].">".$vetoruforgexp[$i]."</option>\n");
+                                                                echo("<option selected value=".$codigo.">".$nome."</option>\n");
                                                             }
                                                             $i = $i + 1;
                                                     }
-//                                                    while ($total > $i) {
-//                                                            $nome = $vetoruforgexp[$i]->getNome();
-//                                                            $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
-//                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
-//                                                            $i = $i + 1;
-//                                                    }
 						?>
 					</select>
 				</td>
@@ -536,31 +516,89 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
+                    
+                        <tr>
+                                <td align='right'><label for=uf>UF:</label></td>
+                                <td>
+                                    <select id="uf" name="uf" tabindex="15" >
+                                        <option value="0" selected="selected">Escolha um Estado</option>
+                                        <?php
+//                                            $banco = DB::getInstance();
+//                                            $conexao = $banco->ConectarDB();
 
-			<tr>
-				<td align='right'><label for=cidade>Cidade:</label></td>
-				<td>
-					<input style="text-transform:uppercase" name="cidade" id="cidade"  type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" value="<?php echo ($objinscrito[0]->getcidade()); ?>" />
-					<span class="textoSobrescrito">*</span>
-					&nbsp;&nbsp;Estado:&nbsp;&nbsp;
-					<select name="estado" id="estado" tabindex=16>
-						<?php
-                                                    $estado = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
-                                                    $total = count($estado);
-                                                    $i = 0;
-                                                    while ($total > $i) {
-                                                            if ($estado[$i] != $objinscrito[0]->getestado()) {
-                                                                    echo("	<option value=".$estado[$i].">".$estado[$i]."</option>\n");
-                                                            } else {
-                                                                    echo("	<option selected value=".$estado[$i].">".$estado[$i]."</option>\n");
-                                                            }
-                                                            $i = $i + 1;
+                                            $unidadefederativa = new UnidadeFederativa(null, null);
+                                            $vetorunidadefederativa = $unidadefederativa->SelectByAll($conexao);
+
+                                            /* Varaveis auxiliares */
+                                            $i = 0;
+                                            $sel = "selected";
+                                            $total = count($vetorunidadefederativa);
+
+                                            while ($total > $i) {
+                                                    $nome = $vetorunidadefederativa[$i]->getNome();
+                                                    $codigo = $vetorunidadefederativa[$i]->getIdUnidadeFederativa();
+                                                    
+                                                    if ($codigo != $objinscrito[0]->getuf()) {
+                                                        echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                    } else {
+                                                        echo("<option selected value=".$codigo.">".$nome."</option>\n");
                                                     }
-						?>
+                                                    $i = $i + 1;
+                                            }
+                                        ?>
+                                    </select>
+
+                                    <span class="textoSobrescrito">*</span>
+
+                                </td>
+                        </tr>
+
+<!--                        <tr>
+                                <td align='right' width="200px">
+                                    <label for=municipio>Munic&iacute;pio:</label>
+                                </td>
+                                <td>
+                                        <select id="municipio" name="municipio" tabindex="16">
+                                                <option value="0" disabled="disabled">Escolha um Estado primeiro</option>
+                                        </select>
+                                        <span class="textoSobrescrito">*</span>
+                                </td>
+                        </tr>-->
+                    
+                        <tr>
+                            <td align='right' width="200px"><label for=curso>Munic&iacute;pio:</label></td>
+				<td colspan='2'>
+					<select name="municipio" class=".text" id="municipio" tabindex=26>
+                                            <?php
+//                                                $banco = DB::getInstance();
+//                                                $conexao = $banco->ConectarDB();
+                                            
+                                                $ufId = $objinscrito[0]->getestado();
+                                                
+                                                $municipio = new Municipio(null, null);
+                                                $vetormunicipio = $municipio->SelectMunicipioPorEstado($conexao, $ufId);
+
+                                                /* Varaveis auxiliares */
+                                                $i = 0;
+                                                $total = count($vetormunicipio);
+
+                                                while ($total > $i) {
+                                                        $nome = $vetormunicipio[$i]->getNome();
+                                                        $codigo = $vetormunicipio[$i]->getIdMunicipio();
+
+                                                        if ($codigo != $objinscrito[0]->getcidade()) {
+                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                        } else {
+                                                            echo("<option selected value=".$codigo.">".$nome."</option>\n");
+                                                        }
+                                                        $i = $i + 1;
+                                                }
+                                            ?>
 					</select>
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
+                    
 
 			<tr>
 				<td align='right'><label for=telefone>Telefone:</label></td>
@@ -633,7 +671,7 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 
 					<label for=especial_descricao>Outra: </label>
-					<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecial_descricao()); ?>" />
+					<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
 				</td>
 			</tr>
 
