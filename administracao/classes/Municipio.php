@@ -57,5 +57,21 @@ class Municipio {
 		$linha = mysql_fetch_row($rs);
 		return new Municipio($linha[0], $linha[1], $linha[2]);
 	}
+        
+        public function SelectMunicipioPorEstado($sock, $codigo) {
+		$ssql = "SELECT id, nome, unidade_federativa_id FROM municipio A " ;
+		$ssql .= " WHERE unidade_federativa_id  =" .$codigo;
+		$ssql .= " ORDER BY nome ASC";
+
+		$rs = mysql_query($ssql, $sock);
+
+		$ar = array();
+
+		while ($linha = mysql_fetch_row($rs)) {
+			$obj = new Municipio($linha[0], $linha[1], $linha[2]);
+			$ar[] = $obj;
+		}
+		return ($ar);
+	}
    
 }
