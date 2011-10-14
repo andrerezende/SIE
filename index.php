@@ -7,7 +7,7 @@ $_SESSION["Gdatainicio"]            = mktime(0, 0, 0, 9, 23, 2015);
 $_SESSION["Gdatatermino"]           = mktime(0, 0, 0, 12, 05, 2015);
 $_SESSION["Gdataterminoisencao"]    = mktime(0, 0, 0, 12, 27, 2015);
 
-$_SESSION["Gvalorboleto"] = "00,00";
+$_SESSION["Gvalorboleto"] = "50,00";
 $_SESSION["Gconvenio"] = "1234567";
 $_SESSION["Gedital"] = "130";
 $_SESSION["Gano"] = "2011";
