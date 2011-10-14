@@ -42,7 +42,8 @@ class Campus {
 	public function SelectNomeCampus($sock, $pidCampus) {
 		$ssql = "SELECT id, nome FROM campus A " ;
 		$ssql .= " WHERE id = $pidCampus";
-		$rs = mysql_query($ssql, $sock);
+		
+                $rs = mysql_query($ssql, $sock);
 
 		$linha = mysql_fetch_row($rs);
 		return new Campus($linha[0], $linha[1]);
