@@ -50,13 +50,10 @@ $nis=null;
 $nota=null;
 
 
-//$i=1;
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
 //        echo($i++." - ".$key."<br />");
 }
-
-//exit;
 
 /*Acesso ao banco de dados */
 $banco    = DB::getInstance();
@@ -65,23 +62,10 @@ $conexao  = $banco->ConectarDB();
 $resultado = $banco->ExecutaQueryGenerica('SELECT MAX(id) +1 AS novo_id FROM inscrito');
 $resultado = mysql_fetch_assoc($resultado);
 $id = $resultado['novo_id'];
-$numinscricao = substr($cpf, 0,4).$id;
-
-/*Verificar se possui cadastrado na base*/
-//$inscrito = new Inscrito($nome, $endereco, $bairro, $cep, $municipio, $uf,
-//			$email, $cpf, $rg, $especial, $senha, $nacionalidade, $telefone, null, $celular, $datanascimento,
-//			$sexo, $estadocivil, $orgaoexpedidor, $uf_org_exp, $dataexpedicao, $especial_descricao, $responsavel,
-//			$isencao, $declaracao, $localprova, $numinscricao, $especial_prova, $especial_prova_descricao,
-//			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, null, null, null, $curso, $nis);
-
-
-
+$numinscricao = substr($cpf, 0,2).$id;
 
 
 $inscrito = new Inscrito();
-//$inscrito->setcpf($cpf);
-//echo($inscrito->getcpf());
-//exit;
 
 $inscrito->setnome($nome);
 $inscrito->setendereco($endereco);
