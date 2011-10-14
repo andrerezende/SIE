@@ -4,7 +4,7 @@
 <head>
 	<title> <?php echo ($_SESSION["Gnomeprocessoseletivo"]);?> </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link href="estilo_selecao.css" rel="stylesheet" type="text/css" />
+<!--	<link href="estilo_selecao.css" rel="stylesheet" type="text/css" />-->
 </head>
 
 <body>
@@ -12,29 +12,64 @@
 <?php
 //ob_start();
 session_start();
-include("../classes/DB.php");
-include("../classes/Inscrito.php");
-include("../classes/Localprova.php");
 
-$banco   = DB::getInstance();
+include_once ("../classes/DB.php");
+include_once ("../classes/Inscrito.php");
+include_once ("../classes/Curso.php");
+include_once ("../classes/Campus.php");
+include_once ("../classes/Localprova.php");
+include_once ("../classes/UnidadeFederativa.php");
+include_once ("../classes/Municipio.php");
+
+//$cpf = addslashes($_POST['cpf']);
+//$id = $_POST['id'];
+
+foreach ($_POST as $key => $valor) {
+	$$key = addslashes(strtoupper($valor));
+}
+
+/* Acesso ao banco de dados */
+$banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
 
-$inscrito = new Inscrito(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);//36 null
-$local_prova = new Localprova(null, null, null);
+$inscrito = new Inscrito();
 
-if (isset($_POST['id']) && !empty($_POST['id'])) {
-	$id = addslashes($_POST['id']);
+if ($id) {
 	$objinscrito = $inscrito->SelectById($conexao, $id);
-} else if(isset($_POST['cpf']) && !empty($_POST['cpf'])) {
-	$cpf = addslashes($_POST['cpf']);
+} elseif ($cpf) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
 
-if (empty($objinscrito)) {
-	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
-	header("Location:" . $_SERVER['HTTP_REFERER']);
-	exit;
-}
+
+// Obter Campus
+$campus = new Campus(null, null);
+$campusInscrito = $objinscrito[0]->getcampus();
+$vetorCampusIncrito = $campus->SelectNomeCampus($conexao, $campusInscrito);
+$nomeCampus = $vetorCampusIncrito->getNome();
+
+// Obter Curso
+$nomeCurso = new Curso();
+$nomeCurso = $nomeCurso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
+$nomeCurso = $nomeCurso[0]->getnome();
+
+// Obter Local Prova
+$local_prova = new Localprova(null, null, null);
+
+
+
+//if (isset($_POST['id']) && !empty($_POST['id'])) {
+//	$id = addslashes($_POST['id']);
+//	$objinscrito = $inscrito->SelectById($conexao, $id);
+//} else if(isset($_POST['cpf']) && !empty($_POST['cpf'])) {
+//	$cpf = addslashes($_POST['cpf']);
+//	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
+//}
+//
+//if (empty($objinscrito)) {
+//	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
+//	header("Location:" . $_SERVER['HTTP_REFERER']);
+//	exit;
+//}
 ?>
 <div class="voltar" style="margin-left: 30px; margin-top: 15px;">
 	<a href="javascript:history.go(-1)">Voltar</a>
@@ -72,7 +107,7 @@ if (empty($objinscrito)) {
 // Os valores abaixo podem ser colocados manualmente ou ajustados p/ formulÃ¡rio c/ POST, GET ou de BD (MySql,Postgre,etc)	//
 
 // DADOS DO BOLETO PARA O SEU CLIENTE
-//Variavéis da session
+//Variavï¿½is da session
 $data_venc     = date('d/m/Y', $_SESSION["Gdatatermino"]); // Prazo de X dias OU informe data: "13/04/2006";
 $valor_cobrado = $_SESSION["Gvalorboleto"];  // Valor - REGRA: Sem pontos na milhar e tanto faz com "." ou "," ou com 1 ou 2 ou sem casa decimal
 $nome_selecao  = $_SESSION["Gnomeprocessoseletivo"];
@@ -82,10 +117,11 @@ $taxa_boleto = 0.0;
 $valor_cobrado = str_replace(",", ".",$valor_cobrado);
 $valor_boleto=number_format($valor_cobrado+$taxa_boleto, 2, ',', '');
 
+
 $dadosboleto["nosso_numero"]       = $objinscrito[0]->getnuminscricao(); //getid();
 $dadosboleto["numero_documento"]   = $objinscrito[0]->getnuminscricao(); //"27.030195.10";	// Num do pedido ou do documento
 $dadosboleto["data_vencimento"]    = $data_venc;    // Data de Vencimento do Boleto - REGRA: Formato DD/MM/AAAA
-$dadosboleto["data_documento"]     = date("d/m/Y"); // Data de emissão do Boleto
+$dadosboleto["data_documento"]     = date("d/m/Y"); // Data de emissï¿½o do Boleto
 $dadosboleto["data_processamento"] = date("d/m/Y"); // Data de processamento do boleto (opcional)
 $dadosboleto["valor_boleto"]       = $valor_boleto; // Valor do Boleto - REGRA: Com vÃ­rgula e sempre com duas casas depois da virgula
 
@@ -98,10 +134,12 @@ $dadosboleto["endereco2"] = $objinscrito[0]->getcidade()." - ".$objinscrito[0]->
 // INFORMACOES PARA O CLIENTE
 $local_prova = $local_prova->SelectByPrimaryKey($conexao, $objinscrito[0]->getlocalprova());
 $dadosboleto["demonstrativo1"] = "Pagamento de Taxa de Inscri&ccedil;&atilde;o - " .$nome_selecao;
-$dadosboleto["demonstrativo2"] = " CPF do Candidato: ".$objinscrito[0]->getcpf();
+$dadosboleto["demonstrativo2"] = " CPF do Candidato: ".$objinscrito[0]->getcpf()." / "."Inscri&ccedil;&atilde;o: ".$objinscrito[0]->getnuminscricao();
 //$dadosboleto["demonstrativo3"] = " Local de prova: " . $local_prova[0]->getnome();
+$dadosboleto["demonstrativo3"] = " Op&ccedil;&atilde;o: " .$nomeCurso." / ".$nomeCampus;
+
 //$dadosboleto["demonstrativo2"] = "Taxa bancÃ¡ria - R$ ".number_format($taxa_boleto, 2, ',', '');
-$dadosboleto["demonstrativo4"] = "N&uacute;mero de Inscri&ccedil;&atilde;o: ".$objinscrito[0]->getnuminscricao();
+//$dadosboleto["demonstrativo4"] = "N&uacute;mero de Inscri&ccedil;&atilde;o: ".$objinscrito[0]->getnuminscricao();
 
 // INSTRUÃ‡Ã•ES PARA O CAIXA
 $dadosboleto["instrucoes1"] = " - ";
@@ -117,7 +155,7 @@ $dadosboleto["especie"] = "R$";
 $dadosboleto["especie_doc"] = "RC";
 
 
-// ---------------------- DADOS FIXOS DE CONFIGURAÇÃO DO SEU BOLETO --------------- //
+// ---------------------- DADOS FIXOS DE CONFIGURAï¿½ï¿½O DO SEU BOLETO --------------- //
 
 
 // DADOS DA SUA CONTA - BANCO DO BRASIL
@@ -159,7 +197,7 @@ $dadosboleto["endereco"] = "Rua do Rouxinol, 115 - Imbu&iacute; - CEP: 41.720-05
 $dadosboleto["cidade_uf"] = "Salvador / Bahia";
 $dadosboleto["cedente"] = "Instituto Federal de Educa&ccedil;&atilde;o, Ci&ecirc;ncia e Tecnologia Baiano";
 
-// NÃO ALTERAR!
+// Nï¿½O ALTERAR!
 include("include/funcoes_bb.php");
 include("include/layout_bb.php");
 ?>
