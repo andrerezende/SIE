@@ -22,46 +22,6 @@ $conexao = $banco->ConectarDB();
 
 $inscrito = new Inscrito();
 
-//$inscrito->setid($id);
-//$inscrito->setnome($nome);
-//$inscrito->setendereco($endereco);
-//$inscrito->setbairro($bairro);
-//$inscrito->setcep($cep);
-//$inscrito->setcidade($municipio);
-//$inscrito->setestado($uf);
-//$inscrito->setemail($email);
-//$inscrito->setcpf($cpf);
-//$inscrito->setrg($rg);
-//$inscrito->setespecial($especial);
-//$inscrito->setsenha($senha);
-//$inscrito->setnacionalidade($nacionalidade);
-//$inscrito->settelefone($telefone);
-//$inscrito->settelefone2($telefone2);
-//$inscrito->setcelular($celular);
-//$inscrito->setdatanascimento($datanascimento);
-//$inscrito->setsexo($sexo);
-//$inscrito->setestadocivil($estadocivil);
-//$inscrito->setorgaoexpedidor($orgaoexpedidor);
-//$inscrito->setuf($uf_org_exp);
-//$inscrito->setdataexpedicao($dataexpedicao);
-//$inscrito->setespecialdescricao($especial_descricao);
-//$inscrito->setresponsavel($responsavel);
-//$inscrito->setisencao($isencao);
-//$inscrito->setdeclaracao($declaracao);
-//$inscrito->setlocalprova($localprova);
-//$inscrito->setnuminscricao($numinscricao);
-//$inscrito->setespecialprova($especial_prova);
-//$inscrito->setespecialprovadescricao($especial_prova_descricao);
-//$inscrito->setvagaespecial($vaga_especial);
-//$inscrito->setvagaredepublica($vaga_rede_publica);
-//$inscrito->setvagarural($vaga_rural);
-//$inscrito->setcampus($campus);
-//$inscrito->setdatacadastro($data_cadastro);
-//$inscrito->setultimaalteracao($ultima_alteracao);
-//$inscrito->setcurso($curso);
-//$inscrito->setnis($nis);
-//$inscrito->setnota($nota);
-
 if ($id) {
 	$objinscrito = $inscrito->SelectById($conexao, $id);
 } elseif ($cpf) {
