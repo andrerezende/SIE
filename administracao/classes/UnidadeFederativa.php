@@ -46,5 +46,19 @@ class UnidadeFederativa {
 		}
 		return ($ar);
 	}
+        
+        public function SelectNomeUnidadeFederativa($sock, $pidUf) {
+		$ssql = "SELECT id, descricao FROM unidade_federativa A " ;
+		$ssql .= " WHERE id = $pidUf";
+		$rs = mysql_query($ssql, $sock);
+
+		$ar = array();
+
+		while ($linha = mysql_fetch_row($rs)){
+			$obj = new UnidadeFederativa($linha[0], $linha[1]);
+			$ar[] = $obj;
+		}
+		return ($ar);
+	}
 
 }
