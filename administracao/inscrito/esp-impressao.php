@@ -9,8 +9,12 @@ include_once ("../classes/Localprova.php");
 include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
 
-$cpf = addslashes($_POST['cpf']);
-$id = $_POST['id'];
+//$cpf = addslashes($_POST['cpf']);
+//$id = $_POST['id'];
+
+foreach ($_POST as $key => $valor) {
+	$$key = addslashes(strtoupper($valor));
+}
 
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
@@ -18,14 +22,54 @@ $conexao = $banco->ConectarDB();
 
 $inscrito = new Inscrito();
 
+//$inscrito->setid($id);
+//$inscrito->setnome($nome);
+//$inscrito->setendereco($endereco);
+//$inscrito->setbairro($bairro);
+//$inscrito->setcep($cep);
+//$inscrito->setcidade($municipio);
+//$inscrito->setestado($uf);
+//$inscrito->setemail($email);
+//$inscrito->setcpf($cpf);
+//$inscrito->setrg($rg);
+//$inscrito->setespecial($especial);
+//$inscrito->setsenha($senha);
+//$inscrito->setnacionalidade($nacionalidade);
+//$inscrito->settelefone($telefone);
+//$inscrito->settelefone2($telefone2);
+//$inscrito->setcelular($celular);
+//$inscrito->setdatanascimento($datanascimento);
+//$inscrito->setsexo($sexo);
+//$inscrito->setestadocivil($estadocivil);
+//$inscrito->setorgaoexpedidor($orgaoexpedidor);
+//$inscrito->setuf($uf_org_exp);
+//$inscrito->setdataexpedicao($dataexpedicao);
+//$inscrito->setespecialdescricao($especial_descricao);
+//$inscrito->setresponsavel($responsavel);
+//$inscrito->setisencao($isencao);
+//$inscrito->setdeclaracao($declaracao);
+//$inscrito->setlocalprova($localprova);
+//$inscrito->setnuminscricao($numinscricao);
+//$inscrito->setespecialprova($especial_prova);
+//$inscrito->setespecialprovadescricao($especial_prova_descricao);
+//$inscrito->setvagaespecial($vaga_especial);
+//$inscrito->setvagaredepublica($vaga_rede_publica);
+//$inscrito->setvagarural($vaga_rural);
+//$inscrito->setcampus($campus);
+//$inscrito->setdatacadastro($data_cadastro);
+//$inscrito->setultimaalteracao($ultima_alteracao);
+//$inscrito->setcurso($curso);
+//$inscrito->setnis($nis);
+//$inscrito->setnota($nota);
+
 if ($id) {
 	$objinscrito = $inscrito->SelectById($conexao, $id);
 } elseif ($cpf) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
 
-var_dump($objinscrito);
-exit;
+//var_dump($objinscrito);
+//exit;
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
@@ -93,7 +137,13 @@ if (count($objinscrito) == 0) {
 				<td>
 					<input style="text-transform:uppercase" name="orgaoexpedidor" id="orgaoexpedidor" disabled="true" type="text" tabindex=6 size="8" maxlength="8" alt="Órgão Expedidor" value="<?php echo ($objinscrito[0]->getorgaoexpedidor()); ?>" />
 					&nbsp;&nbsp;UF:&nbsp;&nbsp;
-					<input name="uf" type="text" id="uf" disabled="true" tabindex=3 value="<?php echo ($objinscrito[0]->getuf()); ?>" size="2" />
+                                        <?php
+                                            $ufOrgExp = new UnidadeFederativa(null, null);
+                                            $ufOrgExpId = $objinscrito[0]->getuf();
+                                            $vetorUfOrgExpNome = $ufOrgExp->SelectNomeUnidadeFederativa($conexao, $ufOrgExpId); 
+                                            $ufOrgExpNome = $vetorUfOrgExpNome[0]->getNome();
+					?>
+					<input name="uf" type="text" id="uf" disabled="true" tabindex=3 size="25" maxlength="25" value="<?php echo ($ufOrgExpNome); ?>" size="2" />
 				</td>
 			</tr>
 
@@ -141,12 +191,30 @@ if (count($objinscrito) == 0) {
 				</td>
 			</tr>
 
+                        <tr>
+                                <td align='right'><label for=estado>Estado:</label></td>
+                                <td>
+                                        <?php
+                                            $estado = new UnidadeFederativa(null, null);
+                                            $estadoId = $objinscrito[0]->getestado();
+                                            $vetorEstadoNome = $estado->SelectNomeUnidadeFederativa($conexao, $estadoId); 
+                                            $estadoNome = $vetorEstadoNome[0]->getNome();
+					?>
+                                        <input style="text-transform:uppercase" name="estado" id="estado" disabled="true" type="text" tabindex=16 size="25" maxlength="25" alt="Estado" value="<?php echo ($estadoNome); ?>" />
+                                </td>
+                        </tr>
+                        
 			<tr>
 				<td align='right'><label for=cidade>Cidade:</label></td>
-				<td>
-					<input style="text-transform:uppercase" name="cidade" id="cidade" disabled="true" type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" value="<?php echo ($objinscrito[0]->getcidade()); ?>" />
-					&nbsp;&nbsp;Estado:&nbsp;&nbsp;
-					<input style="text-transform:uppercase" name="estado" id="estado" disabled="true" type="text" tabindex=16 size="2" maxlength="2" alt="Estado" value="<?php echo ($objinscrito[0]->getestado()); ?>" />
+                                <td>
+					<?php 
+                                            $municipio = new Municipio(null, null, null);
+                                            $municipioId = $objinscrito[0]->getcidade();
+                                            
+                                            $vetorMunicipioNome = $municipio->SelectNomeMunicipio($conexao, $municipioId);
+                                            $municipioNome = $vetorMunicipioNome->getNome();
+                                        ?>
+                                        <input style="text-transform:uppercase" name="cidade" id="cidade" disabled="true" type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" value="<?php echo ($municipioNome); ?>" />
 				</td>
 			</tr>
 
@@ -207,7 +275,7 @@ if (count($objinscrito) == 0) {
 				$curso = new Curso();
 				$curso = $curso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
 				?>
-				<input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo ($curso[0]->getnome())?>" />
+                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo ($curso[0]->getnome())?>" />
             </td>
         </tr>
 
@@ -243,7 +311,7 @@ if (count($objinscrito) == 0) {
 			<td>
 				<input style="text-transform:uppercase" name="especial" id="especial" disabled="true" type="text" tabindex=23 value="<?php echo ($objinscrito[0]->getespecial()); ?>" />
 				<label for=especial_descricao>Outra: </label>
-				<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" disabled="true" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecial_descricao()); ?>" />
+				<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" disabled="true" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
 			</td>
 		</tr>
 
