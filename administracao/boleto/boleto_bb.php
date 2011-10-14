@@ -55,6 +55,18 @@ $nomeCurso = $nomeCurso[0]->getnome();
 // Obter Local Prova
 $local_prova = new Localprova(null, null, null);
 
+// Obter UF
+$estado = new UnidadeFederativa(null, null);
+$estadoId = $objinscrito[0]->getestado();
+$vetorEstadoNome = $estado->SelectNomeUnidadeFederativa($conexao, $estadoId); 
+$estadoNome = $vetorEstadoNome[0]->getNome();
+
+// Obter Município
+$municipio = new Municipio(null, null, null);
+$municipioId = $objinscrito[0]->getcidade();
+$vetorMunicipioNome = $municipio->SelectNomeMunicipio($conexao, $municipioId);
+$municipioNome = $vetorMunicipioNome->getNome();
+
 
 
 //if (isset($_POST['id']) && !empty($_POST['id'])) {
@@ -107,7 +119,7 @@ $local_prova = new Localprova(null, null, null);
 // Os valores abaixo podem ser colocados manualmente ou ajustados p/ formulário c/ POST, GET ou de BD (MySql,Postgre,etc)	//
 
 // DADOS DO BOLETO PARA O SEU CLIENTE
-//Variav�is da session
+//Variáveis da session
 $data_venc     = date('d/m/Y', $_SESSION["Gdatatermino"]); // Prazo de X dias OU informe data: "13/04/2006";
 $valor_cobrado = $_SESSION["Gvalorboleto"];  // Valor - REGRA: Sem pontos na milhar e tanto faz com "." ou "," ou com 1 ou 2 ou sem casa decimal
 $nome_selecao  = $_SESSION["Gnomeprocessoseletivo"];
@@ -128,8 +140,9 @@ $dadosboleto["valor_boleto"]       = $valor_boleto; // Valor do Boleto - REGRA: 
 // DADOS DO SEU CLIENTE
 //$dadosboleto["sacado"] = "Nome do seu Cliente";
 $dadosboleto["sacado"] = $objinscrito[0]->getnome();
+//$dadosboleto["endereco2"] = $objinscrito[0]->getcidade()." - ".$objinscrito[0]->getestado()." - ".$objinscrito[0]->getcep();
 $dadosboleto["endereco1"] = $objinscrito[0]->getendereco()." - ".$objinscrito[0]->getbairro();
-$dadosboleto["endereco2"] = $objinscrito[0]->getcidade()." - ".$objinscrito[0]->getestado()." - ".$objinscrito[0]->getcep();
+$dadosboleto["endereco2"] = strtoupper($municipioNome)." - ".strtoupper($estadoNome)." - ".$objinscrito[0]->getcep();
 
 // INFORMACOES PARA O CLIENTE
 $local_prova = $local_prova->SelectByPrimaryKey($conexao, $objinscrito[0]->getlocalprova());
