@@ -28,8 +28,6 @@ if ($id) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
 
-//var_dump($objinscrito);
-//exit;
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
