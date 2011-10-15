@@ -8,7 +8,7 @@ class Municipio {
 	public function Municipio($pid = null, $pnome = null, $punidade_federativa_id = null) {
 		$this->id = $pid;
 		$this->nome = $pnome;
-                $this->unidade_federativa_id = $unidade_federativa_id;       
+                $this->unidade_federativa_id = $punidade_federativa_id;       
 	}
 
 	public function getIdMunicipio() {
