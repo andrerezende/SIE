@@ -66,7 +66,7 @@ $inscrito->setdeclaracao($declaracao);
 $inscrito->setlocalprova($localprova);
 $inscrito->setnuminscricao($numinscricao);
 $inscrito->setespecialprova($especial_prova);
-//$inscrito->setespecialprovadescricao($especial_prova_descricao);
+$inscrito->setespecialprovadescricao($especial_prova_descricao);
 $inscrito->setvagaespecial($vaga_especial);
 $inscrito->setvagaredepublica($vaga_rede_publica);
 $inscrito->setvagarural($vaga_rural);
