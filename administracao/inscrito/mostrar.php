@@ -26,19 +26,8 @@ $inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
 
 
-
-// INÍCIO DEPURAÇÃO
-//echo ($objinscrito[0]->getnome());
-//echo ($cpf." - ");
-//echo ($senha);
-//echo ("------------");
-//var_dump($objinscrito);
-//echo ("------------");
-//exit;
-// FIM DEPURAÇÃO
-
-if (empty($objinscrito)) {
-	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
+if (empty($objinscrito[0])) {
+	$_SESSION['flashMensagem'] = 'Inscri&ccedil;&atilde;o n&atilde;o cadastrada na base de dados ou CPF e Senha n&atilde;o conferem.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -51,7 +40,7 @@ if (empty($objinscrito)) {
 </head>
 
 <?php
-if (count($objinscrito)==0){
+if (count($objinscrito[0])==0){
 	echo("<div class=\"conteudoColunaMeio\" align=\"center\">");
 		echo("<img src=".'"'."../../imgs/topo2/topo_formulario.png".'"'." alt=".'"'."Instituto Federal Baiano".'"'." />");
 		echo("<h2>Ficha de Inscri&ccedil;&atilde;o</h2>");
