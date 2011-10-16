@@ -1,5 +1,5 @@
-<?php session_start("SELECAO"); ?>
-<?php session_start();?>
+<?php //session_start("SELECAO"); ?>
+<?php //session_start();?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -79,7 +79,7 @@
 		var cpf = document.getElementById("cpf");
 		var pwd = document.getElementById("pwd");
 
-		resultado = true;
+		var resultado = true;
 		if (cpf.value == "") {
 			alert('Informe o CPF.');
 			cpf.focus();
@@ -104,7 +104,7 @@
 			<p class="textoDestaque"><?php echo $_SESSION['flashMensagem']?></p>
 		<?php
 			unset($_SESSION['flashMensagem']);
-		endif;
+                      endif;
 		?>
 		<label for="cpf">CPF:</label>
 		<input name="cpf" id="cpf" type="text" tabindex=1 size="15" maxlength="11" alt="RG" onkeypress="javascript:return Onlynumber(event);" />
