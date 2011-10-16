@@ -56,7 +56,7 @@ if (count($objinscrito) == 0) {
 
 	<form id='frmficha' name='frmficha' action='ficha_excel.php' method='post' onsubmit='' >
 		<!--    <input type="hidden" name="cpf" id="cpf" value="<?//echo($cpf);?>">-->
-		<table width="760px" border="0" align="center">
+		<table width="820px" border="0" align="center">
 			<tr>
 				<td align='right'>
 					<input name="id" id="id" type="hidden" disabled="true" value="<?php echo $objinscrito[0]->getid(); ?>" />
@@ -101,7 +101,7 @@ if (count($objinscrito) == 0) {
                                             $vetorUfOrgExpNome = $ufOrgExp->SelectNomeUnidadeFederativa($conexao, $ufOrgExpId); 
                                             $ufOrgExpNome = $vetorUfOrgExpNome[0]->getNome();
 					?>
-					<input name="uf" type="text" id="uf" disabled="true" tabindex=3 size="25" maxlength="25" value="<?php echo ($ufOrgExpNome); ?>" size="2" />
+                                        <input name="uf" type="text" id="uf" disabled="true" tabindex=3 size="25" maxlength="25" value="<?php echo strtoupper($ufOrgExpNome); ?>" size="2" />
 				</td>
 			</tr>
 
@@ -204,7 +204,7 @@ if (count($objinscrito) == 0) {
 				</td>
 			</tr>
 			
-			<tr style="display: none;">
+			<tr>
 				<td align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 				<td>
 					<input style="text-transform:uppercase" name="responsavel" id="responsavel" disabled="true" type="text" tabindex=21 alt="Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
@@ -237,7 +237,7 @@ if (count($objinscrito) == 0) {
             </td>
         </tr>
 
-		<tr style="display: none;">
+		<tr>
 			<td height="28" align='right'><label for=localprova>Local de realiza&ccedil;&atilde;o da prova:</label></td>
 			<td>
 				<?php
@@ -250,7 +250,7 @@ if (count($objinscrito) == 0) {
 			</td>
 		</tr>
 
-        <tr style="display: none">
+        <tr>
 			<td height="28" align='right'><label for=isencao>Solicita Isen&ccedil;&atilde;o de Taxa?</label></td>
 			<td>
 				<input name="isencao" id="isencao" disabled="disabled" id="curso" tabindex=26 size="3" value="<?php echo ($objinscrito[0]->getisencao()); ?>" />
@@ -273,7 +273,7 @@ if (count($objinscrito) == 0) {
 			</td>
 		</tr>
 
-        <tr style="display: none">
+        <tr>
             <td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
             <td>
                 <input style="text-transform:uppercase" name="especial_prova" id="especial_prova" disabled="disabled" id="especial_prova" tabindex=27 size="3" value="<?php echo ($objinscrito[0]->getespecialprova()); ?>" />
@@ -282,14 +282,14 @@ if (count($objinscrito) == 0) {
             </td>
         </tr>
 
-        <tr style="display: none">
+        <tr>
             <td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
             <td>
                 <input style="text-transform:uppercase" name="vaga_especial" id="especial_prova" disabled="disabled" tabindex=29 size="3" value="<?php echo ($objinscrito[0]->getvagaespecial()); ?>" />
             </td>
         </tr>
 
-        <tr style="display: none">
+        <tr>
             <td height="28" align='right'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
             <td>
                 <input style="text-transform:uppercase" name="vaga_rede_publica" id="vaga_rede_publica" disabled="disabled" tabindex=30 size="3" value="<?php echo ($objinscrito[0]->getvagaredepublica()); ?>" />
