@@ -4,7 +4,8 @@
 <?php	
 	//Trecho que automatiza o encerramento do Per�odo de Isen��o
 	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
-	$data_atual             = strtotime(date("d/m/Y")); 
+	//$data_atual             = strtotime(date("d/m/Y")); 
+        $data_atual             = strtotime("now"); 
 
 ?>
 
@@ -822,7 +823,7 @@ if (count($objinscrito) == 0){
 				<td>
 
 				 	<?php	
-						//Verifica o t�rmino do per�odo de isen��o					
+						//Verifica o término do período de isenção					
 						if ($data_fim_isencao >= $data_atual){
 							echo("<select name='isencao' id='isencao' tabindex=28>");
 						}else{
