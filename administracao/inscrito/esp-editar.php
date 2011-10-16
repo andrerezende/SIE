@@ -19,13 +19,14 @@
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
 
-	function enableCombos() {
-		
-		document.getElementById('isencao').disabled=false;
-	}
+//	function enableCombos() {
+//		
+//		document.getElementById('isencao').disabled=false;
+//	}
 	
 	function Onlynumber(e){
 		var tecla=new Number();
+
 		if (window.event) {
 			tecla = e.keyCode;
 		} else if (e.which) {
@@ -43,7 +44,7 @@
 		var endereco        = document.getElementById("endereco");
 		var bairro          = document.getElementById("bairro");
 		var cep             = document.getElementById("cep");
-		var cidade          = document.getElementById("cidade");
+		var municipio       = document.getElementById("municipio");
 		var estado          = document.getElementById("estado");
 		var rg              = document.getElementById("rg");
 		var cpf             = document.getElementById("cpf");
@@ -55,103 +56,97 @@
 		var dataExpedicao   = document.getElementById("dataexpedicao");
 		var sexo            = document.getElementById("sexo");
 		var email           = document.getElementById("email");
-		var campus	    = document.getElementById("campus");
-		//var nota	    = document.getElementById("nota");
+		var campus          = document.getElementById("campus");
+		var curso           = document.getElementById("curso");
 		//var especial        = document.getElementById("especial");
 
+		resultado = true;
 		if (declaracao.value == "NAO") {
 			alert('Voce precisa aceitar a declaracao!');
 			declaracao.focus();
-			return false;
+			resultado = false;
 		} else if (nome.value == "") {
 			alert('Informe o nome!');
 			nome.focus();
-			return false;
-		} else if (cpf.value== "") {
+			resultado = false;
+		} else if(cpf.value== "") {
 			alert('Informe o CPF!');
 			cpf.focus();
-			return false;
+			resultado = false;
+		} else if (!ValidaCPF(cpf)) {
+			resultado = false;
+		} else if(senha.value== "") {
+			alert('Informe a senha!');
+			senha.focus();
+			resultado = false;
+		} else if(senhaConfirm.value == "") {
+			alert('Informe a confirmacao de senha!');
+			senhaConfirm.focus();
+			resultado = false;
+		} else if(senhaConfirm.value != senha.value) {
+			alert('Confirmacao de senha deve ser igual a senha!');
+			senhaConfirm.focus();
+			resultado = false;
 		} else if (rg.value == "") {
 			alert('Informe o RG!');
 			rg.focus();
-			return false;
-		} else if (senha.value== "") {
-			alert('Informe a senha!');
-			senha.focus();
-			return false;
-		} else if (senhaConfirm.value == "") {
-			alert('Informe a confirmacao de senha!');
-			senhaConfirm.focus();
-			return false;
-		} else if (senhaConfirm.value != senha.value) {
-			alert('Confirmacao de senha deve ser igual a senha!');
-			senhaConfirm.focus();
-			return false;
+			resultado = false;
 		} else if (email.value == "") {
 			alert('Informe o email!');
 			email.focus();
-			return false;
-		} else if (nacionalidade.value == "") {
+			resultado = false;
+		} else if(nacionalidade.value == "") {
 			alert('Informe a nacionalidade!');
-			senhaConfirm.focus();
-			return false;
+			nacionalidade.focus();
+			resultado = false;
 		} else if (dataNascimento.value == "") {
 			alert('Informe a data de nascimento!');
 			dataNascimento.focus();
-			return false;
+			resultado = false;
 		} else if (!CheckDate(dataNascimento)) {
 			alert('Informe corretamente a data de nascimento!');
 			dataNascimento.focus();
-			return false;
+			resultado = false;
 		} else if (dataExpedicao.value == "") {
 			alert('Informe a data de expedicao!');
 			dataExpedicao.focus();
-			return false;
+			resultado = false;
 		} else if (!CheckDate(dataExpedicao)) {
 			alert('Informe corretamente a data de expedicao!');
 			dataExpedicao.focus();
-			return false;
-		} else if (sexo.value == "") {
+			resultado = false;
+		} else if(sexo.value == "") {
 			alert('Informe sexo!');
-			senhaConfirm.focus();
-			return false;
+			sexo.focus();
+			resultado = false;
 		} else if (endereco.value == "") {
 			alert('Informe o endereco!');
 			endereco.focus();
-			return false;
-		} else if (cep.value == "") {
-			alert('Informe o CEP!');
-			cep.focus();
-			return false;
+			resultado = false;
 		} else if (bairro.value == "") {
 			alert('Informe o bairro!');
 			bairro.focus();
-			return false;
-		} else if (cidade.value == "") {
-			alert('Informe a cidade!');
-			cidade.focus();
-			return false;
-		} else if (estado.value == "") {
-			alert('Informe o estado!');
-			estado.focus();
-			return false;
-		} else if (campus.value <= 0) {
-			alert('Favor preencher o Campus e Area!');
+			resultado = false;
+		} else if (cep.value == "") {
+			alert('Informe o CEP!');
+			cep.focus();
+			resultado = false;
+		} else if (municipio.value == "" || municipio.value == "0") {
+			alert('Informe o Estado e Municipio!');
+			municipio.focus();
+			resultado = false;
+		
+                } else if (campus.value == "" || campus.value == "0") {
+			alert('Informe o Campus e Area!');
 			campus.focus();
-			return false;
-		} 
-		//else if (especial.value == "") {
-		//	alert('Informe se possui necessidades especiais!');
-		//	especial.focus();
-		//	return false;
-		//} else if (nota != null && ((nota.value != "") && (nota.value > 10.0))) {
-		//	alert('A nota deve ser ate 10.0!');
-		//	nota.focus();
-		//	return false;
-		//}
-
-		enableCombos();
-		return true;
+			resultado = false;
+		} else if (curso.value == "" || curso.value == "0") {
+			alert('Informe o Campus e Area!');
+			curso.focus();
+			resultado = false;
+		}
+                
+		return resultado;
 	}
 
 	function Mascara(tipo, campo, teclaPress) {
@@ -160,10 +155,13 @@
 		} else {
 			tecla = teclaPress.which;
 		}
+
 		var s = new String(campo.value);
-		// Remove todos os caracteres � seguir: ( ) / - . e espa�o, para tratar a string denovo.
+
+		// Remove todos os caracteres a seguir: ( ) / - . e espaço, para tratar a string denovo.
 		s = s.replace(/(\.|\(|\)|\/|\-| )+/g,'');
 		tam = s.length + 1;
+
 		if ( tecla != 9 && tecla != 8 ) {
 			switch (tipo) {
 				case 'CPF' :
@@ -224,8 +222,8 @@
 		return aRet;
 	}
 
+	// funcao para formatar qualquer campo.Ex.:cep,cpf,telefone,cnpj.
 	function formata(src, mask) {
-		//funcao para formatar qualquer campo.Ex.:cep,cpf,telefone,cnpj.
 		var i = src.value.length;
 		var saida = '#';
 		var texto = mask.substring(i)
@@ -235,19 +233,89 @@
 	}
 
 	function necessidadeEspecial() {
-		// Habilita / Desabilita campo especial_descricao
+		// Habilita Desabilita campo especial_descricao
 		// de acordo com a escolha do campo 'especial'
 		var especial = document.getElementById("especial");
 		if (especial.value == "OUTRA") {
-			document.getElementById("especial_descricao").readOnly = false;
+			document.getElementById("especial_descricao").readOnly=false;
 		} else {
 			document.getElementById("especial_descricao").value = "";
-			document.getElementById("especial_descricao").readOnly = true;
+			document.getElementById("especial_descricao").readOnly=true;
+		}
+	}
+
+	function especialProva() {
+		var especial = document.getElementById("especial_prova");
+		if (especial.value == "SIM") {
+			document.getElementById("especial_prova_descricao").readOnly=false;
+		} else {
+			document.getElementById("especial_prova_descricao").value = "";
+			document.getElementById("especial_prova_descricao").readOnly=true;
 		}
 	}
 
 	function redireciona() {
 		window.location="../../index.php"; //redereciona para a página inicial.
+	}
+
+	function ValidaCPF(campo) {
+		var CPF = campo.value; // Recebe o valor digitado no campo
+		// Aqui começa a checagem do CPF
+		var POSICAO, I, SOMA, DV, DV_INFORMADO;
+		var DIGITO = new Array(10);
+		DV_INFORMADO = CPF.substr(9, 2); // Retira os dois últimos dígitos do número informado
+
+		// Desemembra o número do CPF na array DIGITO
+		for (I=0; I<=8; I++) {
+			DIGITO[I] = CPF.substr( I, 1);
+		}
+
+		// Calcula o valor do 10 dígito da verificação
+		POSICAO = 10;
+		SOMA = 0;
+		for (I=0; I<=8; I++) {
+			SOMA = SOMA + DIGITO[I] * POSICAO;
+			POSICAO = POSICAO - 1;
+		}
+		DIGITO[9] = SOMA % 11;
+		if (DIGITO[9] < 2) {
+			DIGITO[9] = 0;
+		} else {
+			DIGITO[9] = 11 - DIGITO[9];
+		}
+
+		// Calcula o valor do 11 dígito da verificação
+		POSICAO = 11;
+		SOMA = 0;
+		for (I=0; I<=9; I++) {
+			SOMA = SOMA + DIGITO[I] * POSICAO;
+			POSICAO = POSICAO - 1;
+		}
+		DIGITO[10] = SOMA % 11;
+		if (DIGITO[10] < 2) {
+			DIGITO[10] = 0;
+		} else {
+			DIGITO[10] = 11 - DIGITO[10];
+		}
+
+		// Verifica se os valores dos dígitos verificadores conferem
+		DV = DIGITO[9] * 10 + DIGITO[10];
+		if (DV != DV_INFORMADO) {
+			alert('CPF invalido');
+			campo.value = '';
+			campo.focus();
+			return false;
+		}
+		return true;
+	}
+
+	function getCurso(pCampus) {
+		if (pCampus.selectedIndex != '') {
+			var campusCurso2 = pCampus.value;
+			// document.location=('cadastro.php?campusCurso=' + campusCurso);
+			// document.getElementById('campusCurso') = campusCurso2;
+			return campusCurso2;
+		}
 	}
 
 	$(document).ready(function() {
@@ -442,9 +510,9 @@ if (count($objinscrito) == 0){
                                                             $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
                                                             
                                                             if ($codigo != $objinscrito[0]->getuf()) {
-                                                                echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                                echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                             } else {
-                                                                echo("<option selected value=".$codigo.">".$nome."</option>\n");
+                                                                echo("<option selected value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                             }
                                                             $i = $i + 1;
                                                     }
@@ -539,9 +607,9 @@ if (count($objinscrito) == 0){
                                                     $codigo = $vetorunidadefederativa[$i]->getIdUnidadeFederativa();
                                                     
                                                     if ($codigo != $objinscrito[0]->getuf()) {
-                                                        echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                        echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                     } else {
-                                                        echo("<option selected value=".$codigo.">".$nome."</option>\n");
+                                                        echo("<option selected value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                     }
                                                     $i = $i + 1;
                                             }
@@ -553,20 +621,9 @@ if (count($objinscrito) == 0){
                                 </td>
                         </tr>
 
-<!--                        <tr>
-                                <td align='right' width="200px">
-                                    <label for=municipio>Munic&iacute;pio:</label>
-                                </td>
-                                <td>
-                                        <select id="municipio" name="municipio" tabindex="16">
-                                                <option value="0" disabled="disabled">Escolha um Estado primeiro</option>
-                                        </select>
-                                        <span class="textoSobrescrito">*</span>
-                                </td>
-                        </tr>-->
                     
                         <tr>
-                            <td align='right' width="200px"><label for=curso>Munic&iacute;pio:</label></td>
+                            <td align='right' width="200px"><label for=municipio>Munic&iacute;pio:</label></td>
 				<td colspan='2'>
 					<select name="municipio" class=".text" id="municipio" tabindex=26>
                                             <?php
@@ -587,9 +644,9 @@ if (count($objinscrito) == 0){
                                                         $codigo = $vetormunicipio[$i]->getIdMunicipio();
 
                                                         if ($codigo != $objinscrito[0]->getcidade()) {
-                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                         } else {
-                                                            echo("<option selected value=".$codigo.">".$nome."</option>\n");
+                                                            echo("<option selected value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                         }
                                                         $i = $i + 1;
                                                 }
@@ -693,9 +750,9 @@ if (count($objinscrito) == 0){
 							$codigo = $vetorcampus[$i]->getIdCampus();
 							$nome = $vetorcampus[$i]->getnome();
 							if ($vetorcampus[$i]->getIdCampus() != $objinscrito[0]->getcampus()) {
-								echo("	<option value=".$codigo.">".$nome."</option>\n");
+								echo("	<option value=".$codigo.">".strtoupper($nome)."</option>\n");
 							} else {
-								echo("	<option ".$sel." value=".$codigo.">".$nome."</option>\n");
+								echo("	<option ".$sel." value=".$codigo.">".strtoupper($nome)."</option>\n");
 							}
 							$i = $i + 1;
 						}
@@ -725,9 +782,9 @@ if (count($objinscrito) == 0){
 							$nomes = $vetor_cursosCampus[$i]->getnome();
 							$codigos = $vetor_cursosCampus[$i]->getcodcurso();
 							if ($codigos == $codigoCurso) {
-								echo("	<option selected value=".$codigos.">".$nomes."</option>\n");
+								echo("	<option selected value=".$codigos.">".strtoupper($nomes)."</option>\n");
 							} else {
-								echo("	<option value=".$codigos.">".$nomes."</option>\n");
+								echo("	<option value=".$codigos.">".strtoupper($nomes)."</option>\n");
 							}
 							$i = $i + 1;
 						}
@@ -756,9 +813,9 @@ if (count($objinscrito) == 0){
 							$codigo = $vetorlocalprova[$i]->getcodlocalprova();
 							$nome = $vetorlocalprova[$i]->getnome();
 							if ($vetorlocalprova[$i]->getcodlocalprova() != $objinscrito[0]->getlocalprova()) {
-								echo("	<option value=".$codigo.">".$nome."</option>\n");
+								echo("	<option value=".$codigo.">".strtoupper($nome)."</option>\n");
 							} else {
-								echo("	<option ".$sel." value=".$codigo.">".$nome."</option>\n");
+								echo("	<option ".$sel." value=".$codigo.">".strtoupper($nome)."</option>\n");
 							}
 							$i = $i + 1;
 						}
