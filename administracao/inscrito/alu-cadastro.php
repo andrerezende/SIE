@@ -1,17 +1,20 @@
 <?php session_start("SELECAO"); ?>
 <?php	
 	//Trecho que automatiza o encerramento do Período de Isento
-	$data_fim_isencao  	= strtotime($_SESSION["Gdataterminoisencao"]);
+	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
 
 	//Trecho que automatiza o encerramento do Processo seletivo em vigência
 	$data_incio   	= $_SESSION["Gdatainicio"];
 	$data_fim     	= $_SESSION["Gdatatermino"];
-	$data_atual   	= strtotime(date("d/m/Y"));
+	$data_atual   	= strtotime("now");
         			
 	if ($data_fim < $data_atual){
 		header("Location: ../../index.php?sc=Inscricao");
 	}
-
+        
+//        var_dump($data_incio, $data_fim, $data_fim_isencao, $data_atual);
+//        exit;
+        
 ?>
 
 
