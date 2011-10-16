@@ -140,7 +140,12 @@
 			alert('Informe o Campus e Area!');
 			campus.focus();
 			resultado = false;
-		} 
+		} else if (curso.value == "" || curso.value == "0") {
+			alert('Informe o Campus e Area!');
+			curso.focus();
+			resultado = false;
+		}
+                
 		return resultado;
 	}
 
@@ -465,7 +470,7 @@
                                                     while ($total > $i) {
                                                             $nome = $vetoruforgexp[$i]->getNome();
                                                             $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
-                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                             $i = $i + 1;
                                                     }
                                                     ?>
@@ -546,7 +551,7 @@
                                                     while ($total > $i) {
                                                             $nome = $vetorunidadefederativa[$i]->getNome();
                                                             $codigo = $vetorunidadefederativa[$i]->getIdUnidadeFederativa();
-                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                             $i = $i + 1;
                                                     }
                                                     ?>
@@ -653,7 +658,7 @@
 							while ($total > $i) {
 								$nome = $vetorcampus[$i]->getNome();
 								$codigo = $vetorcampus[$i]->getIdCampus();
-								echo("<option value=".$codigo.">".$nome."</option>\n");
+								echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
 								$i = $i + 1;
 							}
 							?>
@@ -692,7 +697,7 @@
                         <select name="isencao" id="isencao" tabindex=28>
                              <option value="NAO" selected="selected">N&Atilde;O</option>
 				 <?php	
-					//Verifica o t�rmino do per�odo de isen��o
+					//Verifica o término do período de isenção
 					if ($data_fim_isencao >= $data_atual){
  						echo("<option value='SIM'/>SIM</option>");
 					}
