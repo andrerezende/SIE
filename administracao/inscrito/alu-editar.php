@@ -1,5 +1,5 @@
 <?php session_start("SELECAO"); ?>
-<?php session_start();?>
+<?php //session_start();?>
 
 <?php	
 	//Trecho que automatiza o encerramento do Per�odo de Isen��o
@@ -19,11 +19,6 @@
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
 
-//	function enableCombos() {
-//		
-//		document.getElementById('isencao').disabled=false;
-//	}
-	
 	function Onlynumber(e){
 		var tecla=new Number();
 
@@ -58,7 +53,7 @@
 		var email           = document.getElementById("email");
 		var campus          = document.getElementById("campus");
 		var curso           = document.getElementById("curso");
-		//var especial        = document.getElementById("especial");
+		var localprova      = document.getElementById("localprova");
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -143,6 +138,10 @@
 		} else if (curso.value == "" || curso.value == "0") {
 			alert('Informe o Campus e Area!');
 			curso.focus();
+			resultado = false;
+		} else if (localprova.value == "" || localprova.value == "0") {
+			alert('Informe o Campus e Local de Prova!');
+			localprova.focus();
 			resultado = false;
 		}
                 
@@ -232,29 +231,8 @@
 		}
 	}
 
-	function necessidadeEspecial() {
-		// Habilita Desabilita campo especial_descricao
-		// de acordo com a escolha do campo 'especial'
-		var especial = document.getElementById("especial");
-		if (especial.value == "OUTRA") {
-			document.getElementById("especial_descricao").readOnly=false;
-		} else {
-			document.getElementById("especial_descricao").value = "";
-			document.getElementById("especial_descricao").readOnly=true;
-		}
-	}
 
-	function especialProva() {
-		var especial = document.getElementById("especial_prova");
-		if (especial.value == "SIM") {
-			document.getElementById("especial_prova_descricao").readOnly=false;
-		} else {
-			document.getElementById("especial_prova_descricao").value = "";
-			document.getElementById("especial_prova_descricao").readOnly=true;
-		}
-	}
-
-	function redireciona() {
+        function redireciona() {
 		window.location="../../index.php"; //redereciona para a página inicial.
 	}
 
@@ -345,10 +323,24 @@
 			}
 		});
 
-		$("#especial_prova_descricao").attr("disabled", true);
-		// $("#especial_descricao").attr("disabled", true);
+                
+                $("#especial_prova_descricao").attr("disabled", true);
+                $("#especial_descricao").attr("disabled", true);
 
-		$("#especial_prova").change(function() {
+		               
+                $("#especial").change(function() {
+			$("#especial option:selected").each(function() {
+				if (this.value == "OUTRA") {
+					$("#especial_descricao").removeAttr("disabled");
+				} else {
+					$("#especial_descricao").val("");
+					$("#especial_descricao").attr("disabled", true);
+				}
+			});
+		});
+                
+                
+                $("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
 				if (this.value == "SIM") {
 					$("#especial_prova_descricao").removeAttr("disabled");
@@ -700,7 +692,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none">
+			<tr>
 				<td width="139" align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 				<td width="412" colspan='2'>
 					<input style="text-transform:uppercase" name="responsavel" id="responsavel" type="text" tabindex=22 size='65' maxlength="65" alt="Nome do Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
@@ -763,7 +755,7 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<tr>
-				<td align='right' width="200px"><label for=curso>&Aacute;rea:</label></td>
+				<td align='right' width="200px"><label for=curso>Curso:</label></td>
 				<td colspan='2'>
 					<select name="curso" class=".text" id="curso" tabindex=26>
 						<?php
@@ -794,7 +786,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none;">
+			<tr>
 				<td align='right' width="200px"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
 				<td colspan='2'>
 					<select id="localprova" name="localprova" tabindex="27">
@@ -825,7 +817,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none">
+			<tr>
 				<td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa?</label></td>
 				<td>
 
@@ -864,7 +856,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none">
+			<tr>
 				<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
 				<td>
 					<select name="especial_prova" id="especial_prova" tabindex=29>
@@ -888,7 +880,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none">
+			<tr>
 				<td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
 				<td>
 					<select name="vaga_especial" id="vaga_especial" tabindex=31>
@@ -910,7 +902,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none;">
+			<tr>
 				<td height="28" align='right'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
 				<td>
 					<select name="vaga_rede_publica" id="vaga_rede_publica" tabindex=32>
