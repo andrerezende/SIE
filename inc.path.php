@@ -1,5 +1,5 @@
 <?php
-session_start("SELECAO"); //sempre session_start antes de usar sessions
+//session_start("SELECAO"); //sempre session_start antes de usar sessions
 
 //Atribuição da página parametrizada responsável pelo cadastro do candidato 
 $pagina_cadastro = $_SESSION["Gpaginacadastro"];
@@ -7,7 +7,7 @@ $pagina_cadastro = $_SESSION["Gpaginacadastro"];
 //Controle de término do processo seletivo
 $data_incio   = $_SESSION["Gdatainicio"];
 $data_fim     = $_SESSION["Gdatatermino"];
-$data_atual   = strtotime(date("d/m/Y")); 
+$data_atual   = strtotime("now"); 
 
 //var_DUMP($data_incio, $data_fim, $data_atual);
 //exit;
