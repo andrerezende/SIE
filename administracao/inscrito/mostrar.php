@@ -7,7 +7,7 @@ $pagina_impressao	= $_SESSION["Gpaginaimpressao"];
 ?>
 
 <?php
-session_start();
+//session_start();
 require_once("../classes/DB.php");
 require_once("../classes/Inscrito.php");
 require_once("../classes/Campus.php");
