@@ -11,7 +11,7 @@
 
 <?php
 //ob_start();
-session_start();
+//session_start();
 
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
