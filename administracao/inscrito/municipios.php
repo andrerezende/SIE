@@ -18,7 +18,7 @@ if (mysql_num_rows($qr) == 0) {
 	echo '<option value="0">'.htmlentities('Nao existem cidades nesse Estado').'</option>';
 } else {
 	while($ln = mysql_fetch_assoc($qr)){
-		echo '<option value="'.$ln['id'].'">'.$ln['nome'].'</option>';
+		echo '<option value="'.$ln['id'].'">'.strtoupper($ln['nome']).'</option>';
 	}
 }
 ?>
