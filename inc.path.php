@@ -14,7 +14,9 @@ $data_atual   = strtotime(date("d/m/Y"));
 ?>
 
 
-<?php session_start();
+<?php 
+
+//session_start();
 
 @$sc = $_REQUEST['sc'];
 @$scTitulo;
