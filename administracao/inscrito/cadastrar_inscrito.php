@@ -150,7 +150,6 @@ if ($existe) {
 		echo("	</tr>");
 		echo("</table>");
 		echo("</div>");
-
 	}
 }
 $banco->DesconectarDB($conexao);
