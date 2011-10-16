@@ -233,7 +233,7 @@ if (count($objinscrito) == 0) {
 				$curso = new Curso();
 				$curso = $curso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
 				?>
-                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo ($curso[0]->getnome())?>" />
+                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo (strtoupper($curso[0]->getnome())); ?>" />
             </td>
         </tr>
 
