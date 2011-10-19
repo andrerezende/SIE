@@ -20,6 +20,11 @@
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
 
+        function enableCombos() {
+		//alert("entreou");
+		document.getElementById('isencao').disabled=false;
+	}
+
 	function Onlynumber(e){
 		var tecla=new Number();
 
@@ -145,6 +150,8 @@
 			localprova.focus();
 			resultado = false;
 		}
+                
+                enableCombos();
                 
 		return resultado;
 	}
@@ -325,8 +332,8 @@
 		});
 
                 
-                $("#especial_prova_descricao").attr("disabled", true);
-                $("#especial_descricao").attr("disabled", true);
+//                $("#especial_prova_descricao").attr("disabled", true);
+//                $("#especial_descricao").attr("disabled", true);
 
 		               
                 $("#especial").change(function() {
@@ -712,7 +719,7 @@ if (count($objinscrito) == 0){
 							if ($especial[$i] != $objinscrito[0]->getespecial()) {
 								echo("	<option value="."'".$especial[$i]."'".">".$especial[$i]."</option>\n");
 							} else {
-								echo("	<option selected value=".$especial[$i].">".$especial[$i]."</option>\n");
+								echo("	<option selected value="."'".$especial[$i]."'".">".$especial[$i]."</option>\n");
 							}
 							$i = $i + 1;
 						}
