@@ -68,7 +68,6 @@ $vetorMunicipioNome = $municipio->SelectNomeMunicipio($conexao, $municipioId);
 $municipioNome = $vetorMunicipioNome->getNome();
 
 
-
 //if (isset($_POST['id']) && !empty($_POST['id'])) {
 //	$id = addslashes($_POST['id']);
 //	$objinscrito = $inscrito->SelectById($conexao, $id);
@@ -133,7 +132,7 @@ $valor_boleto=number_format($valor_cobrado+$taxa_boleto, 2, ',', '');
 $dadosboleto["nosso_numero"]       = $objinscrito[0]->getnuminscricao(); //getid();
 $dadosboleto["numero_documento"]   = $objinscrito[0]->getnuminscricao(); //"27.030195.10";	// Num do pedido ou do documento
 $dadosboleto["data_vencimento"]    = $data_venc;    // Data de Vencimento do Boleto - REGRA: Formato DD/MM/AAAA
-$dadosboleto["data_documento"]     = date("d/m/Y"); // Data de emiss�o do Boleto
+$dadosboleto["data_documento"]     = date("d/m/Y"); // Data de emissão do Boleto
 $dadosboleto["data_processamento"] = date("d/m/Y"); // Data de processamento do boleto (opcional)
 $dadosboleto["valor_boleto"]       = $valor_boleto; // Valor do Boleto - REGRA: Com vírgula e sempre com duas casas depois da virgula
 
@@ -146,19 +145,19 @@ $dadosboleto["endereco2"] = strtoupper($municipioNome)." - ".strtoupper($estadoN
 
 // INFORMACOES PARA O CLIENTE
 $local_prova = $local_prova->SelectByPrimaryKey($conexao, $objinscrito[0]->getlocalprova());
-$dadosboleto["demonstrativo1"] = "Pagamento de Taxa de Inscri&ccedil;&atilde;o - " .$nome_selecao;
+$dadosboleto["demonstrativo1"] = "<b>Taxa de Inscri&ccedil;&atilde;o - " .$nome_selecao." (IF Baiano)</b>";
 $dadosboleto["demonstrativo2"] = " CPF do Candidato: ".$objinscrito[0]->getcpf()." / "."Inscri&ccedil;&atilde;o: ".$objinscrito[0]->getnuminscricao();
 //$dadosboleto["demonstrativo3"] = " Local de prova: " . $local_prova[0]->getnome();
-$dadosboleto["demonstrativo3"] = " Op&ccedil;&atilde;o: " .$nomeCurso." / ".$nomeCampus;
+$dadosboleto["demonstrativo3"] = " Campus: " .$nomeCampus;
 
 //$dadosboleto["demonstrativo2"] = "Taxa bancária - R$ ".number_format($taxa_boleto, 2, ',', '');
 //$dadosboleto["demonstrativo4"] = "N&uacute;mero de Inscri&ccedil;&atilde;o: ".$objinscrito[0]->getnuminscricao();
 
 // INSTRUÇÕES PARA O CAIXA
-$dadosboleto["instrucoes1"] = " - ";
-$dadosboleto["instrucoes2"] = "- Sr. Caixa, favor n&atilde;o receber ap&oacute;s o vencimento";
-$dadosboleto["instrucoes3"] = "";
-$dadosboleto["instrucoes4"] = "";
+$dadosboleto["instrucoes1"] = "Curso: ".$nomeCurso;
+$dadosboleto["instrucoes2"] = "Local de realiza&ccedil;&atilde;o da prova: ".$local_prova[0]->getnome();
+$dadosboleto["instrucoes3"] = "-";
+$dadosboleto["instrucoes4"] = "- SR. CAIXA, FAVOR N&Atilde;O RECEBER AP&Oacute;S O VENCIMENTO";
 
 // DADOS OPCIONAIS DE ACORDO COM O BANCO OU CLIENTE
 $dadosboleto["quantidade"] = "";
