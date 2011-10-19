@@ -207,7 +207,7 @@ if (count($objinscrito) == 0) {
 			<tr>
 				<td align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 				<td>
-					<input style="text-transform:uppercase" name="responsavel" id="responsavel" disabled="true" type="text" tabindex=21 alt="Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
+					<input style="text-transform:uppercase" name="responsavel" id="responsavel" disabled="true" type="text" size="65" maxlength="65" tabindex=21 alt="Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
 				</td>
 			</tr>
 
@@ -246,7 +246,7 @@ if (count($objinscrito) == 0) {
 				$vetorLocalprovaIncrito = $localprova->SelectNomeLocalProva($conexao, $localprovaInscrito);
 				$nomeLocalprova = $vetorLocalprovaIncrito[0]->getNome();
 				?>
-				<input style="text-transform:uppercase" name="campus" id="campus" disabled="true" type="text" tabindex=23 value="<?php echo ($nomeLocalprova); ?>" />
+				<input style="text-transform:uppercase" name="campus" id="campus" disabled="true" type="text" size="65" tabindex=23 value="<?php echo ($nomeLocalprova); ?>" />
 			</td>
 		</tr>
 
@@ -267,7 +267,7 @@ if (count($objinscrito) == 0) {
 		<tr>
 			<td height="28" align='right'><label for=especial>Necessidade Especial:</label></td>
 			<td>
-				<input style="text-transform:uppercase" name="especial" id="especial" disabled="true" type="text" tabindex=23 value="<?php echo ($objinscrito[0]->getespecial()); ?>" />
+				<input style="text-transform:uppercase" name="especial" id="especial" disabled="true" type="text" size="25" tabindex=23 value="<?php echo ($objinscrito[0]->getespecial()); ?>" />
 				<label for=especial_descricao>Outra: </label>
 				<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" disabled="true" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
 			</td>
