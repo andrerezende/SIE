@@ -1,10 +1,11 @@
 <?php session_start("SELECAO"); ?>
-<?php session_start();?>
+<?php //session_start();?>
 
 <?php	
-	//Trecho que automatiza o encerramento do Período de Isençãoo
+	//Trecho que automatiza o encerramento do Per�odo de Isen��o
 	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
-	$data_atual   	= strtotime(date("d/m/Y")); 
+	//$data_atual             = strtotime(date("d/m/Y")); 
+        $data_atual             = strtotime("now"); 
 
 ?>
 
@@ -19,14 +20,14 @@
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
 
-	function enableCombos() {
-		
-		alert("entreou");
+        function enableCombos() {
+		//alert("entreou");
 		document.getElementById('isencao').disabled=false;
 	}
-	
+
 	function Onlynumber(e){
 		var tecla=new Number();
+
 		if (window.event) {
 			tecla = e.keyCode;
 		} else if (e.which) {
@@ -44,11 +45,10 @@
 		var endereco        = document.getElementById("endereco");
 		var bairro          = document.getElementById("bairro");
 		var cep             = document.getElementById("cep");
-		var cidade          = document.getElementById("cidade");
+		var municipio       = document.getElementById("municipio");
 		var estado          = document.getElementById("estado");
 		var rg              = document.getElementById("rg");
 		var cpf             = document.getElementById("cpf");
-		var especial        = document.getElementById("especial");
 		var senha           = document.getElementById("senha");
 		var senhaConfirm    = document.getElementById("senhaConfirm");
 		var declaracao      = document.getElementById("declaracao");
@@ -57,101 +57,103 @@
 		var dataExpedicao   = document.getElementById("dataexpedicao");
 		var sexo            = document.getElementById("sexo");
 		var email           = document.getElementById("email");
-		var campus			= document.getElementById("campus");
-		var nota			= document.getElementById("nota");
+		var campus          = document.getElementById("campus");
+		var curso           = document.getElementById("curso");
+		var localprova      = document.getElementById("localprova");
 
+		resultado = true;
 		if (declaracao.value == "NAO") {
 			alert('Voce precisa aceitar a declaracao!');
 			declaracao.focus();
-			return false;
+			resultado = false;
 		} else if (nome.value == "") {
 			alert('Informe o nome!');
 			nome.focus();
-			return false;
-		} else if (cpf.value== "") {
+			resultado = false;
+		} else if(cpf.value== "") {
 			alert('Informe o CPF!');
 			cpf.focus();
-			return false;
+			resultado = false;
+		} else if (!ValidaCPF(cpf)) {
+			resultado = false;
+		} else if(senha.value== "") {
+			alert('Informe a senha!');
+			senha.focus();
+			resultado = false;
+		} else if(senhaConfirm.value == "") {
+			alert('Informe a confirmacao de senha!');
+			senhaConfirm.focus();
+			resultado = false;
+		} else if(senhaConfirm.value != senha.value) {
+			alert('Confirmacao de senha deve ser igual a senha!');
+			senhaConfirm.focus();
+			resultado = false;
 		} else if (rg.value == "") {
 			alert('Informe o RG!');
 			rg.focus();
-			return false;
-		} else if (senha.value== "") {
-			alert('Informe a senha!');
-			senha.focus();
-			return false;
-		} else if (senhaConfirm.value == "") {
-			alert('Informe a confirmacao de senha!');
-			senhaConfirm.focus();
-			return false;
-		} else if (senhaConfirm.value != senha.value) {
-			alert('Confirmacao de senha deve ser igual a senha!');
-			senhaConfirm.focus();
-			return false;
+			resultado = false;
 		} else if (email.value == "") {
 			alert('Informe o email!');
 			email.focus();
-			return false;
-		} else if (nacionalidade.value == "") {
+			resultado = false;
+		} else if(nacionalidade.value == "") {
 			alert('Informe a nacionalidade!');
-			senhaConfirm.focus();
-			return false;
+			nacionalidade.focus();
+			resultado = false;
 		} else if (dataNascimento.value == "") {
 			alert('Informe a data de nascimento!');
 			dataNascimento.focus();
-			return false;
+			resultado = false;
 		} else if (!CheckDate(dataNascimento)) {
 			alert('Informe corretamente a data de nascimento!');
 			dataNascimento.focus();
-			return false;
+			resultado = false;
 		} else if (dataExpedicao.value == "") {
 			alert('Informe a data de expedicao!');
 			dataExpedicao.focus();
-			return false;
+			resultado = false;
 		} else if (!CheckDate(dataExpedicao)) {
 			alert('Informe corretamente a data de expedicao!');
 			dataExpedicao.focus();
-			return false;
-		} else if (sexo.value == "") {
+			resultado = false;
+		} else if(sexo.value == "") {
 			alert('Informe sexo!');
-			senhaConfirm.focus();
-			return false;
+			sexo.focus();
+			resultado = false;
 		} else if (endereco.value == "") {
 			alert('Informe o endereco!');
 			endereco.focus();
-			return false;
-		} else if (cep.value == "") {
-			alert('Informe o CEP!');
-			cep.focus();
-			return false;
+			resultado = false;
 		} else if (bairro.value == "") {
 			alert('Informe o bairro!');
 			bairro.focus();
-			return false;
-		} else if (cidade.value == "") {
-			alert('Informe a cidade!');
-			cidade.focus();
-			return false;
-		} else if (estado.value == "") {
-			alert('Informe o estado!');
-			estado.focus();
-			return false;
-		} else if (campus.value <= 0) {
-			alert('Favor preencher o Campus e Area!');
+			resultado = false;
+		} else if (cep.value == "") {
+			alert('Informe o CEP!');
+			cep.focus();
+			resultado = false;
+		} else if (municipio.value == "" || municipio.value == "0") {
+			alert('Informe o Estado e Municipio!');
+			municipio.focus();
+			resultado = false;
+		
+                } else if (campus.value == "" || campus.value == "0") {
+			alert('Informe o Campus e Area!');
 			campus.focus();
-			return false;
-		} else if (especial.value == "") {
-			alert('Informe se possui necessidades especiais!');
-			especial.focus();
-			return false;
-		} else if (nota != null && ((nota.value != "") && (nota.value > 10.0))) {
-			alert('A nota deve ser ate 10.0!');
-			nota.focus();
-			return false;
+			resultado = false;
+		} else if (curso.value == "" || curso.value == "0") {
+			alert('Informe o Campus e Area!');
+			curso.focus();
+			resultado = false;
+		} else if (localprova.value == "" || localprova.value == "0") {
+			alert('Informe o Campus e Local de Prova!');
+			localprova.focus();
+			resultado = false;
 		}
-
-		enableCombos();
-		return true;
+                
+                enableCombos();
+                
+		return resultado;
 	}
 
 	function Mascara(tipo, campo, teclaPress) {
@@ -160,10 +162,13 @@
 		} else {
 			tecla = teclaPress.which;
 		}
+
 		var s = new String(campo.value);
-		// Remove todos os caracteres � seguir: ( ) / - . e espa�o, para tratar a string denovo.
+
+		// Remove todos os caracteres a seguir: ( ) / - . e espaço, para tratar a string denovo.
 		s = s.replace(/(\.|\(|\)|\/|\-| )+/g,'');
 		tam = s.length + 1;
+
 		if ( tecla != 9 && tecla != 8 ) {
 			switch (tipo) {
 				case 'CPF' :
@@ -224,8 +229,8 @@
 		return aRet;
 	}
 
+	// funcao para formatar qualquer campo.Ex.:cep,cpf,telefone,cnpj.
 	function formata(src, mask) {
-		//funcao para formatar qualquer campo.Ex.:cep,cpf,telefone,cnpj.
 		var i = src.value.length;
 		var saida = '#';
 		var texto = mask.substring(i)
@@ -234,20 +239,69 @@
 		}
 	}
 
-	function necessidadeEspecial() {
-		// Habilita / Desabilita campo especial_descricao
-		// de acordo com a escolha do campo 'especial'
-		var especial = document.getElementById("especial");
-		if (especial.value == "OUTRA") {
-			document.getElementById("especial_descricao").readOnly = false;
-		} else {
-			document.getElementById("especial_descricao").value = "";
-			document.getElementById("especial_descricao").readOnly = true;
-		}
+
+        function redireciona() {
+		window.location="../../index.php"; //redereciona para a página inicial.
 	}
 
-	function redireciona() {
-		window.location="../../index.php"; //redereciona para a página inicial.
+	function ValidaCPF(campo) {
+		var CPF = campo.value; // Recebe o valor digitado no campo
+		// Aqui começa a checagem do CPF
+		var POSICAO, I, SOMA, DV, DV_INFORMADO;
+		var DIGITO = new Array(10);
+		DV_INFORMADO = CPF.substr(9, 2); // Retira os dois últimos dígitos do número informado
+
+		// Desemembra o número do CPF na array DIGITO
+		for (I=0; I<=8; I++) {
+			DIGITO[I] = CPF.substr( I, 1);
+		}
+
+		// Calcula o valor do 10 dígito da verificação
+		POSICAO = 10;
+		SOMA = 0;
+		for (I=0; I<=8; I++) {
+			SOMA = SOMA + DIGITO[I] * POSICAO;
+			POSICAO = POSICAO - 1;
+		}
+		DIGITO[9] = SOMA % 11;
+		if (DIGITO[9] < 2) {
+			DIGITO[9] = 0;
+		} else {
+			DIGITO[9] = 11 - DIGITO[9];
+		}
+
+		// Calcula o valor do 11 dígito da verificação
+		POSICAO = 11;
+		SOMA = 0;
+		for (I=0; I<=9; I++) {
+			SOMA = SOMA + DIGITO[I] * POSICAO;
+			POSICAO = POSICAO - 1;
+		}
+		DIGITO[10] = SOMA % 11;
+		if (DIGITO[10] < 2) {
+			DIGITO[10] = 0;
+		} else {
+			DIGITO[10] = 11 - DIGITO[10];
+		}
+
+		// Verifica se os valores dos dígitos verificadores conferem
+		DV = DIGITO[9] * 10 + DIGITO[10];
+		if (DV != DV_INFORMADO) {
+			alert('CPF invalido');
+			campo.value = '';
+			campo.focus();
+			return false;
+		}
+		return true;
+	}
+
+	function getCurso(pCampus) {
+		if (pCampus.selectedIndex != '') {
+			var campusCurso2 = pCampus.value;
+			// document.location=('cadastro.php?campusCurso=' + campusCurso);
+			// document.getElementById('campusCurso') = campusCurso2;
+			return campusCurso2;
+		}
 	}
 
 	$(document).ready(function() {
@@ -265,14 +319,6 @@
 			});
 		});
 
-		$(".notas").priceFormat({
-		    prefix: '',
-		    limit: 3,
-		    centsLimit: 1,
-		    centsSeparator: '.',
-		    thousandsSeparator: ''
-		});
-
 		$("#vaga_especial").change(function() {
 			if ($(this).val() == "SIM") {
 				$("#vaga_rede_publica").val("NAO");
@@ -285,21 +331,24 @@
 			}
 		});
 
-		if ($("#especial option:selected").val() == 'OUTRA') {
-			$("#especial_descricao").removeAttr("disabled");
-		} else {
-			$("#especial_descricao").val("");
-			$("#especial_descricao").attr("disabled", true);
-		}
+                
+//                $("#especial_prova_descricao").attr("disabled", true);
+//                $("#especial_descricao").attr("disabled", true);
 
-		if ($("#especial_prova option:selected").val() == 'SIM') {
-			$("#especial_prova_descricao").removeAttr("disabled");
-		} else {
-			$("#especial_prova_descricao").val("");
-			$("#especial_prova_descricao").attr("disabled", true);
-		}
-
-		$("#especial_prova").change(function() {
+		               
+                $("#especial").change(function() {
+			$("#especial option:selected").each(function() {
+				if (this.value == "OUTRA") {
+					$("#especial_descricao").removeAttr("disabled");
+				} else {
+					$("#especial_descricao").val("");
+					$("#especial_descricao").attr("disabled", true);
+				}
+			});
+		});
+                
+                
+                $("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
 				if (this.value == "SIM") {
 					$("#especial_prova_descricao").removeAttr("disabled");
@@ -310,33 +359,32 @@
 			});
 		});
 
-		$("#especial").change(function() {
-			$("#especial option:selected").each(function() {
-				if (this.value == "OUTRA") {
-					$("#especial_descricao").removeAttr("disabled");
-				} else {
-					$("#especial_descricao").val("");
-					$("#especial_descricao").attr("disabled", true);
-				}
-			});
-		});
-
-		$("select[name=campus]").change(function(){
+		$("select[name=campus]").change(function() {
 			$("select[name=curso]").html('<option value="0">Carregando...</option>');
 			$.post("cursos.php",
 				{campus:$(this).val()},
-				function(valor){
+				function(valor) {
 					$("select[name=curso]").html(valor);
 				}
 			)
 		})
 
-		$("select[name=campus]").change(function(){
+		$("select[name=campus]").change(function() {
 			$("select[name=localprova]").html('<option value="0">Carregando...</option>');
 			$.post("locais.php",
 				{campus:$(this).val()},
-				function(valor){
+				function(valor) {
 					$("select[name=localprova]").html(valor);
+				}
+			)
+		})
+                
+                $("select[name=uf]").change(function() {
+			$("select[name=municipio]").html('<option value="0">Carregando...</option>');
+			$.post("municipios.php",
+				{uf:$(this).val()},
+				function(valor) {
+					$("select[name=municipio]").html(valor);
 				}
 			)
 		})
@@ -350,6 +398,8 @@ include_once ("../classes/Inscrito.php");
 include_once ("../classes/Curso.php");
 include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
+include_once ("../classes/UnidadeFederativa.php");
+include_once ("../classes/Municipio.php");
 
 $id = $_POST['id'];
 
@@ -442,19 +492,30 @@ if (count($objinscrito) == 0){
 				<td>
 					<input class="alpha" style="text-transform:uppercase" name="orgaoexpedidor" id="orgaoexpedidor" type="text" tabindex=6 size="8" maxlength="8" alt="Órgão Expedidor" value="<?php echo ($objinscrito[0]->getorgaoexpedidor()); ?>" />
 					&nbsp;&nbsp;UF:&nbsp;&nbsp;
-					<select name="uf" id="uf" tabindex=7>
+					
+                                        <select name="uf_org_exp" id="uf_org_exp" tabindex=7>
 						<?php
-						$uf = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
-						$total = count($uf);
-						$i = 0;
-						while ($total > $i) {
-							if ($uf[$i] != $objinscrito[0]->getuf()) {
-								echo("	<option value=".$uf[$i].">".$uf[$i]."</option>\n");
-							} else {
-								echo("	<option selected value=".$uf[$i].">".$uf[$i]."</option>\n");
-							}
-							$i = $i + 1;
-						}
+//                                                    $banco = DB::getInstance();
+//                                                    $conexao = $banco->ConectarDB();
+
+                                                    $uforgexp = new UnidadeFederativa(null, null);
+                                                    $vetoruforgexp = $uforgexp->SelectByAll($conexao);
+
+                                                    /* Varaveis auxiliares */
+                                                    $i = 0;
+                                                    $total = count($vetoruforgexp);
+
+                                                    while ($total > $i) {
+                                                            $nome = $vetoruforgexp[$i]->getNome();
+                                                            $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
+                                                            
+                                                            if ($codigo != $objinscrito[0]->getuf()) {
+                                                                echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
+                                                            } else {
+                                                                echo("<option selected value=".$codigo.">".strtoupper($nome)."</option>\n");
+                                                            }
+                                                            $i = $i + 1;
+                                                    }
 						?>
 					</select>
 				</td>
@@ -523,31 +584,78 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
+                    
+                        <tr>
+                                <td align='right'><label for=uf>UF:</label></td>
+                                <td>
+                                    <select id="uf" name="uf" tabindex="15" >
+                                        <option value="0" selected="selected">Escolha um Estado</option>
+                                        <?php
+//                                            $banco = DB::getInstance();
+//                                            $conexao = $banco->ConectarDB();
 
-			<tr>
-				<td align='right'><label for=cidade>Cidade:</label></td>
-				<td>
-					<input style="text-transform:uppercase" name="cidade" id="cidade"  type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" value="<?php echo ($objinscrito[0]->getcidade()); ?>" />
-					<span class="textoSobrescrito">*</span>
-					&nbsp;&nbsp;Estado:&nbsp;&nbsp;
-					<select name="estado" id="estado" tabindex=16>
-						<?php
-						$estado = array("AC","AL","BA","CE","DF","ES","MA","MG","MS","MT","PE","PI","PR","RJ","RR","RS","SE","SP");
-						$total = count($estado);
-						$i = 0;
-						while ($total > $i) {
-							if ($estado[$i] != $objinscrito[0]->getestado()) {
-								echo("	<option value=".$estado[$i].">".$estado[$i]."</option>\n");
-							} else {
-								echo("	<option selected value=".$estado[$i].">".$estado[$i]."</option>\n");
-							}
-							$i = $i + 1;
-						}
-						?>
+                                            $unidadefederativa = new UnidadeFederativa(null, null);
+                                            $vetorunidadefederativa = $unidadefederativa->SelectByAll($conexao);
+
+                                            /* Varaveis auxiliares */
+                                            $i = 0;
+                                            $sel = "selected";
+                                            $total = count($vetorunidadefederativa);
+
+                                            while ($total > $i) {
+                                                    $nome = $vetorunidadefederativa[$i]->getNome();
+                                                    $codigo = $vetorunidadefederativa[$i]->getIdUnidadeFederativa();
+                                                    
+                                                    if ($codigo != $objinscrito[0]->getuf()) {
+                                                        echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
+                                                    } else {
+                                                        echo("<option selected value=".$codigo.">".strtoupper($nome)."</option>\n");
+                                                    }
+                                                    $i = $i + 1;
+                                            }
+                                        ?>
+                                    </select>
+
+                                    <span class="textoSobrescrito">*</span>
+
+                                </td>
+                        </tr>
+
+                    
+                        <tr>
+                            <td align='right' width="200px"><label for=municipio>Munic&iacute;pio:</label></td>
+				<td colspan='2'>
+					<select name="municipio" class=".text" id="municipio" tabindex=26>
+                                            <?php
+//                                                $banco = DB::getInstance();
+//                                                $conexao = $banco->ConectarDB();
+                                            
+                                                $ufId = $objinscrito[0]->getestado();
+                                                
+                                                $municipio = new Municipio(null, null);
+                                                $vetormunicipio = $municipio->SelectMunicipioPorEstado($conexao, $ufId);
+
+                                                /* Varaveis auxiliares */
+                                                $i = 0;
+                                                $total = count($vetormunicipio);
+
+                                                while ($total > $i) {
+                                                        $nome = $vetormunicipio[$i]->getNome();
+                                                        $codigo = $vetormunicipio[$i]->getIdMunicipio();
+
+                                                        if ($codigo != $objinscrito[0]->getcidade()) {
+                                                            echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
+                                                        } else {
+                                                            echo("<option selected value=".$codigo.">".strtoupper($nome)."</option>\n");
+                                                        }
+                                                        $i = $i + 1;
+                                                }
+                                            ?>
 					</select>
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
+                    
 
 			<tr>
 				<td align='right'><label for=telefone>Telefone:</label></td>
@@ -611,7 +719,7 @@ if (count($objinscrito) == 0){
 							if ($especial[$i] != $objinscrito[0]->getespecial()) {
 								echo("	<option value="."'".$especial[$i]."'".">".$especial[$i]."</option>\n");
 							} else {
-								echo("	<option selected value=".$especial[$i].">".$especial[$i]."</option>\n");
+								echo("	<option selected value="."'".$especial[$i]."'".">".$especial[$i]."</option>\n");
 							}
 							$i = $i + 1;
 						}
@@ -620,7 +728,7 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 
 					<label for=especial_descricao>Outra: </label>
-					<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecial_descricao()); ?>" />
+					<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
 				</td>
 			</tr>
 
@@ -642,9 +750,9 @@ if (count($objinscrito) == 0){
 							$codigo = $vetorcampus[$i]->getIdCampus();
 							$nome = $vetorcampus[$i]->getnome();
 							if ($vetorcampus[$i]->getIdCampus() != $objinscrito[0]->getcampus()) {
-								echo("	<option value=".$codigo.">".$nome."</option>\n");
+								echo("	<option value=".$codigo.">".strtoupper($nome)."</option>\n");
 							} else {
-								echo("	<option ".$sel." value=".$codigo.">".$nome."</option>\n");
+								echo("	<option ".$sel." value=".$codigo.">".strtoupper($nome)."</option>\n");
 							}
 							$i = $i + 1;
 						}
@@ -655,7 +763,7 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<tr>
-				<td align='right' width="200px"><label for=curso>&Aacute;rea:</label></td>
+				<td align='right' width="200px"><label for=curso>Curso:</label></td>
 				<td colspan='2'>
 					<select name="curso" class=".text" id="curso" tabindex=26>
 						<?php
@@ -674,9 +782,9 @@ if (count($objinscrito) == 0){
 							$nomes = $vetor_cursosCampus[$i]->getnome();
 							$codigos = $vetor_cursosCampus[$i]->getcodcurso();
 							if ($codigos == $codigoCurso) {
-								echo("	<option selected value=".$codigos.">".$nomes."</option>\n");
+								echo("	<option selected value=".$codigos.">".strtoupper($nomes)."</option>\n");
 							} else {
-								echo("	<option value=".$codigos.">".$nomes."</option>\n");
+								echo("	<option value=".$codigos.">".strtoupper($nomes)."</option>\n");
 							}
 							$i = $i + 1;
 						}
@@ -686,7 +794,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none;">
+			<tr>
 				<td align='right' width="200px"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
 				<td colspan='2'>
 					<select id="localprova" name="localprova" tabindex="27">
@@ -705,9 +813,9 @@ if (count($objinscrito) == 0){
 							$codigo = $vetorlocalprova[$i]->getcodlocalprova();
 							$nome = $vetorlocalprova[$i]->getnome();
 							if ($vetorlocalprova[$i]->getcodlocalprova() != $objinscrito[0]->getlocalprova()) {
-								echo("	<option value=".$codigo.">".$nome."</option>\n");
+								echo("	<option value=".$codigo.">".strtoupper($nome)."</option>\n");
 							} else {
-								echo("	<option ".$sel." value=".$codigo.">".$nome."</option>\n");
+								echo("	<option ".$sel." value=".$codigo.">".strtoupper($nome)."</option>\n");
 							}
 							$i = $i + 1;
 						}
@@ -722,7 +830,7 @@ if (count($objinscrito) == 0){
 				<td>
 
 				 	<?php	
-						//Verifica o t�rmino do per�odo de isen��o					
+						//Verifica o término do período de isenção					
 						if ($data_fim_isencao >= $data_atual){
 							echo("<select name='isencao' id='isencao' tabindex=28>");
 						}else{
@@ -780,7 +888,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr>
+			<tr style="display: none">
 				<td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
 				<td>
 					<select name="vaga_especial" id="vaga_especial" tabindex=31>
@@ -802,7 +910,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr style="display: none;">
+			<tr style="display: none">
 				<td height="28" align='right'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
 				<td>
 					<select name="vaga_rede_publica" id="vaga_rede_publica" tabindex=32>
@@ -847,12 +955,12 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<?php if ($_SESSION['validacao']):?>
-                <tr>
-                    <td align="right">Nota:</td>
-                    <td>
+		                <tr>
+		                    <td align="right">Nota:</td>
+		                    <td>
 						<input class="notas" name="nota" type="text" id="nota" onkeypress="javascript:return Onlynumber(event);" value="<?php echo $objinscrito[0]->getnota();?>" size="5" maxlength="5" alt="Nota" />
-                    </td>
-                </tr>
+		                    </td>
+		                </tr>
 			<?php endif;?>
 
 			<tr>

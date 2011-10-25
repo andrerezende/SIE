@@ -1,17 +1,22 @@
 <?php session_start("SELECAO"); ?>
 <?php	
-	//Trecho que automatiza o encerramento do Período de Isenção
-	$data_fim_isencao  	= strtotime($_SESSION["Gdataterminoisencao"]);
+	//Trecho que automatiza o encerramento do Período de Isento
+	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
 
 	//Trecho que automatiza o encerramento do Processo seletivo em vigência
 	$data_incio   	= $_SESSION["Gdatainicio"];
 	$data_fim     	= $_SESSION["Gdatatermino"];
-	$data_atual   	= strtotime(date("d/m/Y")); 
-			
+	$data_atual   	= strtotime("now");
+        			
 	if ($data_fim < $data_atual){
 		header("Location: ../../index.php?sc=Inscricao");
 	}
+        
+//        var_dump($data_incio, $data_fim, $data_fim_isencao, $data_atual);
+//        exit;
+        
 ?>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,7 +27,8 @@
 	<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
-	function Onlynumber(e){
+	
+        function Onlynumber(e){
 		var tecla=new Number();
 
 		if (window.event) {
@@ -56,7 +62,7 @@
 		var email           = document.getElementById("email");
 		var campus          = document.getElementById("campus");
 		var curso           = document.getElementById("curso");
-		//var especial        = document.getElementById("especial");
+		var localprova      = document.getElementById("localprova");
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -138,7 +144,16 @@
 			alert('Informe o Campus e Area!');
 			campus.focus();
 			resultado = false;
-		} 
+		} else if (curso.value == "" || curso.value == "0") {
+			alert('Informe o Campus e Area!');
+			curso.focus();
+			resultado = false;
+		} else if (localprova.value == "" || localprova.value == "0") {
+			alert('Informe o Campus e Local de Prova!');
+			localprova.focus();
+			resultado = false;
+		}
+                
 		return resultado;
 	}
 
@@ -225,29 +240,8 @@
 		}
 	}
 
-	function necessidadeEspecial() {
-		// Habilita Desabilita campo especial_descricao
-		// de acordo com a escolha do campo 'especial'
-		var especial = document.getElementById("especial");
-		if (especial.value == "OUTRA") {
-			document.getElementById("especial_descricao").readOnly=false;
-		} else {
-			document.getElementById("especial_descricao").value = "";
-			document.getElementById("especial_descricao").readOnly=true;
-		}
-	}
 
-	function especialProva() {
-		var especial = document.getElementById("especial_prova");
-		if (especial.value == "SIM") {
-			document.getElementById("especial_prova_descricao").readOnly=false;
-		} else {
-			document.getElementById("especial_prova_descricao").value = "";
-			document.getElementById("especial_prova_descricao").readOnly=true;
-		}
-	}
-
-	function redireciona() {
+        function redireciona() {
 		window.location="../../index.php"; //redereciona para a página inicial.
 	}
 
@@ -338,10 +332,24 @@
 			}
 		});
 
-		$("#especial_prova_descricao").attr("disabled", true);
-		// $("#especial_descricao").attr("disabled", true);
+                
+                $("#especial_prova_descricao").attr("disabled", true);
+                $("#especial_descricao").attr("disabled", true);
 
-		$("#especial_prova").change(function() {
+		               
+                $("#especial").change(function() {
+			$("#especial option:selected").each(function() {
+				if (this.value == "OUTRA") {
+					$("#especial_descricao").removeAttr("disabled");
+				} else {
+					$("#especial_descricao").val("");
+					$("#especial_descricao").attr("disabled", true);
+				}
+			});
+		});
+                
+                
+                $("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
 				if (this.value == "SIM") {
 					$("#especial_prova_descricao").removeAttr("disabled");
@@ -463,7 +471,7 @@
                                                     while ($total > $i) {
                                                             $nome = $vetoruforgexp[$i]->getNome();
                                                             $codigo = $vetoruforgexp[$i]->getIdUnidadeFederativa();
-                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                             $i = $i + 1;
                                                     }
                                                     ?>
@@ -474,7 +482,8 @@
 				<tr>
 					<td align='right'><label for=dataexpedicao>Data de Expedi&ccedil;&atilde;o:</label></td>
 					<td>
-						<input name="dataexpedicao" id="dataexpedicao" type="text" tabindex=8 size="10" maxlength="10" alt="Data de Expedi&ccedil;&atilde;o (RG)" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" />
+						<input name="dataexpedicao" id="dataexpedicao" type="text" tabindex=8 size="12" maxlength="10" alt="Data de Expedi&ccedil;&atilde;o (RG)" on
+                                                       press="Mascara('DATA',this,event); return Onlynumber(event);" />
 					</td>
 				</tr>
 
@@ -488,7 +497,7 @@
 
 				<tr>
 					<td align='right'><label for=datanascimento>Data de Nascimento:</label></td>
-					<td><input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="10" maxlength="10" alt="Data de Nascimento" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" />
+					<td><input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="12" maxlength="10" alt="Data de Nascimento" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" />
 					<span class="textoSobrescrito">*</span></td>
 				</tr>
 
@@ -517,7 +526,7 @@
 						<input style="text-transform:uppercase" name="bairro" id="bairro" type="text" tabindex=13 size="30" maxlength="30" alt="Bairro" />
 						<span class="textoSobrescrito">*</span>
 						&nbsp;&nbsp;CEP:&nbsp;&nbsp;
-						<input name="cep" type="text" id="cep" tabindex=14 onkeypress="Mascara('CEP',this,event); return Onlynumber(event);" size='09' maxlength="09" alt="CEP" />
+						<input name="cep" type="text" id="cep" tabindex=14 onkeypress="Mascara('CEP',this,event); return Onlynumber(event);" size='12' maxlength="09" alt="CEP" />
 						<span class="textoSobrescrito">*</span>
 					</td>
 				</tr>
@@ -543,7 +552,7 @@
                                                     while ($total > $i) {
                                                             $nome = $vetorunidadefederativa[$i]->getNome();
                                                             $codigo = $vetorunidadefederativa[$i]->getIdUnidadeFederativa();
-                                                            echo("<option value=".$codigo.">".$nome."</option>\n");
+                                                            echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
                                                             $i = $i + 1;
                                                     }
                                                     ?>
@@ -601,7 +610,7 @@
 					</td>
 				</tr>
 
-				<tr style="display: none">
+				<tr>
 					<td width="139" align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 					<td width="412" colspan='2'>
 						<input style="text-transform:uppercase" name="responsavel" id="responsavel" type="text" tabindex=22 size='65' maxlength="65" alt="Nome do Responsável" />
@@ -622,7 +631,7 @@
 						</select>
 						<span class="textoSobrescrito">*</span>
 						&nbsp;&nbsp;Qual:&nbsp;&nbsp;
-						<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" onclick="javascript:necessidadeEspecial()" tabindex=24 size='40' maxlength="40" alt="CEP" />
+						<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="CEP" />
 					</td>
 				</tr>
 
@@ -650,7 +659,7 @@
 							while ($total > $i) {
 								$nome = $vetorcampus[$i]->getNome();
 								$codigo = $vetorcampus[$i]->getIdCampus();
-								echo("<option value=".$codigo.">".$nome."</option>\n");
+								echo("<option value=".$codigo.">".strtoupper($nome)."</option>\n");
 								$i = $i + 1;
 							}
 							?>
@@ -661,7 +670,7 @@
 
 				<tr>
 					<td align='right' width="200px">
-						<label for=curso>&Aacute;rea:</label>
+						<label for=curso>Curso:</label>
 					</td>
 					<td>
 						<select id="curso" name="curso" tabindex="26">
@@ -670,7 +679,7 @@
 						<span class="textoSobrescrito">*</span>
 					</td>
 				</tr>
-                <tr style="display: none">
+                <tr>
                     <td align='right' width="200px">
                         <label for=localprova>Local de realiza&ccedil;&atilde;o prova:</label>
                     </td>
@@ -701,28 +710,28 @@
                     </td>
                 </tr>
 
-				<tr>
+		<tr>
                     <td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
                     <td>
                         <input name="nis" id="nis" tabindex="28" type="text" size="15" maxlength="11" OnKeyPress="javascript:return Onlynumber(event);" alt="Cadastro &Uacute;nico (NIS)" />
                     </td>
                 </tr>
 
-				<tr>
-					<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
-					<td>
-						<select name="especial_prova" id="especial_prova" tabindex=29 onchange="javascript:especialProva()">
-							<option value="NAO" selected />N&Atilde;O
-							<option value="SIM" /> SIM
-						</select>
-						<span class="textoSobrescrito">*</span>
-						&nbsp;&nbsp;Qual:&nbsp;&nbsp;
-						<input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=30 size='40' maxlength="40" alt="Especial Prova" />
-					</td>
-				</tr>
+		<tr>
+			<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
+			<td>
+				<select name="especial_prova" id="especial_prova" tabindex=29 onchange="javascript:especialProva()">
+					<option value="NAO" selected />N&Atilde;O
+					<option value="SIM" /> SIM
+				</select>
+				<span class="textoSobrescrito">*</span>
+				&nbsp;&nbsp;Qual:&nbsp;&nbsp;
+				<input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=30 size='40' maxlength="40" alt="Especial Prova" />
+			</td>
+		</tr>
 
-                <tr>
-                    <td height="28" align='left'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
+                <tr style="display: none">
+                    <td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
                     <td>
                         <select name="vaga_especial" id="vaga_especial" tabindex=31>
                              <option value="NAO" selected="selected">N&Atilde;O</option>
@@ -732,63 +741,63 @@
                     </td>
                 </tr>
 
-				<tr style="display: none">
-					<td height="28" align='left'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
-					<td>
-						<select name="vaga_rede_publica" id="vaga_rede_publica" tabindex=32>
-							<option value="NAO" selected="selected" >N&Atilde;O</option>
-							<option value="SIM">SIM</option>
-						</select>
-						<span class="textoSobrescrito">*</span>
-					</td>
-				</tr>
+		<tr style="display: none">
+			<td height="28" align='right'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
+			<td>
+				<select name="vaga_rede_publica" id="vaga_rede_publica" tabindex=32>
+					<option value="NAO" selected="selected" >N&Atilde;O</option>
+					<option value="SIM">SIM</option>
+				</select>
+				<span class="textoSobrescrito">*</span>
+			</td>
+		</tr>
 
-				<tr style="display: none">
-					<td height="28" align='left'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
-					<td>
-						<select name="vaga_rural" id="vaga_rural" tabindex=33>
-							<option value="NAO" selected="selected">N&Atilde;O</option>
-							<option value="SIM">SIM</option>
-						</select>
-						<span class="textoSobrescrito">*</span>
-					</td>
-				</tr>
+		<tr style="display: none">
+			<td height="28" align='left'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
+			<td>
+				<select name="vaga_rural" id="vaga_rural" tabindex=33>
+					<option value="NAO" selected="selected">N&Atilde;O</option>
+					<option value="SIM">SIM</option>
+				</select>
+				<span class="textoSobrescrito">*</span>
+			</td>
+		</tr>
 
-				<tr>
-					<td colspan="2" align="justify">
-						<hr />
-						<p>Declaro, que estou ciente e de acordo com todas as regras que norteiam a presente sele&ccedil;&atilde;o e que a
-					declara&ccedil;&atilde;o de informa&ccedil;&otilde;es falsas sujeita-me &agrave;s san&ccedil;&otilde;es
-					administrativa, c&iacute;vel e criminal.</p>
-					</td>
-				</tr>
+		<tr>
+			<td colspan="2" align="justify">
+				<hr />
+				<p>Declaro, que estou ciente e de acordo com todas as regras que norteiam a presente sele&ccedil;&atilde;o e que a
+			declara&ccedil;&atilde;o de informa&ccedil;&otilde;es falsas sujeita-me &agrave;s san&ccedil;&otilde;es
+			administrativa, c&iacute;vel e criminal.</p>
+			</td>
+		</tr>
 
-				<tr>
-					<td colspan="2" align="center">Confirma?
-						<select name="declaracao" id="declaracao" tabindex=40>
-							<option value="NAO" selected="selected">N&Atilde;O</option>
-							<option value="SIM">SIM</option>
-						</select>
-						<br />
-						<br />
-					</td>
-				</tr>
+		<tr>
+			<td colspan="2" align="center">Confirma?
+				<select name="declaracao" id="declaracao" tabindex=40>
+					<option value="NAO" selected="selected">N&Atilde;O</option>
+					<option value="SIM">SIM</option>
+				</select>
+				<br />
+				<br />
+			</td>
+		</tr>
 
-				<tr>
-					<td>
-						<!--<input type="text" name="localprova" id="localprova" style="display: none" value="null" />-->
-						<input type="text" name="numinscricao" id="numinscricao" style="display: none" />
-					</td>
-				</tr>
+		<tr>
+			<td>
+				<!--<input type="text" name="localprova" id="localprova" style="display: none" value="null" />-->
+				<input type="text" name="numinscricao" id="numinscricao" style="display: none" />
+			</td>
+		</tr>
 
-				<tr>
-					<td colspan='3' align='center'>
-						<input name="Gravar" type="submit" id="Gravar" tabindex=41 value="Gravar Dados" />
-						<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
-					</td>
-				</tr>
-			</table>
-		</form>
+		<tr>
+			<td colspan='3' align='center'>
+				<input name="Gravar" type="submit" id="Gravar" tabindex=41 value="Gravar Dados" />
+				<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
+			</td>
+		</tr>
+	</table>
+	</form>
 	</div>
 </body>
 </html>

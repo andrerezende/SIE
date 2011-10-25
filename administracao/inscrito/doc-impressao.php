@@ -1,23 +1,34 @@
 <?php session_start("SELECAO"); ?>
 <?php
+
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
-include_once ("../classes/Campus.php");
 include_once ("../classes/Curso.php");
+include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
+include_once ("../classes/UnidadeFederativa.php");
+include_once ("../classes/Municipio.php");
 
-$cpf = addslashes($_POST['cpf']);
-$id = $_POST['id'];
+//$cpf = addslashes($_POST['cpf']);
+//$id = $_POST['id'];
+
+foreach ($_POST as $key => $valor) {
+	$$key = addslashes(strtoupper($valor));
+}
 
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
+
 $inscrito = new Inscrito();
+
 if ($id) {
 	$objinscrito = $inscrito->SelectById($conexao, $id);
 } elseif ($cpf) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -45,7 +56,7 @@ if (count($objinscrito) == 0) {
 
 	<form id='frmficha' name='frmficha' action='ficha_excel.php' method='post' onsubmit='' >
 		<!--    <input type="hidden" name="cpf" id="cpf" value="<?//echo($cpf);?>">-->
-		<table width="760px" border="0" align="center">
+		<table width="820px" border="0" align="center">
 			<tr>
 				<td align='right'>
 					<input name="id" id="id" type="hidden" disabled="true" value="<?php echo $objinscrito[0]->getid(); ?>" />
@@ -84,7 +95,13 @@ if (count($objinscrito) == 0) {
 				<td>
 					<input style="text-transform:uppercase" name="orgaoexpedidor" id="orgaoexpedidor" disabled="true" type="text" tabindex=6 size="8" maxlength="8" alt="Órgão Expedidor" value="<?php echo ($objinscrito[0]->getorgaoexpedidor()); ?>" />
 					&nbsp;&nbsp;UF:&nbsp;&nbsp;
-					<input name="uf" type="text" id="uf" disabled="true" tabindex=3 value="<?php echo ($objinscrito[0]->getuf()); ?>" size="2" />
+                                        <?php
+                                            $ufOrgExp = new UnidadeFederativa(null, null);
+                                            $ufOrgExpId = $objinscrito[0]->getuf();
+                                            $vetorUfOrgExpNome = $ufOrgExp->SelectNomeUnidadeFederativa($conexao, $ufOrgExpId); 
+                                            $ufOrgExpNome = $vetorUfOrgExpNome[0]->getNome();
+					?>
+                                        <input name="uf" type="text" id="uf" disabled="true" tabindex=3 size="25" maxlength="25" value="<?php echo strtoupper($ufOrgExpNome); ?>" size="2" />
 				</td>
 			</tr>
 
@@ -132,12 +149,30 @@ if (count($objinscrito) == 0) {
 				</td>
 			</tr>
 
+                        <tr>
+                                <td align='right'><label for=estado>Estado:</label></td>
+                                <td>
+                                        <?php
+                                            $estado = new UnidadeFederativa(null, null);
+                                            $estadoId = $objinscrito[0]->getestado();
+                                            $vetorEstadoNome = $estado->SelectNomeUnidadeFederativa($conexao, $estadoId); 
+                                            $estadoNome = $vetorEstadoNome[0]->getNome();
+					?>
+                                        <input style="text-transform:uppercase" name="estado" id="estado" disabled="true" type="text" tabindex=16 size="25" maxlength="25" alt="Estado" value="<?php echo ($estadoNome); ?>" />
+                                </td>
+                        </tr>
+                        
 			<tr>
 				<td align='right'><label for=cidade>Cidade:</label></td>
-				<td>
-					<input style="text-transform:uppercase" name="cidade" id="cidade" disabled="true" type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" value="<?php echo ($objinscrito[0]->getcidade()); ?>" />
-					&nbsp;&nbsp;Estado:&nbsp;&nbsp;
-					<input style="text-transform:uppercase" name="estado" id="estado" disabled="true" type="text" tabindex=16 size="2" maxlength="2" alt="Estado" value="<?php echo ($objinscrito[0]->getestado()); ?>" />
+                                <td>
+					<?php 
+                                            $municipio = new Municipio(null, null, null);
+                                            $municipioId = $objinscrito[0]->getcidade();
+                                            
+                                            $vetorMunicipioNome = $municipio->SelectNomeMunicipio($conexao, $municipioId);
+                                            $municipioNome = $vetorMunicipioNome->getNome();
+                                        ?>
+                                        <input style="text-transform:uppercase" name="cidade" id="cidade" disabled="true" type="text" tabindex=15 size="30" maxlength="30" alt="Cidade" value="<?php echo ($municipioNome); ?>" />
 				</td>
 			</tr>
 
@@ -168,10 +203,11 @@ if (count($objinscrito) == 0) {
 					<input style="text-transform:uppercase" name="estadocivil" id="estadocivil" disabled="true" type="text" tabindex=21 alt="Estado Civil" value="<?php echo ($objinscrito[0]->getestadocivil()); ?>"/>
 				</td>
 			</tr>
+			
 			<tr>
 				<td align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 				<td>
-					<input style="text-transform:uppercase" name="responsavel" id="responsavel" disabled="true" type="text" tabindex=21 alt="Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
+					<input style="text-transform:uppercase" name="responsavel" id="responsavel" disabled="true" type="text" size="65" maxlength="65" tabindex=21 alt="Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
 				</td>
 			</tr>
 
@@ -188,20 +224,20 @@ if (count($objinscrito) == 0) {
 				</td>
 			</tr>
 
-        <tr>
-            <td align='right' width="200px">
-                <label for=curso>&Aacute;rea:</label>
-            </td>
-            <td colspan='2'>
-				<?php
-				$curso = new Curso();
-				$curso = $curso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
-				?>
-				<input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo ($curso[0]->getnome())?>" />
-            </td>
-        </tr>
+                <tr>
+                    <td align='right' width="200px">
+                        <label for=curso>&Aacute;rea:</label>
+                    </td>
+                    <td colspan='2'>
+                                        <?php
+                                        $curso = new Curso();
+                                        $curso = $curso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
+                                        ?>
+                        <input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo (strtoupper($curso[0]->getnome())); ?>" />
+                    </td>
+                </tr>
 
-		<tr style="display: none;">
+		<tr>
 			<td height="28" align='right'><label for=localprova>Local de realiza&ccedil;&atilde;o da prova:</label></td>
 			<td>
 				<?php
@@ -210,31 +246,34 @@ if (count($objinscrito) == 0) {
 				$vetorLocalprovaIncrito = $localprova->SelectNomeLocalProva($conexao, $localprovaInscrito);
 				$nomeLocalprova = $vetorLocalprovaIncrito[0]->getNome();
 				?>
-				<input style="text-transform:uppercase" name="campus" id="campus" disabled="true" type="text" tabindex=23 value="<?php echo ($nomeLocalprova); ?>" />
+				<input style="text-transform:uppercase" name="campus" id="campus" disabled="true" type="text" size="65" tabindex=23 value="<?php echo ($nomeLocalprova); ?>" />
 			</td>
 		</tr>
-        <tr>
-            <td height="28" align='right'><label for=isencao>Solicita Isen&ccedil;&atilde;o de Taxa?</label></td>
-            <td>
-                <input name="isencao" id="isencao" disabled="disabled" id="curso" tabindex=26 size="3" value="<?php echo ($objinscrito[0]->getisencao()); ?>" />
-            </td>
-        </tr>
+
+                <tr>
+                                <td height="28" align='right'><label for=isencao>Solicita Isen&ccedil;&atilde;o de Taxa?</label></td>
+                                <td>
+                                        <input name="isencao" id="isencao" disabled="disabled" id="curso" tabindex=26 size="3" value="<?php echo ($objinscrito[0]->getisencao()); ?>" />
+                                </td>
+                </tr>
+
 		<tr>
 			<td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
 			<td>
 				<input name="nis" id="nis" disabled="true" tabindex="28" type="text" size="15" maxlength="11" OnKeyPress="javascript:return Onlynumber(event);" alt="Cadastro &Uacute;nico (NIS)" value="<?php echo($objinscrito[0]->getnis()); ?>" />
 			</td>
 		</tr>
+
 		<tr>
 			<td height="28" align='right'><label for=especial>Necessidade Especial:</label></td>
 			<td>
-				<input style="text-transform:uppercase" name="especial" id="especial" disabled="true" type="text" tabindex=23 value="<?php echo ($objinscrito[0]->getespecial()); ?>" />
+				<input style="text-transform:uppercase" name="especial" id="especial" disabled="true" type="text" size="25" tabindex=23 value="<?php echo ($objinscrito[0]->getespecial()); ?>" />
 				<label for=especial_descricao>Outra: </label>
-				<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" disabled="true" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecial_descricao()); ?>" />
+				<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" disabled="true" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
 			</td>
 		</tr>
-        
-		<tr>
+
+        <tr>
             <td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
             <td>
                 <input style="text-transform:uppercase" name="especial_prova" id="especial_prova" disabled="disabled" id="especial_prova" tabindex=27 size="3" value="<?php echo ($objinscrito[0]->getespecialprova()); ?>" />
@@ -242,7 +281,8 @@ if (count($objinscrito) == 0) {
                 <input style="text-transform:uppercase" name="especial_prova_descricao" disabled="disabled" id="especial_prova_descricao" tabindex=28 size='40' value="<?php echo ($objinscrito[0]->getespecialprovadescricao()); ?>" />
             </td>
         </tr>
-        <tr>
+
+        <tr style="display: none">
             <td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
             <td>
                 <input style="text-transform:uppercase" name="vaga_especial" id="especial_prova" disabled="disabled" tabindex=29 size="3" value="<?php echo ($objinscrito[0]->getvagaespecial()); ?>" />
