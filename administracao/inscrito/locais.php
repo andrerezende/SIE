@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/html; charset=ISO-8859-1", true);
 include ("../classes/DB.php");
 include ("../classes/Campus.php");
 /* Acesso ao banco de dados */
