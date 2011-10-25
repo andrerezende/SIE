@@ -50,7 +50,11 @@ if (count($objinscrito) == 0) {
 <body class="formImpressao">
 	<div align='center'>
 		<p><img src="../../imgs/logo.gif" width="178" height="100" alt="logotipo do IFBaiano"></p>
-		<h2><?php echo ($_SESSION["Gnomeprocessoseletivo"]);?></h2>
+		<h2><?php 
+                        echo ($_SESSION["Gnomeprocessoseletivo"]."<br />");
+                        echo ("Edital N&#186; ".$_SESSION["Gedital"]."/".$_SESSION["Gano"]);
+                    ?>
+                </h2>
 		<h3>Ficha de Inscri&ccedil;&atilde;o</h3>
 	</div>
 
