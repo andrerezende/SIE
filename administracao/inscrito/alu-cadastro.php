@@ -792,7 +792,7 @@
 
 		<tr>
 			<td colspan='3' align='center'>
-				<input name="Gravar" type="submit" id="Gravar" tabindex=41 value="Gravar Dados" />
+				<input name="Gravar" type="submit" id="Gravar" tabindex=41 value="Enviar" />
 				<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
 			</td>
 		</tr>
