@@ -2,14 +2,14 @@
 //Variáveis de sessão para parametrização - Serão extraídas do Banco de Dados
 
 session_start("SELECAO");
-$_SESSION["Gnomeprocessoseletivo"]    = "Processo Seletivo Unificado para Estudantes - 2012";
-$_SESSION["Gdatainicio"]            = mktime(0, 0, 0, 8, 23, 2011); // 0,0,0, M/D/Y
-$_SESSION["Gdatatermino"]           = mktime(0, 0, 0, 11, 05, 2011);
-$_SESSION["Gdataterminoisencao"]    = mktime(0, 0, 0, 10, 10, 2011);
+$_SESSION["Gnomeprocessoseletivo"]    = "Processo Seletivo Unificado para Ingresso de Estudantes - 2012";
+$_SESSION["Gdatainicio"]            = mktime(0, 0, 0, 10, 27, 2011); // 0,0,0, M/D/Y
+$_SESSION["Gdatatermino"]           = mktime(0, 0, 0, 11, 21, 2011);
+$_SESSION["Gdataterminoisencao"]    = mktime(0, 0, 0, 11, 11, 2011);
 
 $_SESSION["Gvalorboleto"] = "10,00";
 $_SESSION["Gconvenio"] = "2203078";
-$_SESSION["Gedital"] = "130";
+$_SESSION["Gedital"] = "85";
 $_SESSION["Gano"] = "2011";
 $_SESSION["Gpaginaconcurso"] = "http://www.ifbaiano.edu.br/concursos/portal/discente2012";
 $_SESSION["Gusrmail"] = "temporario@ifbaiano.edu.br";
