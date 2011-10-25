@@ -986,7 +986,7 @@ if (count($objinscrito) == 0){
 
 			<tr>
 				<td colspan='3' align='center'>
-					<input name="Gravar" type="submit" id="Gravar" tabindex=35 value="Gravar Dados" />
+					<input name="Gravar" type="submit" id="Gravar" tabindex=35 value="Enviar" />
 					<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
 				</td>
 			</tr>
