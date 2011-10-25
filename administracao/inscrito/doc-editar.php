@@ -428,7 +428,11 @@ if (count($objinscrito) == 0){
 <div align="center">
 	<img src="../../imgs/topo2/topo_formulario.png" alt="Instituto Federal Baiano" />
 	<div id="topoFormTexto">
-		<?php echo ($_SESSION["Gnomeprocessoseletivo"]);?>
+			<?php 
+                            echo ($_SESSION["Gnomeprocessoseletivo"]."<br />");
+                            echo ("Edital N&#186; ".$_SESSION["Gedital"]."/".$_SESSION["Gano"]);
+                        ?>
+                        
 	</div>
 	<h2>Ficha de Inscri&ccedil;&atilde;o</h2>
 </div>
