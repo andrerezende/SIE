@@ -145,7 +145,7 @@ $dadosboleto["endereco2"] = strtoupper($municipioNome)." - ".strtoupper($estadoN
 
 // INFORMACOES PARA O CLIENTE
 $local_prova = $local_prova->SelectByPrimaryKey($conexao, $objinscrito[0]->getlocalprova());
-$dadosboleto["demonstrativo1"] = "<b>Taxa de Inscri&ccedil;&atilde;o - " .$nome_selecao." (IF Baiano)</b>";
+$dadosboleto["demonstrativo1"] = "<b>Taxa Inscri&ccedil;&atilde;o - " .$nome_selecao."</b>";
 $dadosboleto["demonstrativo2"] = " CPF do Candidato: ".$objinscrito[0]->getcpf()." / "."Inscri&ccedil;&atilde;o: ".$objinscrito[0]->getnuminscricao();
 //$dadosboleto["demonstrativo3"] = " Local de prova: " . $local_prova[0]->getnome();
 $dadosboleto["demonstrativo3"] = " Campus: " .$nomeCampus;
