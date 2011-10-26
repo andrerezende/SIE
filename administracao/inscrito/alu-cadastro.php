@@ -44,25 +44,28 @@
 	}
 
 	function validar() {
-		var nome            = document.getElementById("nome");
-		var endereco        = document.getElementById("endereco");
-		var bairro          = document.getElementById("bairro");
-		var cep             = document.getElementById("cep");
-		var municipio       = document.getElementById("municipio");
-		var estado          = document.getElementById("estado");
-		var rg              = document.getElementById("rg");
-		var cpf             = document.getElementById("cpf");
-		var senha           = document.getElementById("senha");
-		var senhaConfirm    = document.getElementById("senhaConfirm");
-		var declaracao      = document.getElementById("declaracao");
-		var nacionalidade   = document.getElementById("nacionalidade");
-		var dataNascimento  = document.getElementById("datanascimento");
-		var dataExpedicao   = document.getElementById("dataexpedicao");
-		var sexo            = document.getElementById("sexo");
-		var email           = document.getElementById("email");
-		var campus          = document.getElementById("campus");
-		var curso           = document.getElementById("curso");
-		var localprova      = document.getElementById("localprova");
+		var nome                    = document.getElementById("nome");
+		var endereco                = document.getElementById("endereco");
+		var bairro                  = document.getElementById("bairro");
+		var cep                     = document.getElementById("cep");
+		var municipio               = document.getElementById("municipio");
+		var estado                  = document.getElementById("estado");
+		var rg                      = document.getElementById("rg");
+		var cpf                     = document.getElementById("cpf");
+		var senha                   = document.getElementById("senha");
+		var senhaConfirm            = document.getElementById("senhaConfirm");
+		var declaracao              = document.getElementById("declaracao");
+		var nacionalidade           = document.getElementById("nacionalidade");
+		var dataNascimento          = document.getElementById("datanascimento");
+		var dataExpedicao           = document.getElementById("dataexpedicao");
+		var sexo                    = document.getElementById("sexo");
+		var email                   = document.getElementById("email");
+		var campus                  = document.getElementById("campus");
+		var curso                   = document.getElementById("curso");
+		var localprova              = document.getElementById("localprova");
+//                var especial_descricao      = document.getElementById("especial_descricao");
+                var flag_especial_descricao = document.getElementById("flag_especial_descricao");
+                var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -151,6 +154,15 @@
 		} else if (localprova.value == "" || localprova.value == "0") {
 			alert('Informe o Campus e Local de Prova!');
 			localprova.focus();
+			resultado = false;
+		} else if (flag_especial_descricao.value == "1") {
+			alert('Informe a necessidade especial!');
+//			especial_descricao.focus();
+			resultado = false;
+		}
+                else if (flag_especial_prova_descricao.value == "1") {
+			alert('Informe a condicao especial para realizacao da prova!');
+//			especial_prova_descricao.focus();
 			resultado = false;
 		}
                 
@@ -341,23 +353,39 @@
 			$("#especial option:selected").each(function() {
 				if (this.value == "OUTRA") {
 					$("#especial_descricao").removeAttr("disabled");
+                                        $("#especial_descricao").val("");
+                                        $("#flag_especial_descricao").val("1");
 				} else {
 					$("#especial_descricao").val("");
 					$("#especial_descricao").attr("disabled", true);
-				}
+                                        $("#flag_especial_descricao").val("0");
+                                }
 			});
 		});
                 
+                $("#especial_descricao").change(function() {
+			if ($(this).val() != "") {
+				$("#flag_especial_descricao").val("0");
+			}
+		});
                 
                 $("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
 				if (this.value == "SIM") {
 					$("#especial_prova_descricao").removeAttr("disabled");
+                                        $("#flag_especial_prova_descricao").val("1");
 				} else {
 					$("#especial_prova_descricao").val("");
 					$("#especial_prova_descricao").attr("disabled", true);
+                                        $("#flag_especial_prova_descricao").val("0");
 				}
 			});
+		});
+                
+                $("#especial_prova_descricao").change(function() {
+			if ($(this).val() != "") {
+				$("#flag_especial_prova_descricao").val("0");
+			}
 		});
 
 		$("select[name=campus]").change(function() {
@@ -635,7 +663,8 @@
 						</select>
 						<span class="textoSobrescrito">*</span>
 						&nbsp;&nbsp;Qual:&nbsp;&nbsp;
-						<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="CEP" />
+						<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Descrição da Necessidade Especial" />
+                                                <input type="hidden" name="flag_especial_descricao" id="flag_especial_descricao" />
 					</td>
 				</tr>
 
@@ -731,7 +760,8 @@
 				<span class="textoSobrescrito">*</span>
 				&nbsp;&nbsp;Qual:&nbsp;&nbsp;
 				<input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=30 size='40' maxlength="40" alt="Especial Prova" />
-			</td>
+                                <input type="hidden" name="flag_especial_prova_descricao" id="flag_especial_prova_descricao" />
+                        </td>
 		</tr>
 
                 <tr>
