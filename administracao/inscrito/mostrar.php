@@ -26,10 +26,10 @@ $inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
 
 
-if (empty($objinscrito[0])) {
-	$_SESSION['flashMensagem'] = 'Inscri&ccedil;&atilde;o n&atilde;o cadastrada na base de dados ou CPF e Senha n&atilde;o conferem.';
-	header("Location:" . $_SERVER['HTTP_REFERER']);
-}
+//if (empty($objinscrito[0])) {
+//	$_SESSION['flashMensagem'] = 'Inscri&ccedil;&atilde;o n&atilde;o cadastrada na base de dados ou CPF e Senha n&atilde;o conferem.';
+//	header("Location:" . $_SERVER['HTTP_REFERER']);
+//}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,19 +40,10 @@ if (empty($objinscrito[0])) {
 </head>
 
 <?php
-if (count($objinscrito[0])==0){
-	echo("<div class=\"conteudoColunaMeio\" align=\"center\">");
-		echo("<img src=".'"'."../../imgs/topo2/topo_formulario.png".'"'." alt=".'"'."Instituto Federal Baiano".'"'." />");
-		echo("<h2>Ficha de Inscri&ccedil;&atilde;o</h2>");
-		echo("<table border='0'>");
-			echo("	<tr>");
-			echo("		<td><div align='center'>Inscri&ccedil;&atilde;o n&atilde;o cadastrada na base de dados ou CPF e Senha n&atilde;o conferem.</div></td>");
-			echo("	</tr>");
-			echo("	<tr>");
-			echo("		<td><br /><div align='center'><a href="."javascript:window.history.go(-1)".">Voltar</a>"." - "."<a href="."../../index.php".">P&aacute;gina Inicial</a></div></td>");
-			echo("	</tr>");
-		echo("</table>");
-	echo("</div>");
+if (empty($objinscrito[0])) {
+	$_SESSION['flashMensagem'] = 'Inscri&ccedil;&atilde;o n&atilde;o cadastrada na base de dados ou CPF e Senha n&atilde;o conferem.';
+	header("Location:" . $_SERVER['HTTP_REFERER']);
+
 } else {
 	$id =$objinscrito[0]->getid();
 ?>
