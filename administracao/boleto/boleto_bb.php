@@ -40,6 +40,12 @@ if ($id) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
 
+if (empty($objinscrito[0])) {
+	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
+	header("Location:" . $_SERVER['HTTP_REFERER']);
+	exit;
+}
+
 
 // Obter Campus
 $campus = new Campus(null, null);
@@ -76,7 +82,7 @@ $municipioNome = $vetorMunicipioNome->getNome();
 //	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 //}
 //
-//if (empty($objinscrito)) {
+//if (empty($objinscrito[0])) {
 //	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 //	header("Location:" . $_SERVER['HTTP_REFERER']);
 //	exit;
