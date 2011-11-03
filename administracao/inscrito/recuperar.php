@@ -13,7 +13,7 @@ $conexao  = $banco->ConectarDB();
 
 $inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
-if (empty($objinscrito)) {
+if (empty($objinscrito[0])) {
 	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
 }
@@ -76,7 +76,7 @@ if (empty($objinscrito)) {
 					<div id="tituloPrincipal">Recuperar Senha</div>
 					<div class="conteudoColunaMeio">
 <?php
-if (count($objinscrito) == 0) :
+if (count($objinscrito[0]) == 0) :
 	echo("<p class='textoDestaque2'>Inscri&ccedil;&atilde;o n&atilde;o encontrada na base de dados.</p>");
 else :
 	$emailInscrito = strtolower($objinscrito[0]->getemail());
