@@ -44,26 +44,30 @@
 	}
 
 	function validar() {
-		var nome            = document.getElementById("nome");
-		var endereco        = document.getElementById("endereco");
-		var bairro          = document.getElementById("bairro");
-		var cep             = document.getElementById("cep");
-		var municipio       = document.getElementById("municipio");
-		var estado          = document.getElementById("estado");
-		var rg              = document.getElementById("rg");
-		var cpf             = document.getElementById("cpf");
-		var senha           = document.getElementById("senha");
-		var senhaConfirm    = document.getElementById("senhaConfirm");
-		var declaracao      = document.getElementById("declaracao");
-		var nacionalidade   = document.getElementById("nacionalidade");
-		var dataNascimento  = document.getElementById("datanascimento");
-		var dataExpedicao   = document.getElementById("dataexpedicao");
-		var sexo            = document.getElementById("sexo");
-		var email           = document.getElementById("email");
-		var campus          = document.getElementById("campus");
-		var curso           = document.getElementById("curso");
-		var localprova      = document.getElementById("localprova");
-
+		var nome                    = document.getElementById("nome");
+		var endereco                = document.getElementById("endereco");
+		var bairro                  = document.getElementById("bairro");
+		var cep                     = document.getElementById("cep");
+		var municipio               = document.getElementById("municipio");
+		var estado                  = document.getElementById("estado");
+		var rg                      = document.getElementById("rg");
+		var cpf                     = document.getElementById("cpf");
+		var senha                   = document.getElementById("senha");
+		var senhaConfirm            = document.getElementById("senhaConfirm");
+		var declaracao              = document.getElementById("declaracao");
+		var nacionalidade           = document.getElementById("nacionalidade");
+		var dataNascimento          = document.getElementById("datanascimento");
+		var dataExpedicao           = document.getElementById("dataexpedicao");
+		var sexo                    = document.getElementById("sexo");
+		var email                   = document.getElementById("email");
+		var campus                  = document.getElementById("campus");
+		var curso                   = document.getElementById("curso");
+		var localprova              = document.getElementById("localprova");
+                var isencao                 = document.getElementById("isencao");
+                var nis                     = document.getElementById("nis");
+                var flag_especial_descricao = document.getElementById("flag_especial_descricao");
+                var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
+                
 		resultado = true;
 		if (declaracao.value == "NAO") {
 			alert('Voce precisa aceitar a declaracao!');
@@ -138,8 +142,7 @@
 		} else if (municipio.value == "" || municipio.value == "0") {
 			alert('Informe o Estado e Municipio!');
 			municipio.focus();
-			resultado = false;
-		
+			resultado = false;		
                 } else if (campus.value == "" || campus.value == "0") {
 			alert('Informe o Campus e Area!');
 			campus.focus();
@@ -152,8 +155,20 @@
 			alert('Informe o Campus e Local de Prova!');
 			localprova.focus();
 			resultado = false;
+		} else if (flag_especial_descricao.value == "1") {
+			alert('Informe a necessidade especial!');
+			resultado = false;
 		}
-                
+                else if (flag_especial_prova_descricao.value == "1") {
+			alert('Informe a condicao especial para realizacao da prova!');
+			resultado = false;
+		}
+                else if (isencao.value == "SIM") {
+                   if (nis.value==""){
+                        alert('Informe o NIS!');  
+			resultado = false;
+                    } 
+		}                  
 		return resultado;
 	}
 
@@ -308,18 +323,6 @@
 	$(document).ready(function() {
 		$(".alpha").alpha();
 
-		$("#nis").attr("disabled", true);
-		$("#isencao").change(function() {
-			$("#isencao option:selected").each(function() {
-				if (this.value == "SIM") {
-					$("#nis").removeAttr("disabled");
-				} else if(this.value == "NAO") {
-					$("#nis").val("");
-					$("#nis").attr("disabled", true);
-				}
-			});
-		});
-
 		$("#vaga_especial").change(function() {
 			if ($(this).val() == "SIM") {
 				$("#vaga_rede_publica").val("NAO");
@@ -332,32 +335,57 @@
 			}
 		});
 
+		$("#nis").attr("disabled", true);
+		$("#isencao").change(function() {
+			$("#isencao option:selected").each(function() {
+				if (this.value == "SIM") {
+					$("#nis").removeAttr("disabled");
+				} else if(this.value == "NAO") {
+					$("#nis").val("");
+					$("#nis").attr("disabled", true);
+				}
+			});
+		});                                               
                 
-                $("#especial_prova_descricao").attr("disabled", true);
-                $("#especial_descricao").attr("disabled", true);
-
-		               
+                $("#especial_descricao").attr("disabled", true);		               
                 $("#especial").change(function() {
 			$("#especial option:selected").each(function() {
 				if (this.value == "OUTRA") {
 					$("#especial_descricao").removeAttr("disabled");
+                                        $("#especial_descricao").val("");
+                                        $("#flag_especial_descricao").val("1");
 				} else {
 					$("#especial_descricao").val("");
 					$("#especial_descricao").attr("disabled", true);
-				}
+                                        $("#flag_especial_descricao").val("0");
+                                }
 			});
 		});
                 
+                $("#especial_descricao").change(function() {
+			if ($(this).val() != "") {
+				$("#flag_especial_descricao").val("0");
+			}
+		});
                 
+                $("#especial_prova_descricao").attr("disabled", true);
                 $("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
 				if (this.value == "SIM") {
 					$("#especial_prova_descricao").removeAttr("disabled");
+                                        $("#flag_especial_prova_descricao").val("1");
 				} else {
 					$("#especial_prova_descricao").val("");
 					$("#especial_prova_descricao").attr("disabled", true);
+                                        $("#flag_especial_prova_descricao").val("0");
 				}
 			});
+		});
+                
+                $("#especial_prova_descricao").change(function() {
+			if ($(this).val() != "") {
+				$("#flag_especial_prova_descricao").val("0");
+			}
 		});
 
 		$("select[name=campus]").change(function() {
@@ -612,20 +640,20 @@
 							 <option value="DIVORCIADO(A)">DIVORCIADO(A)</option>
 						 </select>
 					</td>
-				</tr>
-
-				<tr>
+                                </tr>
+                            
+				<tr style="display: none">
 					<td width="139" align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 					<td width="412" colspan='2'>
 						<input style="text-transform:uppercase" name="responsavel" id="responsavel" type="text" tabindex=22 size='65' maxlength="65" alt="Nome do Responsável" />
 					</td>
-				</tr>
-
+                                </tr>
+                                        
 				<tr>
 					<td height="28" align='right'><label for=especial>Necessidade Especial:</label></td>
 					<td>
 						<select name="especial" id="especial" tabindex=23 onchange="javascript:necessidadeEspecial()">
-							<option value="NAO" selected="selected">NAO</option>
+							<option value="NAO" selected="selected">N&Atilde;O</option>
 							<option value="VISUAL - CEGUEIRA">VISUAL - CEGUEIRA</option>
 							<option value="VISUAL - BAIXA VISAO">VISUAL - BAIXA VISAO</option>
 							<option value="MOTORA">MOTORA</option>
@@ -635,16 +663,56 @@
 						</select>
 						<span class="textoSobrescrito">*</span>
 						&nbsp;&nbsp;Qual:&nbsp;&nbsp;
-						<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="CEP" />
+						<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Descrição da Necessidade Especial" />
+                                                <input type="hidden" name="flag_especial_descricao" id="flag_especial_descricao" />
 					</td>
 				</tr>
 
+                                <tr>
+                                        <td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
+                                        <td>
+                                                <select name="especial_prova" id="especial_prova" tabindex=25 onchange="javascript:especialProva()">
+                                                        <option value="NAO" selected />N&Atilde;O
+                                                        <option value="SIM" /> SIM
+                                                </select>
+                                                <span class="textoSobrescrito">*</span>
+                                                &nbsp;&nbsp;Qual:&nbsp;&nbsp;
+                                                <input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=26 size='40' maxlength="40" alt="Especial Prova" />
+                                                <input type="hidden" name="flag_especial_prova_descricao" id="flag_especial_prova_descricao" />
+                                        </td>
+                                </tr>
+                            
+                                <tr>
+                                    <td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa:</label></td>
+                                    <td>
+                                        <select name="isencao" id="isencao" tabindex=27 onchange="javascript:isencao()">
+                                             <option value="NAO" selected="selected">N&Atilde;O</option>
+                                                 <?php	
+                                                        //Verifica o término do período de isenção
+                                                        if ($data_fim_isencao >= $data_atual){
+                                                                echo("<option value='SIM'/>SIM</option>");
+                                                        }
+                                                  ?>
+                                        </select>
+                                        <span class="textoSobrescrito">
+                                            * Caso positivo, veja as condi&ccedil;&otilde;es de atendimento no Edital
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
+                                    <td>
+                                        <input name="nis" id="nis" tabindex="28" type="text" size="15" maxlength="11" OnKeyPress="javascript:return Onlynumber(event);" alt="Cadastro &Uacute;nico (NIS)" />                                        
+                                    </td>
+                                </tr>
+                                    
 				<tr>
 					<td align='right' width="200px">
 						<label for=campus>Campus:</label>
 					</td>
 					<td colspan='2'>
-						<select id="campus" name="campus" tabindex="25">
+						<select id="campus" name="campus" tabindex="29">
 							<option value="0" selected="selected">Escolha um Campus</option>
 							<?php
 							include_once ("../classes/DB.php");
@@ -677,129 +745,92 @@
 						<label for=curso>Curso:</label>
 					</td>
 					<td>
-						<select id="curso" name="curso" tabindex="26">
+						<select id="curso" name="curso" tabindex="30">
 							<option value="0" disabled="disabled">Escolha um Campus Primeiro</option>
 						</select>
 						<span class="textoSobrescrito">*</span>
 					</td>
 				</tr>
-                <tr>
-                    <td align='right' width="200px">
-                        <label for=localprova>Local de realiza&ccedil;&atilde;o prova:</label>
-                    </td>
+                            
+                                <tr>
+                                    <td align='right' width="200px">
+                                        <label for=localprova>Local de realiza&ccedil;&atilde;o prova:</label>
+                                    </td>
 
-                    <td>
-                        <select id="localprova" name="localprova" tabindex="27">
-                            <option value="0" disabled="disabled">Escolha um Campus Primeiro</option>
-                        </select>
-                        <span class="textoSobrescrito">*</span>
-                    </td>
-                </tr>
+                                    <td>
+                                        <select id="localprova" name="localprova" tabindex="31">
+                                            <option value="0" disabled="disabled">Escolha um Campus Primeiro</option>
+                                        </select>
+                                        <span class="textoSobrescrito">*</span>
+                                    </td>
+                                </tr>
 
-                <tr>
-                    <td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa:</label></td>
-                    <td>
-                        <select name="isencao" id="isencao" tabindex=28>
-                             <option value="NAO" selected="selected">N&Atilde;O</option>
-				 <?php	
-					//Verifica o término do período de isenção
-					if ($data_fim_isencao >= $data_atual){
- 						echo("<option value='SIM'/>SIM</option>");
-					}
-				  ?>
-                        </select>
-                        <span class="textoSobrescrito">
-                            * Caso positivo, veja as condi&ccedil;&otilde;es de atendimento no Edital
-                        </span>
-                    </td>
-                </tr>
+                                <tr style="display: none">
+                                    <td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
+                                    <td>
+                                        <select name="vaga_especial" id="vaga_especial" tabindex=31>
+                                             <option value="NAO" selected="selected">N&Atilde;O</option>
+                                             <option value="SIM" >SIM</option>
+                                        </select>
+                                        <span class="textoSobrescrito">*</span>
+                                    </td>
+                                </tr>
 
-		<tr>
-                    <td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
-                    <td>
-                        <input name="nis" id="nis" tabindex="28" type="text" size="15" maxlength="11" OnKeyPress="javascript:return Onlynumber(event);" alt="Cadastro &Uacute;nico (NIS)" />
-                    </td>
-                </tr>
+                                <tr style="display: none">
+                                        <td height="28" align='right'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
+                                        <td>
+                                                <select name="vaga_rede_publica" id="vaga_rede_publica" tabindex=32>
+                                                        <option value="NAO" selected="selected" >N&Atilde;O</option>
+                                                        <option value="SIM">SIM</option>
+                                                </select>
+                                                <span class="textoSobrescrito">*</span>
+                                        </td>
+                                </tr>
 
-		<tr>
-			<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
-			<td>
-				<select name="especial_prova" id="especial_prova" tabindex=29 onchange="javascript:especialProva()">
-					<option value="NAO" selected />N&Atilde;O
-					<option value="SIM" /> SIM
-				</select>
-				<span class="textoSobrescrito">*</span>
-				&nbsp;&nbsp;Qual:&nbsp;&nbsp;
-				<input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=30 size='40' maxlength="40" alt="Especial Prova" />
-			</td>
-		</tr>
+                                <tr style="display: none">
+                                        <td height="28" align='left'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
+                                        <td>
+                                                <select name="vaga_rural" id="vaga_rural" tabindex=33>
+                                                        <option value="NAO" selected="selected">N&Atilde;O</option>
+                                                        <option value="SIM">SIM</option>
+                                                </select>
+                                                <span class="textoSobrescrito">*</span>
+                                        </td>
+                                </tr>
 
-                <tr style="display: none">
-                    <td height="28" align='right'><label for=vaga_especial>Concorre &agrave;s vagas destinadas a candidatos com Necessidades Especiais:</label></td>
-                    <td>
-                        <select name="vaga_especial" id="vaga_especial" tabindex=31>
-                             <option value="NAO" selected="selected">N&Atilde;O</option>
-                             <option value="SIM" >SIM</option>
-                        </select>
-                        <span class="textoSobrescrito">*</span>
-                    </td>
-                </tr>
+                                <tr>
+                                        <td colspan="2" align="justify">
+                                                <hr />
+                                                <p>Declaro, que estou ciente e de acordo com todas as regras que norteiam a presente sele&ccedil;&atilde;o e que a
+                                        declara&ccedil;&atilde;o de informa&ccedil;&otilde;es falsas sujeita-me &agrave;s san&ccedil;&otilde;es
+                                        administrativa, c&iacute;vel e criminal.</p>
+                                        </td>
+                                </tr>
 
-		<tr style="display: none">
-			<td height="28" align='right'><label for=vaga_rede_publica>Concorrer &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica:</label></td>
-			<td>
-				<select name="vaga_rede_publica" id="vaga_rede_publica" tabindex=32>
-					<option value="NAO" selected="selected" >N&Atilde;O</option>
-					<option value="SIM">SIM</option>
-				</select>
-				<span class="textoSobrescrito">*</span>
-			</td>
-		</tr>
+                                <tr>
+                                        <td colspan="2" align="center">Confirma?
+                                                <select name="declaracao" id="declaracao" tabindex=32>
+                                                        <option value="NAO" selected="selected">N&Atilde;O</option>
+                                                        <option value="SIM">SIM</option>
+                                                </select>
+                                                <br />
+                                                <br />
+                                        </td>
+                                </tr>
 
-		<tr style="display: none">
-			<td height="28" align='left'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
-			<td>
-				<select name="vaga_rural" id="vaga_rural" tabindex=33>
-					<option value="NAO" selected="selected">N&Atilde;O</option>
-					<option value="SIM">SIM</option>
-				</select>
-				<span class="textoSobrescrito">*</span>
-			</td>
-		</tr>
+                                <tr>
+                                        <td>
+                                                <!--<input type="text" name="localprova" id="localprova" style="display: none" value="null" />-->
+                                                <input type="text" name="numinscricao" id="numinscricao" style="display: none" />
+                                        </td>
+                                </tr>
 
-		<tr>
-			<td colspan="2" align="justify">
-				<hr />
-				<p>Declaro, que estou ciente e de acordo com todas as regras que norteiam a presente sele&ccedil;&atilde;o e que a
-			declara&ccedil;&atilde;o de informa&ccedil;&otilde;es falsas sujeita-me &agrave;s san&ccedil;&otilde;es
-			administrativa, c&iacute;vel e criminal.</p>
-			</td>
-		</tr>
-
-		<tr>
-			<td colspan="2" align="center">Confirma?
-				<select name="declaracao" id="declaracao" tabindex=40>
-					<option value="NAO" selected="selected">N&Atilde;O</option>
-					<option value="SIM">SIM</option>
-				</select>
-				<br />
-				<br />
-			</td>
-		</tr>
-
-		<tr>
-			<td>
-				<!--<input type="text" name="localprova" id="localprova" style="display: none" value="null" />-->
-				<input type="text" name="numinscricao" id="numinscricao" style="display: none" />
-			</td>
-		</tr>
-
-		<tr>
-			<td colspan='3' align='center'>
-				<input name="Gravar" type="submit" id="Gravar" tabindex=41 value="Gravar Dados" />
-				<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
-			</td>
-		</tr>
+                                <tr>
+                                        <td colspan='3' align='center'>
+                                                <input name="Gravar" type="submit" id="Gravar" tabindex=33 value="Enviar" />
+                                                <input type="button" value="Cancelar" onclick="javascript:redireciona();" />
+                                        </td>
+                                </tr>
 	</table>
 	</form>
 	</div>
