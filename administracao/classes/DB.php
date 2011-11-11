@@ -1,9 +1,9 @@
 <?php
 class DB {
 	private static $instance = null;
-        private $dbHost       = "186.202.13.6";
-        private $dbDatabase      = "ifbaiano35";
-        private $dbUser          = "ifbaiano35";
+        private $dbHost       = "186.202.136666.6";
+        private $dbDatabase      = "ifbaian66o3665";
+        private $dbUser          = "ifbaiano35666";
         private $dbPassword      = "socio11logia";
 
 	public static function getInstance(){
