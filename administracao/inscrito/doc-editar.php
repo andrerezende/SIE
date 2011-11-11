@@ -4,7 +4,6 @@
 <?php	
 	//Trecho que automatiza o encerramento do Per�odo de Isen��o
 	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
-	//$data_atual             = strtotime(date("d/m/Y")); 
         $data_atual             = strtotime("now"); 
 
 ?>
@@ -41,27 +40,31 @@
 	}
 
 	function validar() {
-		var nome            = document.getElementById("nome");
-		var endereco        = document.getElementById("endereco");
-		var bairro          = document.getElementById("bairro");
-		var cep             = document.getElementById("cep");
-		var municipio       = document.getElementById("municipio");
-		var estado          = document.getElementById("estado");
-		var rg              = document.getElementById("rg");
-		var cpf             = document.getElementById("cpf");
-		var senha           = document.getElementById("senha");
-		var senhaConfirm    = document.getElementById("senhaConfirm");
-		var declaracao      = document.getElementById("declaracao");
-		var nacionalidade   = document.getElementById("nacionalidade");
-		var dataNascimento  = document.getElementById("datanascimento");
-		var dataExpedicao   = document.getElementById("dataexpedicao");
-		var sexo            = document.getElementById("sexo");
-		var email           = document.getElementById("email");
-		var campus          = document.getElementById("campus");
-		var curso           = document.getElementById("curso");
-		var localprova      = document.getElementById("localprova");
-
-		resultado = true;
+		var nome                    = document.getElementById("nome");
+		var endereco                = document.getElementById("endereco");
+		var bairro                  = document.getElementById("bairro");
+		var cep                     = document.getElementById("cep");
+		var municipio               = document.getElementById("municipio");
+		var estado                  = document.getElementById("estado");
+		var rg                      = document.getElementById("rg");
+		var cpf                     = document.getElementById("cpf");
+		var senha                   = document.getElementById("senha");
+		var senhaConfirm            = document.getElementById("senhaConfirm");
+		var declaracao              = document.getElementById("declaracao");
+		var nacionalidade           = document.getElementById("nacionalidade");
+		var dataNascimento          = document.getElementById("datanascimento");
+		var dataExpedicao           = document.getElementById("dataexpedicao");
+		var sexo                    = document.getElementById("sexo");
+		var email                   = document.getElementById("email");
+		var campus                  = document.getElementById("campus");
+		var curso                   = document.getElementById("curso");
+		var localprova              = document.getElementById("localprova");
+                var isencao                 = document.getElementById("isencao");
+                var nis                     = document.getElementById("nis");
+                var flag_especial_descricao = document.getElementById("flag_especial_descricao");
+                var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
+                              
+                resultado = true;
 		if (declaracao.value == "NAO") {
 			alert('Voce precisa aceitar a declaracao!');
 			declaracao.focus();
@@ -149,9 +152,24 @@
 			alert('Informe o Campus e Local de Prova!');
 			localprova.focus();
 			resultado = false;
+		} else if (flag_especial_descricao.value == "1") {
+			alert('Informe a necessidade especial!');
+			resultado = false;
 		}
+                else if (flag_especial_prova_descricao.value == "1") {
+			alert('Informe a condicao especial para realizacao da prova!');
+			resultado = false;
+		}
+                else if (isencao.value == "SIM") {
+                   if (nis.value==""){
+                        alert('Informe o NIS!');  
+			resultado = false;
+                    } 
+		}                
                 
-                enableCombos();
+                if (resultado){
+                    enableCombos();
+                }    
                 
 		return resultado;
 	}
@@ -307,7 +325,7 @@
 	$(document).ready(function() {
 		$(".alpha").alpha();
 
-		$("#nis").attr("disabled", true);
+		//$("#nis").attr("disabled", true);
 		$("#isencao").change(function() {
 			$("#isencao option:selected").each(function() {
 				if (this.value == "SIM") {
@@ -340,23 +358,39 @@
 			$("#especial option:selected").each(function() {
 				if (this.value == "OUTRA") {
 					$("#especial_descricao").removeAttr("disabled");
+                                        $("#especial_descricao").val("");
+                                        $("#flag_especial_descricao").val("1");
 				} else {
 					$("#especial_descricao").val("");
 					$("#especial_descricao").attr("disabled", true);
-				}
+                                        $("#flag_especial_descricao").val("0");
+                                }
 			});
 		});
                 
+                $("#especial_descricao").change(function() {
+			if ($(this).val() != "") {
+				$("#flag_especial_descricao").val("0");
+			}
+		});
                 
                 $("#especial_prova").change(function() {
 			$("#especial_prova option:selected").each(function() {
 				if (this.value == "SIM") {
 					$("#especial_prova_descricao").removeAttr("disabled");
+                                        $("#flag_especial_prova_descricao").val("1");
 				} else {
 					$("#especial_prova_descricao").val("");
 					$("#especial_prova_descricao").attr("disabled", true);
+                                        $("#flag_especial_prova_descricao").val("0");
 				}
 			});
+		});
+                
+                $("#especial_prova_descricao").change(function() {
+			if ($(this).val() != "") {
+				$("#flag_especial_prova_descricao").val("0");
+			}
 		});
 
 		$("select[name=campus]").change(function() {
@@ -428,11 +462,10 @@ if (count($objinscrito) == 0){
 <div align="center">
 	<img src="../../imgs/topo2/topo_formulario.png" alt="Instituto Federal Baiano" />
 	<div id="topoFormTexto">
-			<?php 
-                            echo ($_SESSION["Gnomeprocessoseletivo"]."<br />");
-                            echo ("Edital N&#186; ".$_SESSION["Gedital"]."/".$_SESSION["Gano"]);
-                        ?>
-                        
+		<?php 
+                    echo ($_SESSION["Gnomeprocessoseletivo"]."<br />");
+                    echo ("Edital N&#186; ".$_SESSION["Gedital"]."/".$_SESSION["Gano"]);
+                ?>
 	</div>
 	<h2>Ficha de Inscri&ccedil;&atilde;o</h2>
 </div>
@@ -629,7 +662,7 @@ if (count($objinscrito) == 0){
                         <tr>
                             <td align='right' width="200px"><label for=municipio>Munic&iacute;pio:</label></td>
 				<td colspan='2'>
-					<select name="municipio" class=".text" id="municipio" tabindex=26>
+					<select name="municipio" class=".text" id="municipio" tabindex=16>
                                             <?php
 //                                                $banco = DB::getInstance();
 //                                                $conexao = $banco->ConectarDB();
@@ -671,14 +704,14 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right'><label for=celular >Celular:</label></td>
 				<td>
-					<input name="celular" id="celular" type="text" tabindex=19 size="15" maxlength="14" alt="Celular" onkeypress="Mascara('TEL',this,event); return Onlynumber(event);" value="<?php echo ($objinscrito[0]->getcelular()); ?>" />
+					<input name="celular" id="celular" type="text" tabindex=18 size="15" maxlength="14" alt="Celular" onkeypress="Mascara('TEL',this,event); return Onlynumber(event);" value="<?php echo ($objinscrito[0]->getcelular()); ?>" />
 				</td>
 			</tr>
 
 			<tr>
 				<td align='right'><label for=email>E-mail:</label></td>
 				<td>
-					<input style="text-transform:uppercase" name="email" id="email" type="text" tabindex=20 size='40' maxlength="40" alt="E-mail" value="<?php echo ($objinscrito[0]->getemail()); ?>"/>
+					<input style="text-transform:uppercase" name="email" id="email" type="text" tabindex=19 size='40' maxlength="40" alt="E-mail" value="<?php echo ($objinscrito[0]->getemail()); ?>"/>
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
@@ -686,7 +719,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right'><label for=estadocivil>Estado Civil:</label></td>
 				<td>
-					<select name="estadocivil" id="estadocivil" tabindex=21>
+					<select name="estadocivil" id="estadocivil" tabindex=20>
 						<?php
 						$estadocivil = array("SOLTEIRO(A)","CASADO(A)","VIUVO(A)","SEPARADO(A)","DIVORCIADO(A)");
 						$total = count($estadocivil);
@@ -704,17 +737,17 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr>
+			<tr style="display: none">
 				<td width="139" align='right'><label for=responsavel>Respons&aacute;vel:</label></td>
 				<td width="412" colspan='2'>
-					<input style="text-transform:uppercase" name="responsavel" id="responsavel" type="text" tabindex=22 size='65' maxlength="65" alt="Nome do Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
+					<input style="text-transform:uppercase" name="responsavel" id="responsavel" type="text" tabindex=21 size='65' maxlength="65" alt="Nome do Responsável" value="<?php echo ($objinscrito[0]->getresponsavel()); ?>"/>
 				</td>
 			</tr>
 
 			<tr>
 				<td height="28" align='right'><label for=especial>Necessidade Especial:</label></td>
 				<td>
-					<select name="especial" id="especial" tabindex=23 >
+					<select name="especial" id="especial" tabindex=22 >
 						<?php
 						$especial = array("NAO","VISUAL - CEGUEIRA","VISUAL - BAIXA VISAO","MOTORA","AUDITIVA","MULTIPLAS","OUTRA");
 						$total = count($especial);
@@ -732,14 +765,79 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 
 					<label for=especial_descricao>Outra: </label>
-					<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=24 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
+					<input style="text-transform:uppercase" name="especial_descricao" type="text" id="especial_descricao" tabindex=23 size='40' maxlength="40" alt="Qual deficiência?" value="<?php echo ($objinscrito[0]->getespecialdescricao()); ?>" />
+                                        <input type="hidden" name="flag_especial_descricao" id="flag_especial_descricao" />
+                                </td>
+			</tr>
+
+                    	<tr>
+				<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
+				<td>
+					<select name="especial_prova" id="especial_prova" tabindex=24>
+						<?php
+						$especial_prova = array("NAO","SIM");
+						$total = count($especial_prova);
+						$i = 0;
+						while ($total > $i) {
+							if ($especial_prova[$i] != $objinscrito[0]->getespecialprova()) {
+								echo("	<option value=".$especial_prova[$i].">".$especial_prova[$i]."</option>\n");
+							} else {
+								echo("	<option selected value=".$especial_prova[$i].">".$especial_prova[$i]."</option>\n");
+							}
+							$i = $i + 1;
+						}
+						?>
+					</select>
+					<span class="textoSobrescrito">*</span>
+					&nbsp;&nbsp;Qual?&nbsp;&nbsp;
+					<input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=25 size='40' maxlength="40" alt="Qual?" value="<?php echo ($objinscrito[0]->getespecialprovadescricao()); ?>" />
+                                        <input type="hidden" name="flag_especial_prova_descricao" id="flag_especial_prova_descricao" />
+                                </td>
+			</tr>                                                     
+
+			<tr>
+				<td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa?</label></td>
+				<td>
+
+				 	<?php	
+						//Verifica o término do período de isenção					
+						if ($data_fim_isencao >= $data_atual){
+							echo("<select name='isencao' id='isencao' tabindex=26>");
+						}else{
+							echo("<select name='isencao' id='isencao' tabindex=26 disabled>");
+						}
+						$isencao = array("NAO","SIM");
+						$total = count($isencao);
+						$i = 0;
+						while ($total > $i) {
+							$string = 'SIM';
+							if ($isencao[$i] == 'NAO') {
+								$string = 'NAO';
+							}
+							if ($isencao[$i] != $objinscrito[0]->getisencao()) {
+								echo("	<option value=".$isencao[$i].">".$string."</option>\n");
+							} else {
+								echo("	<option selected value=".$isencao[$i].">".$string."</option>\n");
+							}
+							$i = $i + 1;
+						}
+					?>
+					</select>
+					<span class="textoSobrescrito">* Caso positivo, veja as condi&ccedil;&otilde;es de atendimento no Edital<br /></span>
 				</td>
 			</tr>
 
 			<tr>
+				<td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
+				<td>                                  
+                                    <input name="nis" id="nis" tabindex="27" type="text" size="15" maxlength="11" OnKeyPress="javascript:return Onlynumber(event);" alt="Cadastro &Uacute;nico (NIS)" value="<?php echo($objinscrito[0]->getnis()); ?>" />
+				</td>
+			</tr>
+                    
+			<tr>
 				<td align='right' width="200px"><label for=campus>Campus:</label></td>
 				<td colspan='2'>
-					<select id="campus" name="campus" tabindex="25">
+					<select id="campus" name="campus" tabindex="28">
 						<option value="0" selected="selected">Escolha um Campus</option>
 						<?php
 						$campus = new Campus(null, null);
@@ -769,7 +867,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right' width="200px"><label for=curso>Curso:</label></td>
 				<td colspan='2'>
-					<select name="curso" class=".text" id="curso" tabindex=26>
+					<select name="curso" class=".text" id="curso" tabindex=29>
 						<?php
 						$cod_campus_selecionado = $objinscrito[0]->getcampus();
 						$codigoCurso = $objinscrito[0]->getcurso();
@@ -801,7 +899,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right' width="200px"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
 				<td colspan='2'>
-					<select id="localprova" name="localprova" tabindex="27">
+					<select id="localprova" name="localprova" tabindex="30">
 						<option value="0" selected="selected">Escolha um Local de prova</option>
 						<?php
 						$localprova = new Localprova(null, null, null);
@@ -826,69 +924,6 @@ if (count($objinscrito) == 0){
 						?>
 					</select>
 					<span class="textoSobrescrito">*</span>
-				</td>
-			</tr>
-
-			<tr>
-				<td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa?</label></td>
-				<td>
-
-				 	<?php	
-						//Verifica o término do período de isenção					
-						if ($data_fim_isencao >= $data_atual){
-							echo("<select name='isencao' id='isencao' tabindex=28>");
-						}else{
-							echo("<select name='isencao' id='isencao' tabindex=28 disabled>");
-						}
-						$isencao = array("NAO","SIM");
-						$total = count($isencao);
-						$i = 0;
-						while ($total > $i) {
-							$string = 'SIM';
-							if ($isencao[$i] == 'NAO') {
-								$string = 'NAO';
-							}
-							if ($isencao[$i] != $objinscrito[0]->getisencao()) {
-								echo("	<option value=".$isencao[$i].">".$string."</option>\n");
-							} else {
-								echo("	<option selected value=".$isencao[$i].">".$string."</option>\n");
-							}
-							$i = $i + 1;
-						}
-					?>
-					</select>
-					<span class="textoSobrescrito">* Caso positivo, veja as condi&ccedil;&otilde;es de atendimento no Edital<br /></span>
-				</td>
-			</tr>
-
-			<tr>
-				<td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
-				<td>
-					<input name="nis" id="nis" tabindex="28" type="text" size="15" maxlength="11" OnKeyPress="javascript:return Onlynumber(event);" alt="Cadastro &Uacute;nico (NIS)" value="<?php echo($objinscrito[0]->getnis()); ?>" />
-				</td>
-			</tr>
-
-			<tr>
-				<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
-				<td>
-					<select name="especial_prova" id="especial_prova" tabindex=29>
-						<?php
-						$especial_prova = array("NAO","SIM");
-						$total = count($especial_prova);
-						$i = 0;
-						while ($total > $i) {
-							if ($especial_prova[$i] != $objinscrito[0]->getespecialprova()) {
-								echo("	<option value=".$especial_prova[$i].">".$especial_prova[$i]."</option>\n");
-							} else {
-								echo("	<option selected value=".$especial_prova[$i].">".$especial_prova[$i]."</option>\n");
-							}
-							$i = $i + 1;
-						}
-						?>
-					</select>
-					<span class="textoSobrescrito">*</span>
-					&nbsp;&nbsp;Qual?&nbsp;&nbsp;
-					<input style="text-transform:uppercase" name="especial_prova_descricao" type="text" id="especial_prova_descricao" tabindex=30 size='40' maxlength="40" alt="Qual?" value="<?php echo ($objinscrito[0]->getespecialprovadescricao()); ?>" />
 				</td>
 			</tr>
 
@@ -979,7 +1014,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td colspan="2" align="center">
 					Confirma?
-					<select name="declaracao" id="declaracao" tabindex=34>
+					<select name="declaracao" id="declaracao" tabindex=31>
 						<option value="NAO" selected="selected">N&Atilde;O</option>
 						<option value="SIM">SIM</option>
 					</select>
@@ -990,7 +1025,7 @@ if (count($objinscrito) == 0){
 
 			<tr>
 				<td colspan='3' align='center'>
-					<input name="Gravar" type="submit" id="Gravar" tabindex=35 value="Gravar Dados" />
+					<input name="Gravar" type="submit" id="Gravar" tabindex=32 value="Enviar" />
 					<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
 				</td>
 			</tr>
