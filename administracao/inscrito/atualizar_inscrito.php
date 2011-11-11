@@ -74,7 +74,7 @@ $inscrito->setcampus($campus);
 //$inscrito->setdatacadastro($data_cadastro);
 //$inscrito->setultimaalteracao($ultima_alteracao);
 $inscrito->setcurso($curso);
-//$inscrito->setnis($nis);
+$inscrito->setnis($nis);
 //$inscrito->setnota($nota);
 
 $resultado = $inscrito->atualizar($conexao);
