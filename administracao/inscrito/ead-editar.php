@@ -60,9 +60,16 @@
 		var campus                  = document.getElementById("campus");
 		var curso                   = document.getElementById("curso");
 		var localprova              = document.getElementById("localprova");
-//                var especial_descricao      = document.getElementById("especial_descricao");
                 var flag_especial_descricao = document.getElementById("flag_especial_descricao");
                 var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
+                
+                //lançamento das notas de EAD
+                var mediaPor1			= document.getElementById("mediaPor1");
+		var mediaPor2			= document.getElementById("mediaPor2");
+		var mediaPor3			= document.getElementById("mediaPor3");
+		var mediaMat1			= document.getElementById("mediaMat1");
+		var mediaMat2			= document.getElementById("mediaMat2");
+		var mediaMat3			= document.getElementById("mediaMat3");                   
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -154,14 +161,27 @@
 			resultado = false;
 		} else if (flag_especial_descricao.value == "1") {
 			alert('Informe a necessidade especial!');
-//			especial_descricao.focus();
 			resultado = false;
 		}
                 else if (flag_especial_prova_descricao.value == "1") {
 			alert('Informe a condicao especial para realizacao da prova!');
-//			especial_prova_descricao.focus();
 			resultado = false;
 		}
+                else if (mediaPor1.value == "" || mediaPor2.value == "" || mediaPor3.value == "" || mediaMat1.value == "" || mediaMat2.value == "" || mediaMat3.value == "") {
+			alert('Informe suas notas!');
+			mediaPor1.focus();
+			resultado = false;
+		} 
+                else if (mediaPor1.value <= 5.0 || mediaPor2.value <= 5.0 || mediaPor3.value <= 5.0 || mediaMat1.value <= 5.0 || mediaMat2.value <= 5.0 || mediaMat3.value <= 5.0) {
+                	alert('A média deve ser maior ou igual a 5.0!');
+			mediaPor1.focus();
+			resultado = false;
+		}
+                else if (mediaPor1.value > 10.0 || mediaPor2.value > 10.0 || mediaPor3.value > 10.0 || mediaMat1.value > 10.0 || mediaMat2.value > 10.0 || mediaMat3.value > 10.0) {
+			alert('Valor máximo para nota igual a 10.0!');
+			mediaPor1.focus();
+			resultado = false;
+		}    
                 
                 enableCombos();
                 
@@ -317,7 +337,16 @@
 	}
 
 	$(document).ready(function() {
-		$(".alpha").alpha();
+
+                //$(".notas").priceFormat({
+		//    prefix: '',
+		//    limit: 3,
+		//    centsLimit: 1,
+		//    centsSeparator: '.',
+		//    thousandsSeparator: ''
+		//});
+                
+                $(".alpha").alpha();
 
 		$("#nis").attr("disabled", true);
 		$("#isencao").change(function() {
@@ -342,11 +371,6 @@
 				$("#vaga_especial").val("NAO");
 			}
 		});
-
-                
-//                $("#especial_prova_descricao").attr("disabled", true);
-//                $("#especial_descricao").attr("disabled", true);
-
 		               
                 $("#especial").change(function() {
 			$("#especial option:selected").each(function() {
@@ -415,7 +439,7 @@
 					$("select[name=municipio]").html(valor);
 				}
 			)
-		})
+		})            
 	})
 	</script>
 </head>
@@ -995,7 +1019,31 @@ if (count($objinscrito) == 0){
 		                    </td>
 		                </tr>
 			<?php endif;?>
+                        
+                        <tr>
+                                <td align='right' width="200px">Portugu&ecirc;s:</td>
+                                <td>
+                                        &emsp;1&deg; Ano: <input name="mediaPor1" type="text" id="mediaPor1" tabindex=32 value="<?php echo ($objinscrito[0]->getmediaPor1()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
+                                        <span class="textoSobrescrito">*</span>
+                                        &emsp;2&deg; Ano: <input name="mediaPor2" type="text" id="mediaPor2" tabindex=33 value="<?php echo ($objinscrito[0]->getmediaPor2()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
+                                        <span class="textoSobrescrito">*</span>
+                                        &emsp;3&deg; Ano: <input name="mediaPor3" type="text" id="mediaPor3" tabindex=34 value="<?php echo ($objinscrito[0]->getmediaPor3()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
+                                        <span class="textoSobrescrito">*</span>
+                                </td>
+                        </tr>
 
+                        <tr>
+                                <td align='right' width="200px">Matem&aacute;tica:</td>
+                                <td>
+                                    &emsp;1&deg; Ano: <input name="mediaMat1" type="text" id="mediaMat1" tabindex=35 value="<?php echo ($objinscrito[0]->getmediaMat1()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
+                                    <span class="textoSobrescrito">*</span>
+                                    &emsp;2&deg; Ano: <input name="mediaMat2" type="text" id="mediaMat2" tabindex=36 value="<?php echo ($objinscrito[0]->getmediaMat2()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
+                                    <span class="textoSobrescrito">*</span>
+                                    &emsp;3&deg; Ano: <input name="mediaMat3" type="text" id="mediaMat3" tabindex=37 value="<?php echo ($objinscrito[0]->getmediaMat3()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
+                                    <span class="textoSobrescrito">*</span>
+                                </td>
+                        </tr> 
+                                
 			<tr>
 				<td colspan="2" align="justify">
 					<hr />
@@ -1008,7 +1056,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td colspan="2" align="center">
 					Confirma?
-					<select name="declaracao" id="declaracao" tabindex=34>
+					<select name="declaracao" id="declaracao" tabindex=39>
 						<option value="NAO" selected="selected">N&Atilde;O</option>
 						<option value="SIM">SIM</option>
 					</select>
@@ -1019,7 +1067,7 @@ if (count($objinscrito) == 0){
 
 			<tr>
 				<td colspan='3' align='center'>
-					<input name="Gravar" type="submit" id="Gravar" tabindex=35 value="Enviar" />
+					<input name="Gravar" type="submit" id="Gravar" tabindex=40 value="Enviar" />
 					<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
 				</td>
 			</tr>

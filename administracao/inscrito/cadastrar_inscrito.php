@@ -48,6 +48,12 @@ $ultima_alteracao=null;
 $curso=null;
 $nis=null;
 $nota=null;
+$mediaPor1=null;
+$mediaPor2=null;
+$mediaPor3=null;
+$mediaMat1=null;
+$mediaMat2=null;
+$mediaMat3=null;
 
 
 foreach ($_POST as $key => $valor) {
@@ -63,7 +69,6 @@ $resultado = $banco->ExecutaQueryGenerica('SELECT MAX(id) +1 AS novo_id FROM ins
 $resultado = mysql_fetch_assoc($resultado);
 $id = $resultado['novo_id'];
 $numinscricao = substr($cpf, 0,2).$id;
-
 
 $inscrito = new Inscrito();
 
@@ -105,6 +110,14 @@ $inscrito->setultimaalteracao($ultima_alteracao);
 $inscrito->setcurso($curso);
 $inscrito->setnis($nis);
 $inscrito->setnota($nota);
+
+//implementação para atender ao processo seletivo de discente EAD
+$inscrito->setmediaPor1($mediaPor1);
+$inscrito->setmediaPor2($mediaPor2);
+$inscrito->setmediaPor3($mediaPor3);
+$inscrito->setmediaMat1($mediaMat1);
+$inscrito->setmediaMat2($mediaMat2);
+$inscrito->setmediaMat3($mediaMat3);
 
 $existe = $inscrito->Existe($conexao);
 

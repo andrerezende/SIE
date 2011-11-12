@@ -1,8 +1,7 @@
 <?php session_start("SELECAO"); 
 
-//Atribui��o da p�gina parametrizada respons�vel pelo edi��o e impress�o do cadastro do candidato 
 $pagina_editar	      = $_SESSION["Gpaginaeditar"];		   
-$pagina_impressao	= $_SESSION["Gpaginaimpressao"];
+$pagina_impressao     = $_SESSION["Gpaginaimpressao"];
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
@@ -77,9 +76,15 @@ $inscrito->setcurso($curso);
 $inscrito->setnis($nis);
 //$inscrito->setnota($nota);
 
+//implementação para atender ao processo seletivo de discente EAD
+$inscrito->setmediaPor1( $mediaPor1);
+$inscrito->setmediaPor2( $mediaPor2);
+$inscrito->setmediaPor3( $mediaPor3);
+$inscrito->setmediaMat1( $mediaMat1);
+$inscrito->setmediaMat2( $mediaMat2);
+$inscrito->setmediaMat3( $mediaMat3);
+
 $resultado = $inscrito->atualizar($conexao);
-
-
 
 if ($resultado) {
 	$banco->commitTransaction();
