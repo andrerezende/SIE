@@ -857,7 +857,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr>
+			<tr style="display: none">
 				<td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa?</label></td>
 				<td>
 
