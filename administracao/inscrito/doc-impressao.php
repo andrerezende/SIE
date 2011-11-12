@@ -78,7 +78,7 @@ if (count($objinscrito) == 0) {
 			<tr>
 				<td align='right'><label for=nome>Nome:</label></td>
 				<td colspan='2'>
-					<input style="text-transform:uppercase" name="nome" id="nome" disabled="true" type="text" tabindex=1 size='65' maxlength="65" alt="Nome Completo" value="<?php echo ($objinscrito[0]->getNome()); ?>" />
+					<input style="text-transform:uppercase" name="nome" id="nome" disabled="true" type="text" tabindex=1 size='65' maxlength="65" alt="Nome Completo" value="<?php echo ($objinscrito[0]->getnome()); ?>" />
 				</td>
 			</tr>
 
