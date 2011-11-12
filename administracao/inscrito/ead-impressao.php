@@ -254,12 +254,12 @@ if (count($objinscrito) == 0) {
 			</td>
 		</tr>
 
-        <tr>
-			<td height="28" align='right'><label for=isencao>Solicita Isen&ccedil;&atilde;o de Taxa?</label></td>
-			<td>
-				<input name="isencao" id="isencao" disabled="disabled" id="curso" tabindex=26 size="3" value="<?php echo ($objinscrito[0]->getisencao()); ?>" />
-			</td>
-        </tr>
+                <tr style="display: none">
+                                <td height="28" align='right'><label for=isencao>Solicita Isen&ccedil;&atilde;o de Taxa?</label></td>
+                                <td>
+                                        <input name="isencao" id="isencao" disabled="disabled" id="curso" tabindex=26 size="3" value="<?php echo ($objinscrito[0]->getisencao()); ?>" />
+                                </td>
+                </tr>
 
 		<tr style="display: none">
 			<td height="28" align='right'><label for=nis>Cadastro &Uacute;nico (NIS):</label></td>
