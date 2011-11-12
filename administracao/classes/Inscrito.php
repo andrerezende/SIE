@@ -41,12 +41,12 @@ class Inscrito {
 	protected $ultima_alteracao;
 
         //atributos especificos para o processo seletivo de EAD
-        protected $mediaPor1;
-	protected $mediaPor2;
-	protected $mediaPor3;
-	protected $mediaMat1;
-	protected $mediaMat2;
-	protected $mediaMat3;
+        protected $mediapor1;
+	protected $mediapor2;
+	protected $mediapor3;
+	protected $mediamat1;
+	protected $mediamat2;
+	protected $mediamat3;
 
         public function _construct(){}
         
@@ -365,59 +365,59 @@ class Inscrito {
 
         //atributos especificos para o processo seletivo de EAD
 
-        public function getmediaPor1(){
-                return $this->mediaPor1;
+        public function getmediapor1(){
+                return $this->mediapor1;
         }
 
-        public function setmediaPor1($pmediaPor1){
-                $this->mediaPor1 = $pmediaPor1;        
+        public function setmediapor1($pmediapor1){
+                $this->mediapor1 = $pmediapor1;        
         }
         
-	public function getmediaPor2(){
-                return $this->mediaPor2;                        
+	public function getmediapor2(){
+                return $this->mediapor2;                        
         }
 
-        public function setmediaPor2($pmediaPor2){
-                $this->mediaPor2 = $pmediaPor2;                
+        public function setmediapor2($pmediapor2){
+                $this->mediapor2 = $pmediapor2;                
         }
         
-	public function getmediaPor3(){
-                return $this->mediaPor3;                        
+	public function getmediapor3(){
+                return $this->mediapor3;                        
         }
         
-        public function setmediaPor3($pmediaPor3){
-                $this->mediaPor3 = $pmediaPor3;                         
+        public function setmediapor3($pmediapor3){
+                $this->mediapor3 = $pmediapor3;                         
         }
         
-	public function getmediaMat1(){
-                return $this->mediaMat1;
+	public function getmediamat1(){
+                return $this->mediamat1;
         }
         
-        public function setmediaMat1($pmediaMat1){
-                $this->mediaMat1 = $pmediaMat1;                        
+        public function setmediamat1($pmediamat1){
+                $this->mediamat1 = $pmediamat1;                        
         }
 	
-        public function getmediaMat2(){
-                return $this->mediaMat2;  
+        public function getmediamat2(){
+                return $this->mediamat2;  
         }
         
-        public function setmediaMat2($pmediaMat2){
-                $this->mediaMat2 = $pmediaMat2;                                                
+        public function setmediamat2($pmediamat2){
+                $this->mediamat2 = $pmediamat2;                                                
         }
 	
-        public function getmediaMat3(){
-                return $this->mediaMat3;
+        public function getmediamat3(){
+                return $this->mediamat3;
         }
         
-        public function setmediaMat3($pmediaMat3){
-                $this->mediaMat3 = $pmediaMat3;                                                
+        public function setmediamat3($pmediamat3){
+                $this->mediamat3 = $pmediamat3;                                                
         }     
         
         public function Inserir($sock) {
 		$this->data_cadastro = date('Y-m-d H:i:s');
 		$this->ultima_alteracao = $this->data_cadastro;
 
-		$ssql = "INSERT INTO inscrito (nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, data_cadastro, ultima_alteracao, curso, nis, port1, port2, port3, mat1, mat2, mat3) VALUES ";
+		$ssql = "INSERT INTO inscrito (nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, data_cadastro, ultima_alteracao, curso, nis, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3) VALUES ";
                 
 		$ssql .= "('" . $this->nome . "','" . $this->endereco . "',";
 		$ssql .= "'" . $this->bairro . "','" . $this->cep . "',";
@@ -436,8 +436,8 @@ class Inscrito {
 		$ssql .= "'" . $this->vaga_rural . "',";
 		$ssql .= "'" . $this->campus . "',";
 		$ssql .= "'" . $this->data_cadastro . "','" . $this->ultima_alteracao . "','" . $this->curso . "','" . $this->nis . "',";
-           	$ssql .= "'" . $this->mediaPor1 . "','" . $this->mediaPor2 . "','" . $this->mediaPor3 . "',";
-                $ssql .= "'" . $this->mediaMat1 . "','" . $this->mediaMat2 . "','" . $this->mediaMat3 . "'" . ")";               
+           	$ssql .= "'" . $this->mediapor1 . "','" . $this->mediapor2 . "','" . $this->mediapor3 . "',";
+                $ssql .= "'" . $this->mediamat1 . "','" . $this->mediamat2 . "','" . $this->mediamat3 . "'" . ")";               
                 
                 $rs = mysql_query($ssql, $sock);
 
@@ -474,12 +474,12 @@ class Inscrito {
 		$ssql .= "curso = '" . $this->curso . "',";
 		$ssql .= "nota = '" . $this->nota . "',";
 		$ssql .= "nis = '" . $this->nis . "',";
-                $ssql .= "port1 = '" . $this->mediaPor1 . "',";
-                $ssql .= "port2 = '" . $this->mediaPor2 . "',";
-                $ssql .= "port3 = '" . $this->mediaPor3 . "',";
-                $ssql .= "mat1 = '" . $this->mediaMat1 . "',";
-                $ssql .= "mat2 = '" . $this->mediaMat2 . "',";                              
-               	$ssql .= "mat3 = '" . $this->mediaMat3 . "'";
+                $ssql .= "mediapor1 = '" . $this->mediapor1 . "',";
+                $ssql .= "mediapor2 = '" . $this->mediapor2 . "',";
+                $ssql .= "mediapor3 = '" . $this->mediapor3 . "',";
+                $ssql .= "mediamat1 = '" . $this->mediamat1 . "',";
+                $ssql .= "mediamat2 = '" . $this->mediamat2 . "',";                              
+               	$ssql .= "mediamat3 = '" . $this->mediamat3 . "'";
 
 		$ssql .= " WHERE id = " . $this->id;
 
@@ -530,7 +530,7 @@ class Inscrito {
 	}
         
         public function SelectByPrimaryKey($sock,$codigo,$senha) {
-		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, port1, port2, port3, mat1, mat2, mat3 FROM inscrito A " ;
+		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3 FROM inscrito A " ;
 		$ssql = $ssql . " WHERE cpf=" .$codigo." AND senha = '" .$senha."'";
 
 		$rs = mysql_query($ssql, $sock);
@@ -545,7 +545,7 @@ class Inscrito {
 	}
 
 	public function SelectByRg($sock,$codigo) {
-		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota FROM inscrito A " ;
+		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3 FROM inscrito A " ;
 		$ssql = $ssql . " WHERE rg=" .$codigo;
 
 		$rs = mysql_query($ssql, $sock);
@@ -560,9 +560,9 @@ class Inscrito {
 	}
 
 	public function SelectByCpf($sock,$codigo) {
-		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, port1, port2, port3, mat1, mat2, mat3 FROM inscrito A " ;
+		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3 FROM inscrito A " ;
                 $ssql = $ssql . " WHERE cpf=" .$codigo;
-
+                              
 		$rs = mysql_query($ssql, $sock);
                 
                 $obj = mysql_fetch_object($rs, "Inscrito");
@@ -573,9 +573,9 @@ class Inscrito {
 	}
 
 	public function SelectById($sock,$id) {
-                $ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, port1, port2, port3, mat1, mat2, mat3 FROM inscrito A " ;
+                $ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3 FROM inscrito A " ;
                 $ssql .= " WHERE id='" .$id ."'";
-
+               
 		$rs = mysql_query($ssql, $sock);
                 
                 $obj = mysql_fetch_object($rs, "Inscrito");
@@ -586,7 +586,7 @@ class Inscrito {
 	}
 
 	public function Existe($sock) {
-		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, port1, port2, port3, mat1, mat2, mat3 FROM inscrito A " ;
+		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3 FROM inscrito A " ;
 		$ssql = $ssql . " WHERE cpf=" .$this->cpf;
 
 		$rs = mysql_query($ssql, $sock);
@@ -692,5 +692,4 @@ class Inscrito {
 
 		return mysql_query($ssql, $sock);
 	}
-
 }

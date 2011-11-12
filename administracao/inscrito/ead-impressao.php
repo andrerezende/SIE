@@ -306,11 +306,11 @@ if (count($objinscrito) == 0) {
         <tr>
                 <td align='right' width="200px">Portugu&ecirc;s:</td>
                 <td>
-                        &emsp;1&deg; Ano: <input disabled="disabled" name="mediaPor1" type="text" id="mediaPor1" tabindex=32 value="<?php echo ($objinscrito[0]->getmediaPor1()); ?>" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
+                        &emsp;1&deg; Ano: <input disabled="disabled" name="mediapor1" type="text" id="mediapor1" tabindex=32 value="<?php echo ($objinscrito[0]->getmediapor1()); ?>" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
                         <span class="textoSobrescrito">*</span>
-                        &emsp;2&deg; Ano: <input disabled="disabled" name="mediaPor2" type="text" id="mediaPor2" tabindex=33 value="<?php echo ($objinscrito[0]->getmediaPor2()); ?>" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
+                        &emsp;2&deg; Ano: <input disabled="disabled" name="mediapor2" type="text" id="mediapor2" tabindex=33 value="<?php echo ($objinscrito[0]->getmediapor2()); ?>" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
                         <span class="textoSobrescrito">*</span>
-                        &emsp;3&deg; Ano: <input disabled="disabled" name="mediaPor3" type="text" id="mediaPor3" tabindex=34 value="<?php echo ($objinscrito[0]->getmediaPor3()); ?>" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
+                        &emsp;3&deg; Ano: <input disabled="disabled" name="mediapor3" type="text" id="mediapor3" tabindex=34 value="<?php echo ($objinscrito[0]->getmediapor3()); ?>" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
                         <span class="textoSobrescrito">*</span>
                 </td>
         </tr>
@@ -318,11 +318,11 @@ if (count($objinscrito) == 0) {
         <tr>
                 <td align='right' width="200px">Matem&aacute;tica:</td>
                 <td>
-                    &emsp;1&deg; Ano: <input disabled="disabled" name="mediaMat1" type="text" id="mediaMat1" tabindex=35 value="<?php echo ($objinscrito[0]->getmediaMat1()); ?>" size="5" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
+                    &emsp;1&deg; Ano: <input disabled="disabled" name="mediamat1" type="text" id="mediamat1" tabindex=35 value="<?php echo ($objinscrito[0]->getmediamat1()); ?>" size="5" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
                     <span class="textoSobrescrito">*</span>
-                    &emsp;2&deg; Ano: <input disabled="disabled" name="mediaMat2" type="text" id="mediaMat2" tabindex=36 value="<?php echo ($objinscrito[0]->getmediaMat2()); ?>" size="5" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
+                    &emsp;2&deg; Ano: <input disabled="disabled" name="mediamat2" type="text" id="mediamat2" tabindex=36 value="<?php echo ($objinscrito[0]->getmediamat2()); ?>" size="5" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
                     <span class="textoSobrescrito">*</span>
-                    &emsp;3&deg; Ano: <input disabled="disabled" name="mediaMat3" type="text" id="mediaMat3" tabindex=37 value="<?php echo ($objinscrito[0]->getmediaMat3()); ?>" size="5" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
+                    &emsp;3&deg; Ano: <input disabled="disabled" name="mediamat3" type="text" id="mediamat3" tabindex=37 value="<?php echo ($objinscrito[0]->getmediamat3()); ?>" size="5" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
                     <span class="textoSobrescrito">*</span>
                 </td>
         </tr> 

@@ -1,10 +1,10 @@
 <?php
 class DB {
 	private static $instance = null;
-        private $dbHost       = "186.202.13.6.09";
-	private $dbDatabase      = "ifbaiano35.li";
-	private $dbUser          = "ifbaiano35.lo";
-	private $dbPassword      = "socio11logia.loiu";
+        private $dbHost          = "localhost";
+	private $dbDatabase      = "ead";
+	private $dbUser          = "root";
+	private $dbPassword      = "";
 
 	public static function getInstance(){
 		if (DB::$instance == null) {

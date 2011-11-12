@@ -77,12 +77,12 @@ $inscrito->setnis($nis);
 //$inscrito->setnota($nota);
 
 //implementação para atender ao processo seletivo de discente EAD
-$inscrito->setmediaPor1( $mediaPor1);
-$inscrito->setmediaPor2( $mediaPor2);
-$inscrito->setmediaPor3( $mediaPor3);
-$inscrito->setmediaMat1( $mediaMat1);
-$inscrito->setmediaMat2( $mediaMat2);
-$inscrito->setmediaMat3( $mediaMat3);
+$inscrito->setmediapor1($mediapor1);
+$inscrito->setmediapor2($mediapor2);
+$inscrito->setmediapor3($mediapor3);
+$inscrito->setmediamat1($mediamat1);
+$inscrito->setmediamat2($mediamat2);
+$inscrito->setmediamat3($mediamat3);
 
 $resultado = $inscrito->atualizar($conexao);
 

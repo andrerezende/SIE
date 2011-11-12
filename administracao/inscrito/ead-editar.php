@@ -17,7 +17,7 @@
 	<link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.price_format.1.4.js"></script>
-	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
+	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>    
 	<script language="JavaScript" type="text/JavaScript">
 
         function enableCombos() {
@@ -64,12 +64,12 @@
                 var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
                 
                 //lançamento das notas de EAD
-                var mediaPor1			= document.getElementById("mediaPor1");
-		var mediaPor2			= document.getElementById("mediaPor2");
-		var mediaPor3			= document.getElementById("mediaPor3");
-		var mediaMat1			= document.getElementById("mediaMat1");
-		var mediaMat2			= document.getElementById("mediaMat2");
-		var mediaMat3			= document.getElementById("mediaMat3");                   
+                var mediapor1			= document.getElementById("mediapor1");
+		var mediapor2			= document.getElementById("mediapor2");
+		var mediapor3			= document.getElementById("mediapor3");
+		var mediamat1			= document.getElementById("mediamat1");
+		var mediamat2			= document.getElementById("mediamat2");
+		var mediamat3			= document.getElementById("mediamat3");                   
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -145,8 +145,7 @@
 		} else if (municipio.value == "" || municipio.value == "0") {
 			alert('Informe o Estado e Municipio!');
 			municipio.focus();
-			resultado = false;
-		
+			resultado = false;		
                 } else if (campus.value == "" || campus.value == "0") {
 			alert('Informe o Campus e Area!');
 			campus.focus();
@@ -162,24 +161,20 @@
 		} else if (flag_especial_descricao.value == "1") {
 			alert('Informe a necessidade especial!');
 			resultado = false;
-		}
-                else if (flag_especial_prova_descricao.value == "1") {
+		} else if (flag_especial_prova_descricao.value == "1") {
 			alert('Informe a condicao especial para realizacao da prova!');
 			resultado = false;
-		}
-                else if (mediaPor1.value == "" || mediaPor2.value == "" || mediaPor3.value == "" || mediaMat1.value == "" || mediaMat2.value == "" || mediaMat3.value == "") {
+		} else if (mediapor1.value == "" || mediapor2.value == "" || mediapor3.value == "" || mediamat1.value == "" || mediamat2.value == "" || mediamat3.value == "") {
 			alert('Informe suas notas!');
-			mediaPor1.focus();
+			mediapor1.focus();
 			resultado = false;
-		} 
-                else if (mediaPor1.value <= 5.0 || mediaPor2.value <= 5.0 || mediaPor3.value <= 5.0 || mediaMat1.value <= 5.0 || mediaMat2.value <= 5.0 || mediaMat3.value <= 5.0) {
+		} else if (mediapor1.value <= 5.0 || mediapor2.value <= 5.0 || mediapor3.value <= 5.0 || mediamat1.value <= 5.0 || mediamat2.value <= 5.0 || mediamat3.value <= 5.0) {
                 	alert('A média deve ser maior ou igual a 5.0!');
-			mediaPor1.focus();
+			mediapor1.focus();
 			resultado = false;
-		}
-                else if (mediaPor1.value > 10.0 || mediaPor2.value > 10.0 || mediaPor3.value > 10.0 || mediaMat1.value > 10.0 || mediaMat2.value > 10.0 || mediaMat3.value > 10.0) {
+		} else if (mediapor1.value > 10.0 || mediapor2.value > 10.0 || mediapor3.value > 10.0 || mediamat1.value > 10.0 || mediamat2.value > 10.0 || mediamat3.value > 10.0) {
 			alert('Valor máximo para nota igual a 10.0!');
-			mediaPor1.focus();
+			mediapor1.focus();
 			resultado = false;
 		}    
                 
@@ -338,13 +333,13 @@
 
 	$(document).ready(function() {
 
-                //$(".notas").priceFormat({
-		//    prefix: '',
-		//    limit: 3,
-		//    centsLimit: 1,
-		//    centsSeparator: '.',
-		//    thousandsSeparator: ''
-		//});
+                $(".notas").priceFormat({
+		    prefix: '',
+		    limit: 3,
+		    centsLimit: 1,
+		    centsSeparator: '.',
+		    thousandsSeparator: ''
+		});
                 
                 $(".alpha").alpha();
 
@@ -1023,11 +1018,11 @@ if (count($objinscrito) == 0){
                         <tr>
                                 <td align='right' width="200px">Portugu&ecirc;s:</td>
                                 <td>
-                                        &emsp;1&deg; Ano: <input name="mediaPor1" type="text" id="mediaPor1" tabindex=32 value="<?php echo ($objinscrito[0]->getmediaPor1()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
+                                        &emsp;1&deg; Ano: <input class="notas" name="mediapor1" type="text" id="mediapor1" tabindex=32 value="<?php echo ($objinscrito[0]->getmediapor1()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
                                         <span class="textoSobrescrito">*</span>
-                                        &emsp;2&deg; Ano: <input name="mediaPor2" type="text" id="mediaPor2" tabindex=33 value="<?php echo ($objinscrito[0]->getmediaPor2()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
+                                        &emsp;2&deg; Ano: <input class="notas" name="mediapor2" type="text" id="mediapor2" tabindex=33 value="<?php echo ($objinscrito[0]->getmediapor2()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
                                         <span class="textoSobrescrito">*</span>
-                                        &emsp;3&deg; Ano: <input name="mediaPor3" type="text" id="mediaPor3" tabindex=34 value="<?php echo ($objinscrito[0]->getmediaPor3()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
+                                        &emsp;3&deg; Ano: <input class="notas" name="mediapor3" type="text" id="mediapor3" tabindex=34 value="<?php echo ($objinscrito[0]->getmediapor3()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
                                         <span class="textoSobrescrito">*</span>
                                 </td>
                         </tr>
@@ -1035,11 +1030,11 @@ if (count($objinscrito) == 0){
                         <tr>
                                 <td align='right' width="200px">Matem&aacute;tica:</td>
                                 <td>
-                                    &emsp;1&deg; Ano: <input name="mediaMat1" type="text" id="mediaMat1" tabindex=35 value="<?php echo ($objinscrito[0]->getmediaMat1()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
+                                    &emsp;1&deg; Ano: <input class="notas" name="mediamat1" type="text" id="mediamat1" tabindex=35 value="<?php echo ($objinscrito[0]->getmediamat1()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
                                     <span class="textoSobrescrito">*</span>
-                                    &emsp;2&deg; Ano: <input name="mediaMat2" type="text" id="mediaMat2" tabindex=36 value="<?php echo ($objinscrito[0]->getmediaMat2()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
+                                    &emsp;2&deg; Ano: <input class="notas" name="mediamat2" type="text" id="mediamat2" tabindex=36 value="<?php echo ($objinscrito[0]->getmediamat2()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
                                     <span class="textoSobrescrito">*</span>
-                                    &emsp;3&deg; Ano: <input name="mediaMat3" type="text" id="mediaMat3" tabindex=37 value="<?php echo ($objinscrito[0]->getmediaMat3()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
+                                    &emsp;3&deg; Ano: <input class="notas" name="mediamat3" type="text" id="mediamat3" tabindex=37 value="<?php echo ($objinscrito[0]->getmediamat3()); ?>" size="5" onkeypress="javascript:return Onlynumber(event);" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
                                     <span class="textoSobrescrito">*</span>
                                 </td>
                         </tr> 

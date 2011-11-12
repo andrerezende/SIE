@@ -48,17 +48,16 @@ $ultima_alteracao=null;
 $curso=null;
 $nis=null;
 $nota=null;
-$mediaPor1=null;
-$mediaPor2=null;
-$mediaPor3=null;
-$mediaMat1=null;
-$mediaMat2=null;
-$mediaMat3=null;
+$mediapor1=null;
+$mediapor2=null;
+$mediapor3=null;
+$mediamat1=null;
+$mediamat2=null;
+$mediamat3=null;
 
 
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
-//        echo($i++." - ".$key."<br />");
 }
 
 /*Acesso ao banco de dados */
@@ -112,12 +111,12 @@ $inscrito->setnis($nis);
 $inscrito->setnota($nota);
 
 //implementação para atender ao processo seletivo de discente EAD
-$inscrito->setmediaPor1($mediaPor1);
-$inscrito->setmediaPor2($mediaPor2);
-$inscrito->setmediaPor3($mediaPor3);
-$inscrito->setmediaMat1($mediaMat1);
-$inscrito->setmediaMat2($mediaMat2);
-$inscrito->setmediaMat3($mediaMat3);
+$inscrito->setmediapor1($mediapor1);
+$inscrito->setmediapor2($mediapor2);
+$inscrito->setmediapor3($mediapor3);
+$inscrito->setmediamat1($mediamat1);
+$inscrito->setmediamat2($mediamat2);
+$inscrito->setmediamat3($mediamat3);
 
 $existe = $inscrito->Existe($conexao);
 
