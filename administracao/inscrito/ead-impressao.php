@@ -212,7 +212,7 @@ if (count($objinscrito) == 0) {
 			</tr>
 
 			<tr>
-				<td height="28" align='right'><label for=campus>Campus:</label></td>
+				<td height="28" align='right'><label for=campus>Polo:</label></td>
 				<td>
 					<?php
 					$campus = new Campus(null, null);
