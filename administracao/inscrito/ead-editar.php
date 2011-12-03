@@ -147,40 +147,39 @@
 			municipio.focus();
 			resultado = false;		
                 } else if (campus.value == "" || campus.value == "0") {
-			alert('Informe o Campus e Area!');
+			alert('Informe o Polo e Area!');
 			campus.focus();
 			resultado = false;
 		} else if (curso.value == "" || curso.value == "0") {
-			alert('Informe o Campus e Area!');
+			alert('Informe o Polo e Area!');
 			curso.focus();
 			resultado = false;
 		} else if (localprova.value == "" || localprova.value == "0") {
-			alert('Informe o Campus e Local de Prova!');
+			alert('Informe o Polo e Local de Prova!');
 			localprova.focus();
 			resultado = false;
 		} else if (flag_especial_descricao.value == "1") {
 			alert('Informe a necessidade especial!');
 			resultado = false;
-		} else if (flag_especial_prova_descricao.value == "1") {
-			alert('Informe a condicao especial para realizacao da prova!');
-			resultado = false;
 		} else if (mediapor1.value == "" || mediapor2.value == "" || mediapor3.value == "" || mediamat1.value == "" || mediamat2.value == "" || mediamat3.value == "") {
 			alert('Informe suas notas!');
 			mediapor1.focus();
 			resultado = false;
-		} else if (mediapor1.value <= 5.0 || mediapor2.value <= 5.0 || mediapor3.value <= 5.0 || mediamat1.value <= 5.0 || mediamat2.value <= 5.0 || mediamat3.value <= 5.0) {
-                	alert('A média deve ser maior ou igual a 5.0!');
+		} else if (mediapor1.value <= 4.9 || mediapor2.value <= 4.9 || mediapor3.value <= 4.9 || mediamat1.value <= 4.9 || mediamat2.value <= 4.9 || mediamat3.value <= 4.9) {
+                	alert('A nota deve ser maior ou igual a 5.0!');
 			mediapor1.focus();
 			resultado = false;
 		} else if (mediapor1.value > 10.0 || mediapor2.value > 10.0 || mediapor3.value > 10.0 || mediamat1.value > 10.0 || mediamat2.value > 10.0 || mediamat3.value > 10.0) {
-			alert('Valor máximo para nota igual a 10.0!');
+			alert('A nota deve ser menor ou igual a 10.0!');
 			mediapor1.focus();
 			resultado = false;
-		}    
+		}  
                 
-                enableCombos();
+                if (resultado){
+                    enableCombos();
+                }
                 
-		return resultado;
+                return resultado;
 	}
 
 	function Mascara(tipo, campo, teclaPress) {
@@ -784,7 +783,7 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<tr>
-				<td align='right' width="200px"><label for=campus>Campus:</label></td>
+				<td align='right' width="200px"><label for=campus>Polo:</label></td>
 				<td colspan='2'>
 					<select id="campus" name="campus" tabindex="25">
 						<option value="0" selected="selected">Escolha um Campus</option>
@@ -915,7 +914,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-			<tr>
+                        <tr style="display: none">
 				<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
 				<td>
 					<select name="especial_prova" id="especial_prova" tabindex=29>
@@ -1014,6 +1013,10 @@ if (count($objinscrito) == 0){
 		                    </td>
 		                </tr>
 			<?php endif;?>
+
+                        <tr>
+                                <td colspan="2" align="center"><h2> Registro de notas</h2> </td>
+                        </tr>   
                         
                         <tr>
                                 <td align='right' width="200px">Portugu&ecirc;s:</td>
