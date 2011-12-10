@@ -74,8 +74,8 @@ session_start();
 	</script>
 </head>
 <?php
-if (!$_SESSION['validacao']) :
-	header("Location:../login/login.php");
+if ($_SESSION['validacao']) :
+	//header("Location:../login/login.php");
 else :
 ?>
 <body>
@@ -183,9 +183,25 @@ else :
 			</form>
 		</tr>
 		<tr>
+			<form id='formclassificacao' name='formclassificacao' action='classificacao.php' method='post'>
+				<input type='hidden' value='tipocota' name="tipocota" />
+				<td><b>Rela&ccedil;&atilde;o de classifica&ccedil;&atilde;o</b></td>
+				<td>&nbsp;</td>
+				<td>
+					<select name="tipocota" id="tipocota" alt="Filtro de cota" >
+						<option value="AC">Ampla Concorrencia</option>
+						<option value="RP">Rede Publica</option>
+						<option value="NE">Necessidades Especiais</option>
+					</select>
+				</td>
+				<td><input name="visualizar_relatorio" type="submit" id="visualizar_relatorio" value="Visualizar"></td>
+			</form>
+		</tr>
+                
+		<tr>
 			<form id='relatorioisentos' name='relatorioisentos' action='relatorio_isentos.php' method='post' onsubmit='return validar()'>
 				<input type='hidden' value='relacao_isentos' name="tipo" />
-				<td><b>Relat&oacute;rio de isenções solicitadas</b></td>
+				<td><b>Relat&oacute;rio de isenï¿½ï¿½es solicitadas</b></td>
 				<td>&nbsp;</td>
 				<td>
 					<input type="text" name="data_final_isencao" size="11" maxlength="10" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" id="data_final_isencao" />
@@ -196,7 +212,7 @@ else :
 		<tr>
 			<form id='relatorioisencaoconfirmada' name='relatorioisencaoconfirmada' action='relatorio_isentos_confirmados.php' method='post'>
 				<input type='hidden' value='relatorioisencaoconfirmada' name="tipo" />
-				<td><b>Relat&oacute;rio de isenções confirmadas</b></td>
+				<td><b>Relat&oacute;rio de isenï¿½ï¿½es confirmadas</b></td>
 				<td>&nbsp;</td>
 				<td>
 					&nbsp;
@@ -215,7 +231,6 @@ else :
 				</td>
 				<td><input name="visualizar_relatorio" type="submit" id="visualizar_relatorio" value="Visualizar"></td>
 			</form>
-		</tr>
 	</table>
 <br />
 <div class="voltar">
