@@ -510,23 +510,19 @@ class Inscrito {
 	}
 
 	public function SelectByAll($sock) {
-		$ssql = "SELECT
-			nome, endereco, bairro,
-			cep, cidade, estado,
-			email, cpf, rg,
-			especial, senha, telefone,
-			celular, localprova, id
-		FROM inscrito A " ;
-		$ssql = $ssql . " ORDER BY trim(nome)";
+		$ssql = "SELECT nome, endereco, bairro, cep, cidade, estado, email, cpf, rg, especial, senha, nacionalidade, telefone, telefone2, celular, datanascimento, sexo, estadocivil, orgaoexpedidor, uf, dataexpedicao, especial_descricao, responsavel, isencao, declaracao, localprova, numinscricao, especial_prova, especial_prova_descricao, vaga_especial, vaga_rede_publica, vaga_rural, campus, id, curso, nis, nota, mediapor1, mediapor2, mediapor3, mediamat1, mediamat2, mediamat3 FROM inscrito A " ;
+		$ssql = $ssql . " ORDER BY trim(nome)"; 
+                
 		$rs = mysql_query($ssql, $sock);
-
-		$ar= array();
-
-		while ($linha = mysql_fetch_row($rs)) {
-			$obj = new Inscrito($linha[0], $linha[1], $linha[2], $linha[3], $linha[4], $linha[5],$linha[6], $linha[7], $linha[8], $linha[9], $linha[10], null, $linha[11], null, $linha[12], null,null, null, null, null, null, null, null,null, null, $linha[13], null, null, null,null, null, null, null, $linha[14]);
+                
+                $ar = array();
+                                              
+                while ($linha = mysql_fetch_row($rs)){
+			$obj = mysql_fetch_object($rs, "Inscrito");
 			$ar[] = $obj;
 		}
-		return ($ar);
+                return $ar;
+                
 	}
         
         public function SelectByPrimaryKey($sock,$codigo,$senha) {

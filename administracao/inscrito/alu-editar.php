@@ -2,11 +2,9 @@
 <?php //session_start();?>
 
 <?php	
-	//Trecho que automatiza o encerramento do Per�odo de Isen��o
+	//Trecho que automatiza o encerramento do Período de Isenção
 	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
-	//$data_atual             = strtotime(date("d/m/Y")); 
-        $data_atual             = strtotime("now"); 
-
+        $data_atual             = strtotime("now");
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">

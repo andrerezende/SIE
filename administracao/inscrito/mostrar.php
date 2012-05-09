@@ -1,8 +1,12 @@
-<?php session_start("SELECAO"); 
+<?php session_start("SELECAO");
 
 //Atribuiçãoo da página parametrizada responsável pelo edição e impressão do cadastro do candidato 
-$pagina_editar	= $_SESSION["Gpaginaeditar"];		   
+$pagina_editar          = $_SESSION["Gpaginaeditar"];		   
 $pagina_impressao	= $_SESSION["Gpaginaimpressao"];
+
+//Parametrização para evitar após o término da inscrição que exista alteração de dados
+$data_fim      = $_SESSION["Gdatatermino"];
+$data_atual    = strtotime("now"); 
 
 ?>
 
@@ -60,13 +64,14 @@ if (empty($objinscrito[0])) {
 					<div aligne='center'>Ficha de Inscri&ccedil;&atilde;o preenchida com  sucesso. N&uacute;mero do CPF (<b><?php echo ($cpf);?></b>) <br />
 					</div>
 			<?php	} ?>
-			<div align="center">
-				<form id="frmeditar" name="frmeditar" action="<?php echo($pagina_editar)?>" method="post">
-					<input type="hidden" name="id" value="<?php echo($id);?>" />
-					<a href="#" onclick="document.forms['frmeditar'].submit();">Editar Inscri&ccedil;&atilde;o</a>
-				</form>
-			</div>
-                    
+                    	<?php   if ($data_fim >= $data_atual){ ?>
+                                    <div align="center">
+                                            <form id="frmeditar" name="frmeditar" action="<?php echo($pagina_editar)?>" method="post">
+                                                    <input type="hidden" name="id" value="<?php echo($id);?>" />
+                                                    <a href="#" onclick="document.forms['frmeditar'].submit();">Editar Inscri&ccedil;&atilde;o</a>
+                                            </form>
+                                    </div>
+			<?php	} ?>                    
 		<div align="center">
 			<form id="frmimpressao" name="frmimpressao" action="<?php echo($pagina_impressao)?>" method="post">
 				<input type="hidden" name="cpf" value="<?php echo($cpf);?>" />

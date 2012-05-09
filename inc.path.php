@@ -5,18 +5,16 @@
 $pagina_cadastro = $_SESSION["Gpaginacadastro"];
 
 //Controle de término do processo seletivo
-$data_incio   = $_SESSION["Gdatainicio"];
-$data_fim     = $_SESSION["Gdatatermino"];
-$data_atual   = strtotime("now"); 
+$data_inicio   = $_SESSION["Gdatainicio"];
+$data_fim      = $_SESSION["Gdatatermino"];
+$data_atual    = strtotime("now"); 
 
-//var_DUMP($data_incio, $data_fim, $data_atual);
+//var_DUMP($data_inicio, $data_fim, $data_atual);
 //exit;
 ?>
 
 
 <?php 
-
-//session_start();
 
 @$sc = $_REQUEST['sc'];
 @$scTitulo;
@@ -31,9 +29,11 @@ if ($sc == "") {
 
 	$scTitulo = "Inscri&ccedil;&otilde;es";
 
-	if ($data_fim >= $data_atual){
+	if ($data_inicio >= $data_atual){
+                $sc = "inscricao/inscricao_nao_aberta.html";
+        }elseif ($data_fim >= $data_atual){
 		$sc = "inscricao/inscricao_aberta.html";
-	}else{
+        }else{
 		$sc = "inscricao/inscricao_encerrada.html";
 	}
 

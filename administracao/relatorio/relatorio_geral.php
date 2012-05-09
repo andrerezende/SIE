@@ -35,27 +35,13 @@ function removeAcentos($str, $enc = "ISO-8859-1") {
 $sql = <<<SQL
 SELECT
 	campus.id AS campus_id,
-	campus.nome AS campus_nome,
-	curso.nome AS curso_nome,
 	localprova.nome AS localprova,
 	inscrito.nome AS inscrito_nome,
 	inscrito.numinscricao AS inscrito_numinscricao,
 	inscrito.cpf AS inscrito_cpf,
-	inscrito.rg AS inscrito_rg,
-	inscrito.orgaoexpedidor AS inscrito_orgaoexpedidor,
-	inscrito.uf AS inscrito_uf,
-	inscrito.dataexpedicao AS inscrito_dataexpedicao,
-	inscrito.nacionalidade AS inscrito_nacionalidade,
-	inscrito.datanascimento AS inscrito_datanascimento,
-	inscrito.sexo AS inscrito_sexo,
-	inscrito.endereco AS inscrito_endereco,
-	inscrito.cep AS inscrito_cep,
-	inscrito.cidade AS inscrito_cidade,
-	inscrito.estado AS inscrito_estado,
 	inscrito.telefone AS inscrito_telefone,
 	inscrito.celular AS inscrito_celular,
 	inscrito.email AS inscrito_email,
-	inscrito.estadocivil AS inscrito_estadocivil,
 	inscrito.especial AS inscrito_especial,
 	inscrito.especial_descricao AS inscrito_descricao_especial,
 	inscrito.isencao AS inscrito_isencao,
@@ -94,7 +80,7 @@ SQL;
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
 				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
-				INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
+				INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 SQL;
 	} elseif ($_POST['filtro_pagamento'] === '0') {
 		$sql .= <<<SQL
@@ -103,7 +89,7 @@ SQL;
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
 				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
-		WHERE ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
+		WHERE inscrito.numinscricao NOT IN (SELECT id_inscrito FROM pagamentos)
 SQL;
 	} else {
 		$sql .= <<<SQL
@@ -117,8 +103,9 @@ SQL;
 }
 $sql .= <<<SQL
  ORDER BY campus.id, inscrito.id
-LIMIT 2000
+
 SQL;
+
 //var_dump($sql);
 //exit;
 
@@ -133,33 +120,32 @@ function setCabecalho($objPHPExcel, $colunas) {
 }
 
 $colunas = array(
-	'A' => 'CAMPUS',
-	'B' => 'CURSO',
-	'C' => 'LOCAL DE PROVA',
-	'D' => 'INSCRITO',
-	'E' => 'N. INSCRICAO',
-	'F' => 'CPF',
-	'G' => 'RG',
-	'H' => 'ORGAO EXPEDIDOR',
-	'I' => 'UF',
-	'J' => 'DATA DE EXPEDICAO',
-	'K' => 'NACIONALIDADE',
-	'L' => 'DATA DE NASCIMENTO',
-	'M' => 'SEXO',
-	'N' => 'ENDERECO',
-	'O' => 'CEP',
-	'P' => 'CIDADE',
-	'Q' => 'ESTADO',
-	'R' => 'TELEFONE',
-	'S' => 'CELULAR',
-	'T' => 'EMAIL',
-	'U' => 'ESTADO CIVIL',
-	'V' => 'NECESSIDADE ESPECIAL',
-	'W' => 'DESCRICAO NECESSIDADE ESPECIAL',
-	'X' => 'ISENCAO DE TAXA',
-	'Y' => 'CONDICOES ESPECIAIS PARA REALIZACAO DA PROVA',
-	'Z' => 'DESCRICAO CONDICOES ESPECIAIS PARA REALIZACAO DA PROVA',
-	'AA' => 'CONCORRE AS VAGAS DESTINADAS A CANDIDATOS COM NECESSIDADES ESPECIAIS',
+	'A' => 'CURSO',
+	'B' => 'LOCAL DE PROVA',
+	'C' => 'INSCRITO',
+	'D' => 'N. INSCRICAO',
+	'E' => 'CPF',
+	'F' => 'RG',
+	'G' => 'ORGAO EXPEDIDOR',
+	//'I' => 'UF',
+	//'J' => 'DATA DE EXPEDICAO',
+	//'K' => 'NACIONALIDADE',
+	//'L' => 'DATA DE NASCIMENTO',
+	//'M' => 'SEXO',
+	//'N' => 'ENDERECO',
+	//'O' => 'CEP',
+	//'P' => 'CIDADE',
+	//'Q' => 'ESTADO',
+	//'G' => 'TELEFONE',
+	//'H' => 'CELULAR',
+	//'I' => 'EMAIL',
+	//'U' => 'ESTADO CIVIL',
+	//'J' => 'NECESSIDADE ESPECIAL',
+	//'L' => 'DESCRICAO NECESSIDADE ESPECIAL',
+	//'M' => 'ISENCAO DE TAXA',
+	//'N' => 'CONDICOES ESPECIAIS PARA REALIZACAO DA PROVA',
+	//'O' => 'DESCRICAO CONDICOES ESPECIAIS PARA REALIZACAO DA PROVA',
+	//'P' => 'CONCORRE AS VAGAS DESTINADAS A CANDIDATOS COM NECESSIDADES ESPECIAIS',
 );
 
 $query = $banco->ExecutaQueryGenerica($sql);

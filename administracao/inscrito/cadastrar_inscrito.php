@@ -6,6 +6,8 @@
 	<link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<?php session_start("SELECAO"); ?>
+    
 <?php
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
@@ -64,10 +66,14 @@ foreach ($_POST as $key => $valor) {
 $banco    = DB::getInstance();
 $conexao  = $banco->ConectarDB();
 
-$resultado = $banco->ExecutaQueryGenerica('SELECT MAX(id) +1 AS novo_id FROM inscrito');
+$resultado = $banco->ExecutaQueryGenerica('SELECT (COALESCE(MAX(id), 0) + 1) AS novo_id FROM inscrito');
 $resultado = mysql_fetch_assoc($resultado);
 $id = $resultado['novo_id'];
-$numinscricao = substr($cpf, 0,2).$id;
+//Geração do número de inscrição: [ano-edital + número-edital + quatro-digitos-cpf + sequencial]
+//ANTES: $numinscricao = substr($cpf, 0,2).$id;
+$edital= $_SESSION["Gedital"];
+$ano   = $_SESSION["Gano"];
+$numinscricao = $ano.$edital.substr($cpf, 0,4).$id;
 
 $inscrito = new Inscrito();
 

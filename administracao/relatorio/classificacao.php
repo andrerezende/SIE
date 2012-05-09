@@ -51,6 +51,12 @@ SELECT
         inscrito.telefone AS tel_res,
         inscrito.celular AS tel_cel,
         inscrito.email AS email,
+        mediapor1 AS p1,
+        mediapor2 AS p2,
+        mediapor3 AS p3,
+        mediamat1 AS m1,
+        mediamat2 AS m2,
+        mediamat3 AS m3,
 
 SQL;
 
@@ -118,25 +124,31 @@ $colunas     = array(
 	'E' => 'TEL.RES',
 	'F' => 'TEL.CEL',
 	'G' => 'EMAIL',
-	'H' => 'TIPO',
-	'I' => 'CAMPUS',
-	'J' => 'CURSO',
+    	'H' => 'PORT1',
+    	'I' => 'PORT2',
+    	'J' => 'PORT3',
+    	'K' => 'MAT1',
+    	'L' => 'MAT2',
+    	'M' => 'MAT3',      
+	'N' => 'TIPO',
+	'O' => 'CAMPUS',
+	'P' => 'CURSO',
 );
 
 while ($row = mysql_fetch_assoc($query)) {
 	$val = array_values($row);
 //	  echo('Campus: '.$val[0]);
 //        echo('</br>');
-          if ($campus_nome != $val[9]) {		
+          if ($campus_nome != $val[15]) {		
                 $curso_nome  = null;    
-                if ($curso_nome !=$val[10]){
+                if ($curso_nome !=$val[16]){
 //                    echo('createSheet----------------------');
 //                    echo('</br>');
 //                    echo('Aba: '.$val[0].'-'.$val[1]);
 //                    echo('</br>');                 
 //                    echo('Candidato: '.$val[3].' Nota:'.$val[10]);
 //                    echo('</br>');
-                    $aba = $val[9].'-'.$val[10];
+                    $aba = $val[15].'-'.$val[16];
                     $objPHPExcel->createSheet();
                     $objPHPExcel->setActiveSheetIndex($objPHPExcel->getActiveSheetIndex() + 1);
                     $objPHPExcel->getActiveSheet()->setTitle($aba);
@@ -171,14 +183,14 @@ while ($row = mysql_fetch_assoc($query)) {
                 }
 	}
         else{
-                if ($curso_nome !=$val[10]){
+                if ($curso_nome !=$val[16]){
 //                    echo('createSheet----------------------');
 //                    echo('</br>');
 //                    echo('Aba: '.$val[0].'-'.$val[1]);
 //                    echo('</br>');                 
 //                    echo('Candidato: '.$val[3].' Nota:'.$val[10]);
 //                    echo('</br>');                    
-                    $aba = $val[9].'-'.$val[10];
+                    $aba = $val[15].'-'.$val[16];
                     $objPHPExcel->createSheet();
                     $objPHPExcel->setActiveSheetIndex($objPHPExcel->getActiveSheetIndex() + 1);
                     $objPHPExcel->getActiveSheet()->setTitle($aba);                    
@@ -212,12 +224,12 @@ while ($row = mysql_fetch_assoc($query)) {
                      
                 }
         }
-       $campus_nome = $val[9];
-       $curso_nome  = $val[10];
+       $campus_nome = $val[15];
+       $curso_nome  = $val[16];
 }
 
 header('Content-Type: application/vnd.ms-excel');
-header('Content-Disposition: attachment;filename="relatorio_completo.xls"');
+header('Content-Disposition: attachment;filename="relatorio_completo11.xls"');
 header('Cache-Control: max-age=0');
 
 $objPHPExcel->setActiveSheetIndex(0);

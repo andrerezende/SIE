@@ -1,6 +1,6 @@
 <?php session_start("SELECAO"); 
 
-//Atribuição da página parametrizada responsável pelo edição e impressão do cadastro do candidato 
+//Atribuiï¿½ï¿½o da pï¿½gina parametrizada responsï¿½vel pelo ediï¿½ï¿½o e impressï¿½o do cadastro do candidato 
 $pagina_editar	= $_SESSION["Gpaginaeditar"];	
 
 ?>
@@ -54,7 +54,7 @@ else :
 			$banco = DB::getInstance();
 			$conexao = $banco->ConectarDB();
 
-			$inscrito = new Inscrito(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+			$inscrito = new Inscrito();
 			$vetorinscrito = $inscrito->SelectByAll($conexao);
 
 			/* Varaveis auxiliares */
@@ -72,10 +72,10 @@ else :
 			echo('  </tr>');
 
 			while ($total > $i) {
-				$nome = $vetorinscrito[$i]->getnome();
-				$cpf = $vetorinscrito[$i]->getcpf();
-				$rg = $vetorinscrito[$i]->getrg();
-				$id = $vetorinscrito[$i]->getid();
+				$nome   = $vetorinscrito[$i]->getnome();
+				$cpf    = $vetorinscrito[$i]->getcpf();
+				$rg     = $vetorinscrito[$i]->getrg();
+				$id     = $vetorinscrito[$i]->getid();
 
 				if ($cpf == ""){
 					$cpf = 'N&atilde;o informado';

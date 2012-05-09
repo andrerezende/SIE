@@ -74,9 +74,9 @@ session_start();
 	</script>
 </head>
 <?php
-if ($_SESSION['validacao']) :
-	//header("Location:../login/login.php");
-else :
+//if ($_SESSION['validacao']) :
+//	header("Location:../login/login.php");
+//else :
 ?>
 <body>
 <div id="tudo" align='center'>
@@ -201,7 +201,7 @@ else :
 		<tr>
 			<form id='relatorioisentos' name='relatorioisentos' action='relatorio_isentos.php' method='post' onsubmit='return validar()'>
 				<input type='hidden' value='relacao_isentos' name="tipo" />
-				<td><b>Relat&oacute;rio de isen��es solicitadas</b></td>
+				<td><b>Relat&oacute;rio de isentos - solicitados</b></td>
 				<td>&nbsp;</td>
 				<td>
 					<input type="text" name="data_final_isencao" size="11" maxlength="10" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" id="data_final_isencao" />
@@ -212,7 +212,7 @@ else :
 		<tr>
 			<form id='relatorioisencaoconfirmada' name='relatorioisencaoconfirmada' action='relatorio_isentos_confirmados.php' method='post'>
 				<input type='hidden' value='relatorioisencaoconfirmada' name="tipo" />
-				<td><b>Relat&oacute;rio de isen��es confirmadas</b></td>
+				<td><b>Relat&oacute;rio de isentos - confirmadas</b></td>
 				<td>&nbsp;</td>
 				<td>
 					&nbsp;
@@ -240,4 +240,4 @@ else :
 </div></div></div>
 </body>
 </html>
-<?php endif;?>
+<?php //endif;?>

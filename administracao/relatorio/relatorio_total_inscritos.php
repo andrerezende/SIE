@@ -24,14 +24,14 @@ SQL;
 		, pagamentos.datapagamento
 		FROM campus
 			INNER JOIN inscrito ON campus.id = inscrito.campus
-			INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
+			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 SQL;
 	} elseif ($_POST['filtro_pagamento'] === "0") {
 		$sql .= <<<SQL
 		FROM campus
 			INNER JOIN inscrito ON campus.id = inscrito.campus
 		WHERE
-			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
+			inscrito.numinscricao NOT IN (SELECT id_inscrito FROM pagamentos)
 SQL;
 	} else {
 		$sql .= <<<SQL
@@ -40,11 +40,11 @@ SQL;
 SQL;
 	}
 	$sql .= <<<SQL
- GROUP BY
+
+GROUP BY
 	campus.id
 ORDER BY
 	campus.id
-LIMIT 2000
 SQL;
 } elseif ($_POST['tipo'] == 'inscritos_por_curso') {
 	$colunas = array(
@@ -64,7 +64,7 @@ SQL;
 		FROM curso
 			INNER JOIN campus ON campus.id = curso.campus
 			LEFT JOIN inscrito ON curso.cod_curso = inscrito.curso
-			INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
+			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 SQL;
 	} elseif ($_POST['filtro_pagamento'] === "0") {
 		$sql .= <<<SQL
@@ -72,7 +72,7 @@ SQL;
 			LEFT JOIN inscrito ON curso.cod_curso = inscrito.curso
 			INNER JOIN campus ON campus.id = curso.campus
 		WHERE
-			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
+			inscrito.numinscricao NOT IN (SELECT id_inscrito FROM pagamentos)
 SQL;
 	} else {
 		$sql .= <<<SQL
@@ -82,13 +82,16 @@ SQL;
 SQL;
 	}
 	$sql .= <<<SQL
- GROUP BY
+
+GROUP BY
 	curso.cod_curso
 ORDER BY
 	curso.cod_curso
-LIMIT 2000
 SQL;
 }
+
+//var_dump($sql);
+//exit;
 
 $objPHPExcel = new PHPExcel();
 
