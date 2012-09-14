@@ -5,7 +5,7 @@ session_start("SELECAO");
 $_SESSION["Gnomeprocessoseletivo"]      = "Processo Seletivo para Cursos T&eacute;cnicos na Modalidade a Dist&acirc;ncia - 2012";
 $_SESSION["Gdatainicio"]                = mktime(0, 0, 0, 5, 7, 2012); // 0,0,0, M/D/Y
 $_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 5, 9, 2013);
-$_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 1, 6, 2012);
+$_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 1, 6, 2013);
 
 $_SESSION["Gvalorboleto"] = "00,00";
 $_SESSION["Gconvenio"] = "2203078";
@@ -19,9 +19,9 @@ $_SESSION["Gpwdmail"] = "12345678.90909090";
 $_SESSION["Gcaminhoupload"]= "E:/home/ifbaiano/Web/concursos/aplicacoes/2011_sociologia/administracao/pagamento/retorno/";
 
 //Atribuído da página parametrizada responsável pelo cadastro,edição e impressão do candidato 
-$_SESSION["Gpaginaeditar"]	="ead-editar.php";		   
-$_SESSION["Gpaginaimpressao"]	="ead-impressao.php";
-$_SESSION["Gpaginacadastro"]	="ead-cadastro.php";
+$_SESSION["Gpaginaeditar"]	="alu-editar.php";		   
+$_SESSION["Gpaginaimpressao"]	="alu-impressao.php";
+$_SESSION["Gpaginacadastro"]	="alu-cadastro.php";
 
 
 ?>
