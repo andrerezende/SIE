@@ -2,9 +2,9 @@
 class DB {
 	private static $instance = null;
         private $dbHost          = "localhost";
-	private $dbDatabase      = "ead";
+	private $dbDatabase      = "ifbaiano40";
 	private $dbUser          = "root";
-	private $dbPassword      = "";
+	private $dbPassword      = "root";
 
 	public static function getInstance(){
 		if (DB::$instance == null) {

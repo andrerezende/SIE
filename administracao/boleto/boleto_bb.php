@@ -20,6 +20,8 @@ include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
 include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
+include_once("../classes/Questionario.php");
+$questionario = new Questionario();
 
 //$cpf = addslashes($_POST['cpf']);
 //$id = $_POST['id'];
@@ -44,6 +46,9 @@ if (empty($objinscrito[0])) {
 	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
 	exit;
+}elseif($questionario->verificaQuestionario($cpf) == false){
+     $_SESSION['flashMensagem'] = 'O question&aacute;rio n&atilde;o foi respondido.';
+    header("Location:" . $_SERVER['HTTP_REFERER']);
 }
 
 

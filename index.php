@@ -4,7 +4,7 @@
 session_start("SELECAO");
 $_SESSION["Gnomeprocessoseletivo"]      = "Processo Seletivo para Cursos T&eacute;cnicos na Modalidade a Dist&acirc;ncia - 2012";
 $_SESSION["Gdatainicio"]                = mktime(0, 0, 0, 5, 7, 2012); // 0,0,0, M/D/Y
-$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 5, 9, 2012);
+$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 5, 9, 2013);
 $_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 1, 6, 2012);
 
 $_SESSION["Gvalorboleto"] = "00,00";
@@ -75,6 +75,7 @@ $_SESSION["Gpaginacadastro"]	="ead-cadastro.php";
 									<li><a href="index.php?sc=Inscricao">Nova Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="index.php?sc=Alterar">Alterar / Imprimir Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="index.php?sc=Recuperar">Recuperar Senha</a></li>
+                                                                        <li><a href="index.php?sc=Questionario">Question&aacute;rio S&oacute;cioecon&ocirc;mico</a></li>
 									<li><a href="index.php?sc=Boleto">2&#170; via Boleto</a></li>
 									<li><a href="<?php echo ($_SESSION["Gpaginaconcurso"]);?>">P&aacute;gina do Concurso</a></li>
 								</ul>
