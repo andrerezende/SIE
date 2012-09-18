@@ -72,7 +72,6 @@ if ($id) {
                                         <li><a href="../../index.php?sc=Inscricao">Nova Inscri&ccedil;&atilde;o</a></li>
                                         <li><a href="../../index.php?sc=Alterar">Alterar / Imprimir Inscri&ccedil;&atilde;o</a></li>
                                         <li><a href="../../index.php?sc=Recuperar">Recuperar Senha</a></li>
-                                        <li><a href="index.php?sc=Questionario">Question&aacute;rio S&oacute;cioecon&ocirc;mico</a></li>
                                         <li><a href="../../index.php?sc=Boleto">2&#170; via Boleto</a></li>
                                         <li><a href="<?php echo ($_SESSION["Gpaginaconcurso"]); ?>">P&aacute;gina do Concurso</a></li>
                                     </ul>
@@ -85,18 +84,22 @@ if ($id) {
                         <div id="tituloPrincipal"><?php echo $scTitulo ?></div>
                         <div class="conteudoColunaMeio">
 
-                            <h2 align="center">Question&aacute;rio S&oacute;cioecon&ocirc;mico</h2>
+                            <h2 align="center">Question&aacute;rio Socioecon&ocirc;mico</h2>
                             <form action="respostaQuestionario.php" method="post"><br></br>
 <?php
 
 
-
-
+$i=0;
+foreach ($_POST as $valor){
+    $i++;
+}
 $sql = "Select * from pergunta,anoquestionario where ano =".date("Y");
 $resultado = mysql_query($sql,$conexao) or die(mysql_error());
 echo "Ano ".date("Y")." Linhas ".mysql_num_rows($resultado)."<br>";
 if($i<  mysql_num_rows($resultado)){
-    echo "Faltam perguntas a responder";
+    echo "Faltam perguntas a responder".$i;
+    
+    
     header('Location: ../../index.php?sc=Questionario'); 
 }else
      $respostaInscrito = new Questionario();

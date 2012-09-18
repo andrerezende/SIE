@@ -53,6 +53,6 @@ if ($sc == "") {
 	$scTitulo = "Emiss&atilde;o de Boleto";
 	$sc = "inscricao/emitir_boleto.php";
 }elseif ($sc == "Questionario") {
-	$scTitulo = "Question&aacute;rio S&oacute;cioecon&ocirc;mico";
-	$sc = "administracao/questionario/responder_questionario.php";
+	$scTitulo = "Question&aacute;rio Socioecon&ocirc;mico";
+	$sc = "administracao/questionario/questionario.php";
 }

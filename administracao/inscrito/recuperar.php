@@ -65,6 +65,7 @@ if (empty($objinscrito[0])) {
 									<li><a href="../../index.php?sc=Inscricao">Nova Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="../../index.php?sc=Alterar">Alterar / Imprimir Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="../../index.php?sc=Recuperar">Recuperar Senha</a></li>
+                                                                        <li><a href="index.php?sc=Questionario">Question&aacute;rio Socioecon&ocirc;mico</a></li>
 									<li><a href="<?php echo ($_SESSION["Gpaginaconcurso"]);?>">P&aacute;gina do Concurso</a></li>
 								</ul>
 							</div>

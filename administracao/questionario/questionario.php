@@ -20,7 +20,7 @@ if ($data_fim < $data_atual) {
 
 $sql = "Select * from pergunta";
 $resultado3 = mysql_query($sql, $conexao);
- 
+
 foreach ($_POST as $key => $valor) {
     $$key = addslashes(strtoupper($valor));
 }
@@ -96,11 +96,10 @@ if (empty($objinscrito[0])) {
         <div id="formularioInscricao" align="center">
 
 
-            <h2 align="center" id="tituloPrincipal">Question&aacute;rio S&oacute;cioecon&ocirc;mico</h2>
+            <h2 align="center" id="tituloPrincipal">Question&aacute;rio Socioecon&ocirc;mico</h2>
             <form  name="questionario" action="respostaQuestionario.php" method="post"><br></br>
-               e <?php
+                <?php
                 $questionario->gerarPerguntas($conexao);
-                
                 ?>
                 <br/>
 
@@ -108,41 +107,42 @@ if (empty($objinscrito[0])) {
                 <INPUT type="button" value="Salvar" id="Salvar" onclick="checkBox2();"/>
 
                 <script type="application/javascript">
-                    var qtResposta = 2;
           
+
                     function checkBox2(){
+                    bool = false;
                     var i=1;
+                    
+                    
+                    
                     while(i<<? echo mysql_num_rows($resultado3)+1; ?>){
-                    if($('.cinput'+i).is(':checked')==false){
-                        $('#pergunta'+i).addClass("pergunta");
-                
-                    }else{
-                        if($('#pergunta'+i).hasClass("pergunta")){
-                            qtResposta++;
-                         }
-                         
-                        $('#pergunta'+i).removeClass("pergunta");
-                    
+                        if($('.cinput'+i).is(':checked')==false){
+                            $('#pergunta'+i).addClass("pergunta");
+                             bool = false;
+                        }else{
+                          
+                           bool = true;
+                            $('#pergunta'+i).removeClass("pergunta");
+
+                        }
                      
-                     
-                    }
-                       i++;
-                    }
-                   
-                    
+                        i++;
+                        }
+
+
                     }
 
 
                     $("#Salvar").bind("click", function(){
-               
-                        if(qtResposta<<? echo mysql_num_rows($resultado3)+1; ?>){
 
-                            alert('Verifique se o questionario estar devidamente respondido'+qtResposta);
-                            $('html, body').animate({scrollTop:0}, 'slow');
+                    if(!bool){
+                   
+                    alert('Verifique se o questionario estar devidamente respondido');
+                    $('html, body').animate({scrollTop:0}, 'slow');
 
-                        }else{
-                             
-                   document.questionario.submit();
+                    }else{
+
+                    document.questionario.submit();
                     }
                     });
 
