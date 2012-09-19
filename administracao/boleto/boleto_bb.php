@@ -23,8 +23,8 @@ include_once ("../classes/Municipio.php");
 include_once("../classes/Questionario.php");
 $questionario = new Questionario();
 
-//$cpf = addslashes($_POST['cpf']);
-//$id = $_POST['id'];
+$cpf = addslashes($_POST['cpf']);
+$id = $_POST['id'];
 
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
@@ -47,8 +47,12 @@ if (empty($objinscrito[0])) {
 	header("Location:" . $_SERVER['HTTP_REFERER']);
 	exit;
 }elseif($questionario->verificaQuestionario($cpf) == false){
+    
      $_SESSION['flashMensagem'] = 'O question&aacute;rio n&atilde;o foi respondido.';
-    header("Location:" . $_SERVER['HTTP_REFERER']);
+     echo "<script>alert('O questionario nao foi respondido.');</script>";
+     include '../questionario/boleto_questionario.php';
+     //header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit;
 }
 
 

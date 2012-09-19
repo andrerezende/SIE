@@ -1,15 +1,18 @@
 <?
+session_start("FINAL");
 
+session_start("QUESTIONARIO");
 session_start("SELECAO");
 session_start();
-session_start("QUESTIONARIO");
+
 include_once("../classes/Inscrito.php");
 include_once ("../classes/DB.php");
 include_once '../../inc.path.php';
 include_once '../classes/Questionario.php';
 
 
-$id = $_SESSION['id'];
+$id = $_SESSION['id2'];
+
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
@@ -21,7 +24,7 @@ if ($id) {
 } elseif ($cpf) {
 	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
-//var_dump($_SESSION['id']);exit;
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -93,16 +96,15 @@ $i=0;
 foreach ($_POST as $valor){
     $i++;
 }
-$sql = "Select * from pergunta,anoquestionario where ano =".date("Y");
-$resultado = mysql_query($sql,$conexao) or die(mysql_error());
-echo "Ano ".date("Y")." Linhas ".mysql_num_rows($resultado)."<br>";
+
 if($i<  mysql_num_rows($resultado)){
     echo "Faltam perguntas a responder".$i;
     
     
     header('Location: ../../index.php?sc=Questionario'); 
-}else
+}else{
+   
      $respostaInscrito = new Questionario();
-    //$respostaInscrito->gravarResposta($resultado, ??);
-    $respostaInscrito->gravarResposta($_POST, $id);
+     $respostaInscrito->gravarResposta($_POST, $id);
+}
 ?>

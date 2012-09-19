@@ -62,13 +62,14 @@ class Questionario {
         $i=0;
         if (isset($answer)) {
             foreach ($answer as $key=>$valor) {
-//                var_dump($valor);exit;
+               
 
     
-                $resultado = mysql_query("INSERT INTO inscritoresposta(inscrito_id,resposta_id) values($inscrito_id,$valor)") or die(mysql_error());
+                $resultado = mysql_query("INSERT INTO inscritoresposta(inscrito_id,resposta_id) values('$inscrito_id','$valor')") or die(mysql_error());
             }
-            $resultado2 = mysql_query("INSERT INTO socioeco(inscrito_id,respondido) value($inscrito_id,1 )") or die(mysql_error());
+            $resultado2 = mysql_query("INSERT INTO socioeco(inscrito_id,respondido) value('$inscrito_id',1 )") or die(mysql_error());
             session_destroy("QUESTIONARIO");
+            session_destroy("FINAL");
             echo "<h2> Resposta Salva com sucesso</h2>";
         }
     }

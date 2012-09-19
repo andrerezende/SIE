@@ -102,7 +102,7 @@ $_SESSION['id2'] = $_SESSION['id'];
 
 
             <h2 align="center" id="tituloPrincipal">Question&aacute;rio Socioecon&ocirc;mico</h2>
-            <form  name="questionario" action="respostaQuestionario.php" method="post"><br></br>
+            <form  name="questionario" action="../questionario/respostaQuestionario.php" method="post"><br></br>
                 <?php
                 $questionario->gerarPerguntas($conexao);
                 ?>

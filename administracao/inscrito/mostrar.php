@@ -1,5 +1,6 @@
 <?php
 session_start("SELECAO");
+session_start("QUESTIONARIO");
 
 //Atribuiçãoo da página parametrizada responsável pelo edição e impressão do cadastro do candidato 
 $pagina_editar = $_SESSION["Gpaginaeditar"];
@@ -16,14 +17,17 @@ require_once("../classes/DB.php");
 require_once("../classes/Inscrito.php");
 require_once("../classes/Campus.php");
 require_once("../classes/Localprova.php");
-
+require_once("../classes/Questionario.php");
+$questionario = new Questionario();
 $cpf = addslashes($_POST['cpf']);
 $senha = addslashes($_POST['pwd']);
 $mensagem = addslashes($_POST['mensagem']);
 
+
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
+$_SESSION["id"] = $questionario->getId($cpf);
 
 //$inscrito = new Inscrito(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null); //36
 $inscrito = new Inscrito();
