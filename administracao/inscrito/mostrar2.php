@@ -28,7 +28,7 @@ $mensagem = addslashes($_POST['mensagem']);
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
-$_SESSION["id"] = $questionario->getId($cpf);
+$id = $_SESSION['id'];
 
 //$inscrito = new Inscrito(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null); //36
 $inscrito = new Inscrito();
@@ -48,13 +48,8 @@ $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
         <link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
     </head>
 
-    <?php
-    if (empty($objinscrito[0])) {
-        $_SESSION['flashMensagem'] = 'Inscri&ccedil;&atilde;o n&atilde;o cadastrada na base de dados ou CPF e Senha n&atilde;o conferem.';
-        header("Location:" . $_SERVER['HTTP_REFERER']);
-    } else {
-        $id = $objinscrito[0]->getid();
-        ?>
+   
+   
         <body>
             <div align="center">
                 <img src="../../imgs/topo2/topo_formulario.png" alt="Instituto Federal Baiano" />
@@ -98,16 +93,16 @@ $objinscrito = $inscrito->SelectByPrimaryKey($conexao, $cpf, $senha);
                             </form>
                         </div>
                        
-<?}else{?><div align="center">
+<?}else{
+    ?><div align="center">
                             <form id="questionario" name="questionario" action="../questionario/questionario_editar.php" method="post">
                                 <input type="hidden" name="id" value="<? echo($id); ?>" />
                                 <a href="#" onclick="document.forms['questionario'].submit();">Question&aacute;rio Socioecon&ocirc;mico</a>
                             </form>
-                        </div>
- <?}?>
+                        </div><?}?>
                     </div>
             </div>
-        <?php } ?>
+      
              <div align="center">
                             <br />
                             <a href="../../index.php">P&aacute;gina Inicial</a>

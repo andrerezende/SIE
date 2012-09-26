@@ -19,33 +19,28 @@ if ($data_fim < $data_atual) {
     header("Location: ../../index.php?sc=Inscricao");
 }
 
-$sql = "Select * from pergunta";
+$sql = "SELECT * FROM pergunta,anoquestionario WHERE anoquestionario.id = pergunta.anoquestionario_id AND anoquestionario.ano = YEAR(CURDATE())";
 $resultado3 = mysql_query($sql, $conexao);
 
 foreach ($_POST as $key => $valor) {
     $$key = addslashes(strtoupper($valor));
 }
-
-
+$id = $_SESSION['id'];
+$cpf = null;
 $inscrito = new Inscrito();
-
+$_SESSION['idEditar'] = $id;
 if ($id) {
     $objinscrito = $inscrito->SelectById($conexao, $id);
 } elseif ($cpf) {
     $objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
-//var_dump($questionario->verificaQuestionario($cpf));exit;
+;
 if (empty($objinscrito[0])) {
     $_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
     header("Location:" . $_SERVER['HTTP_REFERER']);
     exit;
-} elseif ($questionario->verificaQuestionario($cpf) == true) {
-    $_SESSION['flashMensagem'] = 'O question&aacute;rio j&aacute; foi respondido.';
-    header("Location:" . $_SERVER['HTTP_REFERER']);
-}
-$_SESSION['id'] = $id;
-session_start("FINAL");
-$_SESSION['id2'] = $_SESSION['id'];
+} 
+
 
 ?>
 
@@ -102,9 +97,10 @@ $_SESSION['id2'] = $_SESSION['id'];
 
 
             <h2 align="center" id="tituloPrincipal">Question&aacute;rio Socioecon&ocirc;mico</h2>
-            <form  name="questionario" action="../questionario/respostaQuestionario.php" method="post"><br></br>
+            <form  name="questionario" action="../questionario/editarQuestionario.php" method="post"><br></br>
                 <?php
-                $questionario->gerarPerguntas($conexao);
+                //método editarPerguntas retorna as perguntas(label) e respostas(radio)
+                $questionario->editarResposta($id);
                 ?>
                 <br/>
 
@@ -113,7 +109,6 @@ $_SESSION['id2'] = $_SESSION['id'];
 
                 <script type="application/javascript">
           
-
                     function checkBox2(){
                     bool = false;
                     var i=1;

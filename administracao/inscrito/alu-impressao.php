@@ -1,4 +1,5 @@
-<?php session_start("SELECAO"); ?>
+<?php session_start("SELECAO"); 
+session_start("QUESTIONARIO");?>
 <?php
 
 include_once ("../classes/DB.php");
@@ -10,8 +11,7 @@ include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
 
 //$cpf = addslashes($_POST['cpf']);
-//$id = $_POST['id'];
-
+$id = $_SESSION['id'];
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
 }

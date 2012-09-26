@@ -11,7 +11,7 @@ include_once '../../inc.path.php';
 include_once '../classes/Questionario.php';
 
  $respostaInscrito = new Questionario();
-$id = $_SESSION['id2'];
+$id = $_SESSION['idEditar'];
 
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
@@ -106,8 +106,8 @@ if($i <  mysql_num_rows($resultado)){
 }else{
    
     
-     $respostaInscrito->gravarResposta($_POST, $id);
-     $respostaInscrito->gravarCookie($id);
+     $respostaInscrito->gravarEditarResposta($_POST, $id);
+//     $respostaInscrito->gravarCookie($id);
   
      $_SESSION['id'] = $id;
       header("Location:   ../inscrito/mostrar2.php");

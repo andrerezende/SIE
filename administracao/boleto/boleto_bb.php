@@ -46,11 +46,11 @@ if (empty($objinscrito[0])) {
 	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
 	exit;
-}elseif($questionario->verificaQuestionario($cpf) == false){
-    
+}elseif($questionario->verificaQuestionario2($id) == false){
+//    var_dump($questionario->verificaQuestionario2($id));exit;
      $_SESSION['flashMensagem'] = 'O question&aacute;rio n&atilde;o foi respondido.';
      echo "<script>alert('O questionario nao foi respondido.');</script>";
-     include '../questionario/boleto_questionario.php';
+     include '../questionario/questionario.php';
      //header("Location: " . $_SERVER['HTTP_REFERER']);
     exit;
 }
