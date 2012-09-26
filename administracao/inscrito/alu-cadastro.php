@@ -41,7 +41,17 @@ if ($data_fim < $data_atual) {
                     return false;
                 }
             }
+  function maiorIdade(dataNascimento){
+                hoje = new Date()
+                dia = hoje.getDate()
+                mes = hoje.getMonth()
+                ano = hoje.getFullYear()
+                if (dia < 10)
+                    dia = "0" + dia
+                if (ano < 2000)
+                    ano = "19" + ano
 
+            }
             function validar() {
                 var nome                    = document.getElementById("nome");
                 var endereco                = document.getElementById("endereco");
@@ -418,17 +428,7 @@ if ($data_fim < $data_atual) {
                 })
             })
         
-            function maiorIdade(dataNascimento){
-                hoje = new Date()
-                dia = hoje.getDate()
-                mes = hoje.getMonth()
-                ano = hoje.getFullYear()
-                if (dia < 10)
-                    dia = "0" + dia
-                if (ano < 2000)
-                    ano = "19" + ano
-
-            }
+          
         
         
         
