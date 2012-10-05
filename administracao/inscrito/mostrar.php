@@ -15,9 +15,6 @@ $data_atual = strtotime("now");
     if(endereco == "../questionario/questionario.php"){
         alert("Por favor, preencha o questionario socioeconomico!"); 
     }
-             
-          
-          
 }
 </script>
 <?php
