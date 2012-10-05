@@ -17,7 +17,7 @@ $data_fim = $_SESSION["Gdatatermino"];
 $data_atual = $_SESSION["Gdatainicio"]; //strtotime("now");
 $questionario = new Questionario();
 if ($data_fim < $data_atual) {
-    header("Location: ../../index.php?sc=Inscricao");
+    header("Location:../../index.php?sc=Inscricao");
 }
 
 $sql = "SELECT * FROM pergunta,anoquestionario WHERE anoquestionario.id = pergunta.anoquestionario_id AND anoquestionario.ano = YEAR(CURDATE())";

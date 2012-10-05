@@ -71,7 +71,7 @@ if (empty($objinscrito[0])) {
    
    
      $_SESSION['flashMensagem'] = 'O question&aacute;rio n&atilde;o foi respondido. Acesse e conclua o processo de inscri&ccedil;&atilde;o';
-     header("Location: ../../index.php?sc=Alterar");
+     header("Location:../../index.php?sc=Alterar");
     exit;
 }
 

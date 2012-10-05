@@ -9,7 +9,7 @@ $data_fim = $_SESSION["Gdatatermino"];
 $data_atual = strtotime("now");
 
 if ($data_fim < $data_atual) {
-    header("Location: ../../index.php?sc=Inscricao");
+    header("Location:../../index.php?sc=Inscricao");
 }
 
 //        var_dump($data_incio, $data_fim, $data_fim_isencao, $data_atual);

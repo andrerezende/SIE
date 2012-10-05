@@ -72,7 +72,7 @@ if (empty($objinscrito[0])) {
      
      
     
-     header("Location: ../../index.php?sc=Alterar");
+     header("Location:../../index.php?sc=Alterar");
     exit;
 }elseif($questionario->verificaQuestionario2($id) == false){
     echo "<script>alert('Favor preencher o formulario socioeconomico!');</script>";
