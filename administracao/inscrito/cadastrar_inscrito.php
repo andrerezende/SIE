@@ -88,7 +88,9 @@ $id = $resultado['novo_id'];
 //ANTES: $numinscricao = substr($cpf, 0,2).$id;
 $edital= $_SESSION["Gedital"];
 $ano   = $_SESSION["Gano"];
-$numinscricao = $ano.$edital.substr($cpf, 0,4).$id;
+//$numinscricao = $ano.$edital.substr($cpf, 0,4).$id;
+
+$numinscricao = str_pad($id, 7, "0", STR_PAD_LEFT);
 
 $inscrito = new Inscrito();
 
