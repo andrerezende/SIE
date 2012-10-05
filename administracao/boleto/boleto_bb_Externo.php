@@ -1,5 +1,6 @@
-<?php // session_start("SELECAO"); 
+<?php 
 
+session_start("SELECAO"); 
 session_start("FLAG");
 session_start("BOLETO");
 
@@ -17,7 +18,7 @@ session_start("BOLETO");
 
 <?php
 //ob_start();
-session_start();
+//session_start();
 
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
