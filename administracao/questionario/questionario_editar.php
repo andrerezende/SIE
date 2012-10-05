@@ -153,7 +153,7 @@ $questionario->editarResposta($id);
                     $('html, body').animate({scrollTop:0}, 'slow');
 
                     }else{
-                    alert("Questionario preenchido com sucesso");
+                    alert("Questionario preenchido com sucesso!");
                     document.questionario.submit();
                     }
                     });
