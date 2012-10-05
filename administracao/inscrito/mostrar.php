@@ -13,7 +13,7 @@ $data_atual = strtotime("now");
 ?>
 <script>function msgQuestionario(endereco){
     if(endereco == "../questionario/questionario.php"){
-        alert("Por favor. Preencha o questionario socioeconomico"); 
+        alert("Por favor, preencha o questionario socioeconomico!"); 
     }
              
           
