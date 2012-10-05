@@ -111,6 +111,6 @@ if($i <  mysql_num_rows($resultado)){
      //$respostaInscrito->gravarCookie($id);
   
     $_SESSION['id'] = $id;
-      header("Location:../inscrito/mostrar.php");
+    header("Location:../inscrito/mostrar.php");
 }
 ?>
