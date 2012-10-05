@@ -225,20 +225,20 @@ if (count($objinscrito) == 0) {
 					$vetorCampusIncrito = $campus->SelectNomeCampus($conexao, $campusInscrito);
 					$nomeCampus = $vetorCampusIncrito->getNome();
 					?>
-					<input style="text-transform:uppercase" name="campus" id="campus" disabled="true" type="text" tabindex=23 value="<?php echo ($nomeCampus); ?>" />
+					<input style="text-transform:uppercase" name="campus" id="campus" size="100%" disabled="true" type="text" tabindex=23 value="<?php echo ($nomeCampus); ?>" />
 				</td>
 			</tr>
 
         <tr>
             <td align='right' width="200px">
-                <label for=curso>&Aacute;rea:</label>
+                <label for=curso>Curso:</label>
             </td>
             <td colspan='2'>
 				<?php
 				$curso = new Curso();
 				$curso = $curso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
 				?>
-                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo (strtoupper($curso[0]->getnome())); ?>" />
+                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="100%" value="<?php echo (strtoupper($curso[0]->getnome())); ?>" />
             </td>
         </tr>
 
