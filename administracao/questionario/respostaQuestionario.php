@@ -33,7 +33,6 @@ if ($id) {
         <title> <?php echo ($_SESSION["Gnomeprocessoseletivo"]); ?> </title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
-
     </head>
     <body>
         <div id="tudo">
@@ -92,6 +91,15 @@ if ($id) {
                             <form action="respostaQuestionario.php" method="post"><br></br>
 <?php
 
+function redireciona($link){
+    if ($link==-1){
+        echo" <script>history.go(-1);</script>";
+    }else{
+        echo" <script>document.location.href='$link'</script>";
+    }
+}
+
+
 $resultado = mysql_query("SELECT * FROM pergunta,anoquestionario WHERE anoquestionario.id = pergunta.anoquestionario_id AND anoquestionario.ano = YEAR(CURDATE())");
 $i=1;
 
@@ -101,13 +109,16 @@ foreach ($_POST as $valor){
 
 if($i <  mysql_num_rows($resultado)){
     echo "Faltam perguntas a responder".$i." ".mysql_num_rows($resultado);
-    
     //header('Location: ../../index.php?sc=Questionario'); 
 }else{
-     $respostaInscrito->gravarResposta($_POST, $id);
-     //$respostaInscrito->gravarCookie($id);
+    $respostaInscrito->gravarResposta($_POST, $id);
+    //$respostaInscrito->gravarCookie($id);
   
     $_SESSION['id'] = $id;
-    header("Location:../inscrito/mostrar.php");
-}
+    //header ('Location: ../inscrito/mostrar.php');
+    
+    $link = '../inscrito/mostrar.php';
+    redireciona($link);
+    
+    }
 ?>
