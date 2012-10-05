@@ -102,11 +102,8 @@ foreach ($_POST as $valor){
 if($i <  mysql_num_rows($resultado)){
     echo "Faltam perguntas a responder".$i." ".mysql_num_rows($resultado);
     
-    
     //header('Location: ../../index.php?sc=Questionario'); 
 }else{
-   
-    
      $respostaInscrito->gravarResposta($_POST, $id);
      //$respostaInscrito->gravarCookie($id);
   
