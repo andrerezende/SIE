@@ -20,13 +20,59 @@ if ($data_fim < $data_atual) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <meta http-equiv="Content-Type" content="text/html" charset="ISO-8859-1" />
         <title> <?php echo ($_SESSION["Gnomeprocessoseletivo"]); ?> </title>
         <link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
         <script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
         <script language="JavaScript" type="text/JavaScript">
-	
+            function setValue(valor){
+                document.getElementById("localprova").options.value = valor;
+                // return document.getElementById("localprova").options.value;
+            }
+            function localProva(texto){
+                //var i = window.document.forminscricao.curso.selectedIndex; 
+                var curso = texto;
+                var proeja = curso.search("PROEJA");
+    
+                if(proeja==-1){
+                    //document.getElementById("localprova").style.visibility="visible";
+                    document.getElementById("localprova").disabled=false;
+        
+                }else{
+                    document.getElementById("localprova").options[document.getElementById("campus").value].selected = true;
+                    //setValue(document.getElementById("campus").value);
+                    document.getElementById("localprova").options[document.getElementById("campus").value].selected = true;
+        
+                    //document.getElementById("localprova").style.visibility="hidden";
+                    document.getElementById("localprova").disabled=true;
+        
+  
+                }
+            }
+            function idade(data)
+            {
+                data = data.split("/");
+               
+                dia = data[0]; 
+                mes = data[1];
+                ano = data[2];
+
+                anoAtual = new Date();
+
+                ano = parseInt( ano );
+                anoAtual = <? echo date("Y"); ?>;
+
+                idade = ( anoAtual - ano );
+                while(idade<18){
+                    alert("Atencao! Menores de 18 nao podem se inscrever em cursos PROEJA.");
+                    document.getElementById("datanascimento").focus(); 
+                    break;
+                }
+
+
+
+            }
             function Onlynumber(e){
                 var tecla=new Number();
 
@@ -41,17 +87,7 @@ if ($data_fim < $data_atual) {
                     return false;
                 }
             }
-  function maiorIdade(dataNascimento){
-                hoje = new Date()
-                dia = hoje.getDate()
-                mes = hoje.getMonth()
-                ano = hoje.getFullYear()
-                if (dia < 10)
-                    dia = "0" + dia
-                if (ano < 2000)
-                    ano = "19" + ano
-
-            }
+ 
             function validar() {
                 var nome                    = document.getElementById("nome");
                 var endereco                = document.getElementById("endereco");
@@ -309,7 +345,7 @@ if ($data_fim < $data_atual) {
                 // Verifica se os valores dos dígitos verificadores conferem
                 DV = DIGITO[9] * 10 + DIGITO[10];
                 if (DV != DV_INFORMADO) {
-                    alert('CPF invalido');
+                    alert('CPF invalido!');
                     campo.value = '';
                     campo.focus();
                     return false;
@@ -430,7 +466,7 @@ if ($data_fim < $data_atual) {
         
           
         
-        
+           
         
         </script>
     </head>
@@ -543,7 +579,7 @@ if ($data_fim < $data_atual) {
 
                     <tr>
                         <td align='right'><label for=datanascimento>Data de Nascimento:</label></td>
-                        <td><input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="12" maxlength="10" alt="Data de Nascimento" onblur="maiorIdade(this);"onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" />
+                        <td><input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="12" maxlength="10" alt="Data de Nascimento" onblur="idade(this.value);"  onkeypress="Mascara('DATA',this,event); return Onlynumber(event); idade(this.value);" />
                             <span class="textoSobrescrito">*</span></td>
                     </tr>
 
@@ -686,29 +722,29 @@ if ($data_fim < $data_atual) {
                             <label for=campus>Campus:</label>
                         </td>
                         <td colspan='2'>
-                            <select id="campus" name="campus" tabindex="25">
+                            <select id="campus" name="campus" tabindex="25"  onmouseover="localProva(getElementById('curso').options[getElementById('curso').selectedIndex].text);">
                                 <option value="0" selected="selected">Escolha um Campus</option>
-<?php
-include_once ("../classes/DB.php");
-include_once ("../classes/Campus.php");
-$banco = DB::getInstance();
-$conexao = $banco->ConectarDB();
+                                <?php
+                                include_once ("../classes/DB.php");
+                                include_once ("../classes/Campus.php");
+                                $banco = DB::getInstance();
+                                $conexao = $banco->ConectarDB();
 
-$campus = new Campus(null, null);
-$vetorcampus = $campus->SelectByAll($conexao);
+                                $campus = new Campus(null, null);
+                                $vetorcampus = $campus->SelectByAll($conexao);
 
-/* Varaveis auxiliares */
-$i = 0;
-$sel = "selected";
-$total = count($vetorcampus);
+                                /* Varaveis auxiliares */
+                                $i = 0;
+                                $sel = "selected";
+                                $total = count($vetorcampus);
 
-while ($total > $i) {
-    $nome = $vetorcampus[$i]->getNome();
-    $codigo = $vetorcampus[$i]->getIdCampus();
-    echo("<option value=" . $codigo . ">" . strtoupper($nome) . "</option>\n");
-    $i = $i + 1;
-}
-?>
+                                while ($total > $i) {
+                                    $nome = $vetorcampus[$i]->getNome();
+                                    $codigo = $vetorcampus[$i]->getIdCampus();
+                                    echo("<option value=" . $codigo . ">" . strtoupper($nome) . "</option>\n");
+                                    $i = $i + 1;
+                                }
+                                ?>
                             </select>
                             <span class="textoSobrescrito">*</span>
                         </td>
@@ -719,7 +755,7 @@ while ($total > $i) {
                             <label for=curso>Curso:</label>
                         </td>
                         <td>
-                            <select id="curso" name="curso" tabindex="26">
+                            <select id="curso" name="curso" tabindex="26" onchange="localProva(this.options[this.selectedIndex].text);" >
                                 <option value="0" disabled="disabled">Escolha um Campus Primeiro</option>
                             </select>
                             <span class="textoSobrescrito">*</span>
@@ -727,14 +763,14 @@ while ($total > $i) {
                     </tr>
                     <tr>
                         <td align='right' width="200px">
-                            <label for=localprova>Local de realiza&ccedil;&atilde;o prova:</label>
+                            <label for=localprova id="localprova">Local de realiza&ccedil;&atilde;o prova:</label>
                         </td>
 
                         <td>
                             <select id="localprova" name="localprova" tabindex="27">
                                 <option value="0" disabled="disabled">Escolha um Campus Primeiro</option>
                             </select>
-                            <span class="textoSobrescrito">*</span>
+                            <span class="textoSobrescrito" id="textoSobrescrito">*</span>
                         </td>
                     </tr>
 
@@ -743,12 +779,12 @@ while ($total > $i) {
                         <td>
                             <select name="isencao" id="isencao" tabindex=28>
                                 <option value="NAO" selected="selected">N&Atilde;O</option>
-<?php
+                                <?php
 //Verifica o término do período de isenção
-if ($data_fim_isencao >= $data_atual) {
-    echo("<option value='SIM'/>SIM</option>");
-}
-?>
+                                if ($data_fim_isencao >= $data_atual) {
+                                    echo("<option value='SIM'/>SIM</option>");
+                                }
+                                ?>
                             </select>
                             <span class="textoSobrescrito">
                                 * Caso positivo, veja as condi&ccedil;&otilde;es de atendimento no Edital

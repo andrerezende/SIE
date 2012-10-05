@@ -305,7 +305,7 @@
 		// Verifica se os valores dos dígitos verificadores conferem
 		DV = DIGITO[9] * 10 + DIGITO[10];
 		if (DV != DV_INFORMADO) {
-			alert('CPF invalido');
+			alert('CPF invalido!');
 			campo.value = '';
 			campo.focus();
 			return false;

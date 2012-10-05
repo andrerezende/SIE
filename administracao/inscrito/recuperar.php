@@ -1,9 +1,10 @@
-<?php 
-
-session_start("SELECAO"); 
+<?php session_start("SELECAO"); ?>
+<?php
 ini_set('display_errors', true);
+session_start();
 require_once '../classes/DB.php';
 require_once '../classes/Inscrito.php';
+require_once '../classes/swift-mailer/lib/swift_required.php';
 
 $cpf = addslashes($_POST['cpf']);
 /*Acesso ao banco de dados */
@@ -12,11 +13,9 @@ $conexao  = $banco->ConectarDB();
 
 $inscrito = new Inscrito();
 $objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
-
 if (empty($objinscrito[0])) {
 	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
-	exit;	
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -65,7 +64,7 @@ if (empty($objinscrito[0])) {
 									<li><a href="../../index.php?sc=Inscricao">Nova Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="../../index.php?sc=Alterar">Alterar / Imprimir Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="../../index.php?sc=Recuperar">Recuperar Senha</a></li>
-                                                                        <li><a href="index.php?sc=Questionario">Question&aacute;rio Socioecon&ocirc;mico</a></li>
+									<li><a href="../../index.php?sc=Boleto">2&#170; via Boleto</a></li>
 									<li><a href="<?php echo ($_SESSION["Gpaginaconcurso"]);?>">P&aacute;gina do Concurso</a></li>
 								</ul>
 							</div>
@@ -80,29 +79,38 @@ if (empty($objinscrito[0])) {
 if (count($objinscrito[0]) == 0) :
 	echo("<p class='textoDestaque2'>Inscri&ccedil;&atilde;o n&atilde;o encontrada na base de dados.</p>");
 else :
-	$email_inscrito = strtolower($objinscrito[0]->getemail());
-	$nome_inscrito 	= $objinscrito[0]->getnome();
-	$senha_inscrito	= $objinscrito[0]->getsenha();
-	$servidorSMTP 	= 'smtp.ifbaiano.edu.br';
-	//$usuarioSMTP 	= $_SESSION["Gusrmail"];
-	//$senhaSMTP 	= $_SESSION["Gpwdmail"];
+	$emailInscrito = strtolower($objinscrito[0]->getemail());
+	$nomeInscrito = $objinscrito[0]->getnome();
+	$senhaInscrito = $objinscrito[0]->getsenha();
+	$servidorSMTP = 'smtp.ifbaiano.edu.br';
+	$usuarioSMTP = $_SESSION["Gusrmail"];
+	$senhaSMTP = $_SESSION["Gpwdmail"];
+	$configSmtp = Swift_SmtpTransport::newInstance($servidorSMTP, 25)
+		->setUsername($usuarioSMTP)
+		->setPassword($senhaSMTP)
+	;
+	
+	$mailer = Swift_Mailer::newInstance($configSmtp);
 
-	$retorno = false;
-	$destinatario = $email_inscrito;
-	$assunto = "Recuperação de senha - Processo Seletivo";
-	$corpo = "Prezado Candidato,\n\nFoi solicitada a recuperação de sua senha no Sistema de Inscrição Eletrônica.\nOs dados do candidato são:\n\nNome: ".$nome_inscrito."\nSenha: ".$senha_inscrito."\n\n\nEste e-mail foi gerado automaticamente pelo sistema, favor não o responda.\n\nAtenciosamente,\nComissão do Processo Seletivo\nInstituto Federal Baiano.";
-	$headers = "MIME-Version: 1.1\r\n";
-	$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
-	$headers .= "From:".$usuarioSMTP."\r\n";
-	$headers .= "Return-Path:".$usuarioSMTP."\r\n";
-	$enviar = mail($destinatario,$assunto,$corpo,$headers);
+	$mensagem = Swift_Message::newInstance()
+		->setSubject('Recupera Senha - Processo Seletivo')
+		->setFrom(array($usuarioSMTP => 'IF Baiano - Processo Seletivo'))
+		->setTo(array($emailInscrito => $nomeInscrito))
+		->setBody(
+			'<p>Candidato: ' .$nomeInscrito. '</p>' .
+			''.
+			'<p>Sua senha: <b>' .$senhaInscrito. '</b></p>',
+		'text/html')
+		->setSender($usuarioSMTP)
+		->setPriority(2)
+	;
 
-	if ($enviar) {
+	$result = $mailer->send($mensagem);
+	if ($result) {
 		echo("<p class='textoDestaque2'>A senha foi enviada ao seu email.</p>");
 	} else {
 		echo("<p class='textoDestaque2'>Problemas ao enviar o email.</p>");
 	}
-	
 endif;
 ?>
 					</div>

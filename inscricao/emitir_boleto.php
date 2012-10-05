@@ -66,7 +66,7 @@
 			// Verifica se os valores dos dígitos verificadores conferem
 			DV = DIGITO[9] * 10 + DIGITO[10];
 			if (DV != DV_INFORMADO) {
-				alert('CPF invalido');
+				alert('CPF invalido!');
 				campo.value = '';
 				campo.focus();
 				return false;
@@ -91,7 +91,7 @@
 </head>
 
 <body>
-	<form id='frmrecupera_senha' name='frmrecupera_senha' action='administracao/boleto/boleto_bb.php' method='post' onsubmit='return validar()'>
+	<form id='frmrecupera_senha' name='frmrecupera_senha' action='administracao/boleto/boleto_bb_Externo.php' method='post' onsubmit='return validar()'>
 		<p><strong>Emitir Boleto</strong></p>
 		<?php if (isset($_SESSION['flashMensagem']) && $_SESSION['flashMensagem'] != null) :?>
 			<p class="textoDestaque"><?php echo $_SESSION['flashMensagem']?></p>

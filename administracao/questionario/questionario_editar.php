@@ -1,4 +1,5 @@
 <?php
+session_start();
 session_start("SELECAO");
 session_start("QUESTIONARIO");
 
@@ -39,9 +40,7 @@ if (empty($objinscrito[0])) {
     $_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
     header("Location:" . $_SERVER['HTTP_REFERER']);
     exit;
-} 
-
-
+}
 ?>
 
 
@@ -80,10 +79,10 @@ if (empty($objinscrito[0])) {
         <div align='center'>
             <img src="../../imgs/topo2/topo_formulario.png" alt="Instituto Federal Baiano" />
             <div id="nome">
-                <?php
-                echo ($_SESSION["Gnomeprocessoseletivo"] . "<br />");
-                echo ("Edital N&#186; " . $_SESSION["Gedital"] . "/" . $_SESSION["Gano"]);
-                ?>
+<?php
+echo ($_SESSION["Gnomeprocessoseletivo"] . "<br />");
+echo ("Edital N&#186; " . $_SESSION["Gedital"] . "/" . $_SESSION["Gano"]);
+?>
 
             </div>
 
@@ -97,37 +96,50 @@ if (empty($objinscrito[0])) {
 
 
             <h2 align="center" id="tituloPrincipal">Question&aacute;rio Socioecon&ocirc;mico</h2>
+            <div class="voltar" style="margin-left: 0px; margin-top: 15px;">
+                <?
+if ($cpf) {
+    $_SESSION["id"] = $questionario->getId($cpf);
+} else {
+    $_SESSION["id"] = $id;
+}
+
+?>
+                <a href="../inscrito/mostrar.php">Voltar</a>
+            </div>
             <form  name="questionario" action="../questionario/editarQuestionario.php" method="post"><br></br>
-                <?php
-                //método editarPerguntas retorna as perguntas(label) e respostas(radio)
-                $questionario->editarResposta($id);
-                ?>
+                <table>
+<?php
+//método editarPerguntas retorna as perguntas(label) e respostas(radio)
+$questionario->editarResposta($id);
+?>
+                </table>
                 <br/>
 
-                <? $_SESSION["id"] = $questionario->getId($cpf); ?>
+
                 <INPUT type="button" value="Salvar" id="Salvar" onclick="checkBox2();"/>
 
                 <script type="application/javascript">
-          
+
                     function checkBox2(){
                     bool = false;
                     var i=1;
-                    
-                    
-                    
-                    while(i<<? echo mysql_num_rows($resultado3)+1; ?>){
-                        if($('.cinput'+i).is(':checked')==false){
-                            $('#pergunta'+i).addClass("pergunta");
-                             bool = false;
-                        }else{
-                          
-                           bool = true;
-                            $('#pergunta'+i).removeClass("pergunta");
 
-                        }
-                     
-                        i++;
-                        }
+
+
+                    while(i<<? echo mysql_num_rows($resultado3) + 1; ?>){
+                    if($('.cinput'+i).is(':checked')==false){
+                    $('#pergunta'+i).addClass("pergunta");
+                    bool = false;
+                    }else{
+
+                    bool = true;
+                    $('#pergunta'+i).removeClass("pergunta");
+
+                    }
+
+                    i++;
+                    }
 
 
                     }
@@ -136,12 +148,12 @@ if (empty($objinscrito[0])) {
                     $("#Salvar").bind("click", function(){
 
                     if(!bool){
-                   
-                    alert('Verifique se o questionario estar devidamente respondido');
+
+                    alert('Preencha todo o Formulario Socioeconomico!');
                     $('html, body').animate({scrollTop:0}, 'slow');
 
                     }else{
-
+                    alert("Questionario preenchido com sucesso");
                     document.questionario.submit();
                     }
                     });

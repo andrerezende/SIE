@@ -3,7 +3,7 @@ session_start("FINAL");
 
 session_start("QUESTIONARIO");
 session_start("SELECAO");
-session_start();
+
 
 include_once("../classes/Inscrito.php");
 include_once ("../classes/DB.php");
@@ -110,6 +110,6 @@ if($i <  mysql_num_rows($resultado)){
 //     $respostaInscrito->gravarCookie($id);
   
      $_SESSION['id'] = $id;
-      header("Location:   ../inscrito/mostrar2.php");
+       header("Location:  ../inscrito/mostrar.php" );
 }
 ?>

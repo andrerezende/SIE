@@ -1,5 +1,4 @@
 <?php
-
 session_start("SELECAO");
 session_start("QUESTIONARIO");
 
@@ -26,26 +25,30 @@ $resultado3 = mysql_query($sql, $conexao);
 foreach ($_POST as $key => $valor) {
     $$key = addslashes(strtoupper($valor));
 }
-$id = $_SESSION['id'];
+
+if ($id == null) {
+    $id = $questionario->getId($cpf);
+    $_SESSION['id'] = $questionario->getId($cpf);
+} else {
+    $id = $_SESSION['id'];
+}
+
+
+
 
 $inscrito = new Inscrito();
 
 if ($id) {
-	$objinscrito = $inscrito->SelectById($conexao, $id);
+    $objinscrito = $inscrito->SelectById($conexao, $id);
 } elseif ($cpf) {
-	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
+    $objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
 }
 
 if (empty($objinscrito[0])) {
     $_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
     header("Location:" . $_SERVER['HTTP_REFERER']);
     exit;
-} 
-
-$_SESSION['id'] = $id;
-session_start("FINAL");
-$_SESSION['id2'] = $_SESSION['id'];
-
+}
 ?>
 
 
@@ -53,7 +56,7 @@ $_SESSION['id2'] = $_SESSION['id'];
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-utf8"/>
         <link rel=”stylesheet”  type="text/css" href="../../estilo_selecao.css" />
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
@@ -83,11 +86,16 @@ $_SESSION['id2'] = $_SESSION['id'];
 
         <div align='center'>
             <img src="../../imgs/topo2/topo_formulario.png" alt="Instituto Federal Baiano" />
+            
             <div id="nome">
+<div class="voltar" style="margin-left: 0px; margin-top: 15px;">
+                <a href="../inscrito/mostrar.php">Voltar</a>
+            </div>
                 <?php
-                echo ($_SESSION["Gnomeprocessoseletivo"] . "<br />");
-                echo ("Edital N&#186; " . $_SESSION["Gedital"] . "/" . $_SESSION["Gano"]);
-                ?>
+
+echo ($_SESSION["Gnomeprocessoseletivo"] . "<br />");
+echo ("Edital N&#186; " . $_SESSION["Gedital"] . "/" . $_SESSION["Gano"]);
+?>
 
             </div>
 
@@ -97,67 +105,70 @@ $_SESSION['id2'] = $_SESSION['id'];
 
 
 
-        <div id="formularioInscricao" align="center">
 
 
+        <table align="center">
             <h2 align="center" id="tituloPrincipal">Question&aacute;rio Socioecon&ocirc;mico</h2>
             <form  name="questionario" action="../questionario/respostaQuestionario.php" method="post"><br></br>
-                <?php
-                //método gerarPerguntas retorna as perguntas(label) e respostas(radio)
-                $questionario->gerarPerguntas($conexao);
-                ?>
+
+<?php
+//método gerarPerguntas retorna as perguntas(label) e respostas(radio)
+$questionario->gerarPerguntas($conexao);
+$_SESSION['id'] = $id;
+?>
+
                 <br/>
 
-             
-                <INPUT type="button" value="Salvar" id="Salvar" onclick="checkBox2();"/>
 
-                <script type="application/javascript">
-          
-                    function checkBox2(){
-                    bool = false;
-                    var i=1;
-                    
-                    
-                    
-                    while(i<<? echo mysql_num_rows($resultado3)+1; ?>){
-                        if($('.cinput'+i).is(':checked')==false){
-                            $('#pergunta'+i).addClass("pergunta");
-                             bool = false;
-                        }else{
-                          
-                           bool = true;
-                            $('#pergunta'+i).removeClass("pergunta");
+                <td><INPUT type="button" value="Salvar" id="Salvar" onclick="checkBox2();"/></td>
+        </table>
+        <script type="application/javascript">
 
-                        }
-                     
-                        i++;
-                        }
-
-
-                    }
-
-
-                    $("#Salvar").bind("click", function(){
-
-                    if(!bool){
-                   
-                    alert('Verifique se o questionario estar devidamente respondido');
-                    $('html, body').animate({scrollTop:0}, 'slow');
-
-                    }else{
-
-                    document.questionario.submit();
-                    }
-                    });
+            function checkBox2(){
+            bool = false;
+            var i=1;
 
 
 
+            while(i<<? echo mysql_num_rows($resultado3) + 1; ?>){
+            if($('.cinput'+i).is(':checked')==false){
+            $('#pergunta'+i).addClass("pergunta");
+            bool = false;
+            }else{
 
-                </script>
+            bool = true;
+            $('#pergunta'+i).removeClass("pergunta");
+
+            }
+
+            i++;
+            }
+
+
+            }
+
+
+            $("#Salvar").bind("click", function(){
+
+            if(!bool){
+
+            alert('Preencha todo o Formulario Socioeconomico!');
+            $('html, body').animate({scrollTop:0}, 'slow');
+
+            }else{
+            alert("Questionario preenchido com sucesso");
+            document.questionario.submit();
+            }
+            });
 
 
 
 
+        </script>
 
-            </form>
-        </div>
+
+
+
+
+        </form>
+

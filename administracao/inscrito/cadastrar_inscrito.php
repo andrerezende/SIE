@@ -56,15 +56,30 @@ $mediapor3=null;
 $mediamat1=null;
 $mediamat2=null;
 $mediamat3=null;
+$banco    = DB::getInstance();
+$conexao  = $banco->ConectarDB();
+//var_dump($_POST);
+$curso2 = $_POST['curso'];
+$campus2 = $_POST['campus'];
 
 
+$sql = "SELECT nome,campus FROM curso as c where cod_curso = $curso2 and campus = $campus2 and nome LIKE '%PROEJA%'";
+$result = mysql_query($sql);
+$rows = mysql_num_rows($result);
+if($rows>0){
+    
+    $_POST['localprova'] = $_POST['campus'];
+   $novolocalprova = $_POST['campus'];
+ 
+}
+    
+   
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
 }
 
 /*Acesso ao banco de dados */
-$banco    = DB::getInstance();
-$conexao  = $banco->ConectarDB();
+
 
 $resultado = $banco->ExecutaQueryGenerica('SELECT (COALESCE(MAX(id), 0) + 1) AS novo_id FROM inscrito');
 $resultado = mysql_fetch_assoc($resultado);
@@ -102,7 +117,12 @@ $inscrito->setespecialdescricao($especial_descricao);
 $inscrito->setresponsavel($responsavel);
 $inscrito->setisencao($isencao);
 $inscrito->setdeclaracao($declaracao);
-$inscrito->setlocalprova($localprova);
+if($novolocalprova!=null){
+    $inscrito->setlocalprova($novolocalprova);
+}else{
+    $inscrito->setlocalprova($localprova);
+}
+
 $inscrito->setnuminscricao($numinscricao);
 $inscrito->setespecialprova($especial_prova);
 $inscrito->setespecialprovadescricao($especial_prova_descricao);

@@ -1,7 +1,7 @@
-<?php session_start("SELECAO"); 
+<?php // session_start("SELECAO"); 
 
 session_start("FLAG");
-
+session_start("BOLETO");
 
 
 ?>
@@ -13,11 +13,11 @@ session_start("FLAG");
 <!--	<link href="estilo_selecao.css" rel="stylesheet" type="text/css" />-->
 </head>
 
-<body>
+    <body onunload="<?  session_destroy();?>">
 
 <?php
 //ob_start();
-//session_start();
+session_start();
 
 include_once ("../classes/DB.php");
 include_once ("../classes/Inscrito.php");
@@ -46,12 +46,6 @@ $conexao = $banco->ConectarDB();
 $inscrito = new Inscrito();
 
 
-if ($id) {
-	$objinscrito = $inscrito->SelectById($conexao, $id);
-} elseif ($cpf) {
-	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
-}
-
     
 if($id == null){
     
@@ -59,25 +53,26 @@ if($id == null){
 }else{
     $paginaBoleto = "../inscrito/mostrar.php";
 }
-$id = $_SESSION['id'];
+if ($id) {
+	$objinscrito = $inscrito->SelectById($conexao, $id);
+} elseif ($cpf) {
+	$objinscrito = $inscrito->SelectByCpf($conexao, $cpf);
+}
 if (empty($objinscrito[0])) {
 	$_SESSION['flashMensagem'] = 'CPF n&atilde;o encontrado na nossa base de dados.';
 	header("Location:" . $_SERVER['HTTP_REFERER']);
 	exit;
 }elseif($questionario->verificaRespostaQuestionario ($conexao, $cpf) == false&& $cpf!=null){
-?><input type='hidden' name='flag' value=<?echo true;?> /><?
-    $_SESSION['id'] = null;
-        $_POST['cpf'] = null;
-    $_SESSION['flashMensagem'] = 'O question&aacute;rio n&atilde;o foi respondido. Acesse e conclua o processo de inscrição';
-     
-     
+
+    ?><input type='hidden' name='flag' value=<?echo true;?> /><?
     
+    $_SESSION['id'] = null;
+    $_POST['cpf'] = null;
+   
+   
+     $_SESSION['flashMensagem'] = 'O question&aacute;rio n&atilde;o foi respondido. Acesse e conclua o processo de inscri&ccedil;&atilde;o';
      header("Location: ../../index.php?sc=Alterar");
     exit;
-}elseif($questionario->verificaQuestionario2($id) == false){
-    echo "<script>alert('Favor preencher o formulario socioeconomico!');</script>";
-     
-     include '../questionario/questionario.php';
 }
 
 
@@ -252,9 +247,10 @@ $dadosboleto["cedente"] = "Instituto Federal de Educa&ccedil;&atilde;o, Ci&ecirc
 // N�O ALTERAR!
 include("include/funcoes_bb.php");
 include("include/layout_bb.php");
+session_destroy();
 
 ?>
-<div class="voltar" style="margin-left: 30px; margin-top: 15px;">
+    <div class="voltar" style="margin-left: 30px; margin-top: 15px;">
     <a href="<?echo $paginaBoleto;?>">Voltar</a>
 </div>
 </body>

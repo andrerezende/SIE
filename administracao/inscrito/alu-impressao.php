@@ -9,7 +9,8 @@ include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
 include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
-
+include_once ("../classes/Questionario.php");
+$questionario = new Questionario();
 //$cpf = addslashes($_POST['cpf']);
 $id = $_SESSION['id'];
 foreach ($_POST as $key => $valor) {
@@ -323,7 +324,7 @@ if (count($objinscrito) == 0) {
                 <a href="#" onclick="window.print();"><img src="../../imgs/icone_impressao.gif" alt="Imprimir" /> Imprimir</a> /
                 <a href="../../index.php">P&aacute;gina Inicial</a> /
             </td>
-			<td><a href="javascript:history.go(-1)">Voltar</a></td>
+            <td><a href="mostrar.php">Voltar</a></td>
         </tr>
     </table>
 <?}?>

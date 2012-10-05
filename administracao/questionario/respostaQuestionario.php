@@ -1,6 +1,5 @@
 <?
 session_start("FINAL");
-
 session_start("QUESTIONARIO");
 session_start("SELECAO");
 session_start();
@@ -11,7 +10,8 @@ include_once '../../inc.path.php';
 include_once '../classes/Questionario.php';
 
  $respostaInscrito = new Questionario();
-$id = $_SESSION['id2'];
+ 
+$id = $_SESSION['id'];
 
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
@@ -26,6 +26,7 @@ if ($id) {
 }
 
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -92,7 +93,7 @@ if ($id) {
 <?php
 
 $resultado = mysql_query("SELECT * FROM pergunta,anoquestionario WHERE anoquestionario.id = pergunta.anoquestionario_id AND anoquestionario.ano = YEAR(CURDATE())");
-$i=0;
+$i=1;
 
 foreach ($_POST as $valor){
     $i++;
@@ -107,9 +108,9 @@ if($i <  mysql_num_rows($resultado)){
    
     
      $respostaInscrito->gravarResposta($_POST, $id);
-     $respostaInscrito->gravarCookie($id);
+     //$respostaInscrito->gravarCookie($id);
   
-     $_SESSION['id'] = $id;
-      header("Location:   ../inscrito/mostrar2.php");
+    $_SESSION['id'] = $id;
+      header("Location:   ../inscrito/mostrar.php");
 }
 ?>
