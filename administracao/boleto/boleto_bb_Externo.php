@@ -248,7 +248,7 @@ $dadosboleto["cedente"] = "Instituto Federal de Educa&ccedil;&atilde;o, Ci&ecirc
 // N�O ALTERAR!
 include("include/funcoes_bb.php");
 include("include/layout_bb.php");
-session_destroy();
+//session_destroy();
 
 ?>
     <div class="voltar" style="margin-left: 30px; margin-top: 15px;">
