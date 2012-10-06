@@ -23,13 +23,17 @@ include_once ("../classes/Localprova.php");
 include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
 include_once ("../classes/Questionario.php");
+
 $questionario = new Questionario();
-if($_POST['cpf']!=null){
-    $id = $questionario->getId($_POST['cpf']);
-}
+
+//if($_POST['cpf']!=null){
+//    $id = $questionario->getId($_POST['cpf']);
+//}
+
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
 }
+
 
 /*Acesso ao banco de dados */
 $banco    = DB::getInstance();
@@ -164,6 +168,17 @@ if ($resultado) {
 		echo("</table>");
 	echo("</div>");
 }
+
+function redireciona($link){
+    if ($link==-1){
+        echo" <script>history.go(-1);</script>";
+    }else{
+        echo" <script>document.location.href='$link'</script>";
+    }
+}
+$link = 'mostrar.php';
+redireciona($link);
+
 ?>
 </body>
 </html>
