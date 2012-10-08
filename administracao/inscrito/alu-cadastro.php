@@ -564,8 +564,7 @@ if ($data_fim < $data_atual) {
                     <tr>
                         <td align='right'><label for=dataexpedicao>Data de Expedi&ccedil;&atilde;o:</label></td>
                         <td>
-                            <input name="dataexpedicao" id="dataexpedicao" type="text" tabindex=8 size="12" maxlength="10" alt="Data de Expedi&ccedil;&atilde;o (RG)" on
-                                   press="Mascara('DATA',this,event); return Onlynumber(event);" />
+                            <input name="dataexpedicao" id="dataexpedicao" type="text" tabindex=8 size="12" maxlength="10" alt="Data de Expedi&ccedil;&atilde;o (RG)" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" />
                         </td>
                     </tr>
 
