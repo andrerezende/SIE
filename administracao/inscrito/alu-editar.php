@@ -156,15 +156,17 @@ function idade(data)
 			alert('Informe corretamente a data de nascimento!');
 			dataNascimento.focus();
 			resultado = false;
-		} else if (dataExpedicao.value == "") {
-			alert('Informe a data de expedicao!');
-			dataExpedicao.focus();
-			resultado = false;
-		} else if (!CheckDate(dataExpedicao)) {
-			alert('Informe corretamente a data de expedicao!');
-			dataExpedicao.focus();
-			resultado = false;
-		} else if(sexo.value == "") {
+		} 
+//                else if (dataExpedicao.value == "") {
+//			alert('Informe a data de expedicao!');
+//			dataExpedicao.focus();
+//			resultado = false;
+//		} else if (!CheckDate(dataExpedicao)) {
+//			alert('Informe corretamente a data de expedicao!');
+//			dataExpedicao.focus();
+//			resultado = false;
+//		} 
+                else if(sexo.value == "") {
 			alert('Informe sexo!');
 			sexo.focus();
 			resultado = false;
