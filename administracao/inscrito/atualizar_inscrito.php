@@ -22,10 +22,18 @@ include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
 include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
+include_once ("../classes/Questionario.php");
+
+$questionario = new Questionario();
+
+//if($_POST['cpf']!=null){
+//    $id = $questionario->getId($_POST['cpf']);
+//}
 
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
 }
+
 
 /*Acesso ao banco de dados */
 $banco    = DB::getInstance();
@@ -122,9 +130,26 @@ if ($resultado) {
 				<a href="#" onclick="document.forms['frmboleto'].submit();">Imprimir Boleto para Pagamento</a>
 			</form>
 		</div>
+                            <?  if ($questionario->verificaQuestionario2($id) == false) {?>
+                      
+
+                        <div align="center">
+                            <form id="questionario" name="questionario" action="../questionario/questionario.php" method="post">
+                                <input type="hidden" name="id" value="<? echo($id); ?>" />
+                                <a href="#" onclick="document.forms['questionario'].submit();">Question&aacute;rio Socioecon&ocirc;mico</a>
+                            </form>
+                        </div>
+                       
+<?}else{
+    ?><div align="center">
+                            <form id="questionario" name="questionario" action="../questionario/questionario_editar.php" method="post">
+                                <input type="hidden" name="id" value="<? echo($id); ?>" />
+                                <a href="#" onclick="document.forms['questionario'].submit();">Question&aacute;rio Socioecon&ocirc;mico</a>
+                            </form>
+                        </div><?}?>
 		<div align="center">
 			<br />
-			<a href="../../index.php">P&aacute;gina Inicial</a>
+                        <a href="../../fechar_sistema.php">Sair</a>
 		</div>
 
 	</div>
@@ -143,6 +168,17 @@ if ($resultado) {
 		echo("</table>");
 	echo("</div>");
 }
+
+function redireciona($link){
+    if ($link==-1){
+        echo" <script>history.go(-1);</script>";
+    }else{
+        echo" <script>document.location.href='$link'</script>";
+    }
+}
+$link = 'mostrar.php';
+redireciona($link);
+
 ?>
 </body>
 </html>

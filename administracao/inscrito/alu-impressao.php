@@ -1,4 +1,5 @@
-<?php session_start("SELECAO"); ?>
+<?php session_start("SELECAO"); 
+session_start("QUESTIONARIO");?>
 <?php
 
 include_once ("../classes/DB.php");
@@ -8,10 +9,10 @@ include_once ("../classes/Campus.php");
 include_once ("../classes/Localprova.php");
 include_once ("../classes/UnidadeFederativa.php");
 include_once ("../classes/Municipio.php");
-
+include_once ("../classes/Questionario.php");
+$questionario = new Questionario();
 //$cpf = addslashes($_POST['cpf']);
-//$id = $_POST['id'];
-
+$id = $_SESSION['id'];
 foreach ($_POST as $key => $valor) {
 	$$key = addslashes(strtoupper($valor));
 }
@@ -224,20 +225,20 @@ if (count($objinscrito) == 0) {
 					$vetorCampusIncrito = $campus->SelectNomeCampus($conexao, $campusInscrito);
 					$nomeCampus = $vetorCampusIncrito->getNome();
 					?>
-					<input style="text-transform:uppercase" name="campus" id="campus" disabled="true" type="text" tabindex=23 value="<?php echo ($nomeCampus); ?>" />
+					<input style="text-transform:uppercase" name="campus" id="campus" size="100%" disabled="true" type="text" tabindex=23 value="<?php echo ($nomeCampus); ?>" />
 				</td>
 			</tr>
 
         <tr>
             <td align='right' width="200px">
-                <label for=curso>&Aacute;rea:</label>
+                <label for=curso>Curso:</label>
             </td>
             <td colspan='2'>
 				<?php
 				$curso = new Curso();
 				$curso = $curso->SelectByPrimaryKey($conexao, $objinscrito[0]->getcurso());
 				?>
-                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="80" value="<?php echo (strtoupper($curso[0]->getnome())); ?>" />
+                <input name="curso" disabled="disabled" id="curso" tabindex=25 size="100%" value="<?php echo (strtoupper($curso[0]->getnome())); ?>" />
             </td>
         </tr>
 
@@ -323,7 +324,7 @@ if (count($objinscrito) == 0) {
                 <a href="#" onclick="window.print();"><img src="../../imgs/icone_impressao.gif" alt="Imprimir" /> Imprimir</a> /
                 <a href="../../index.php">P&aacute;gina Inicial</a> /
             </td>
-			<td><a href="javascript:history.go(-1)">Voltar</a></td>
+            <td><a href="mostrar.php">Voltar</a></td>
         </tr>
     </table>
 <?}?>

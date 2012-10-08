@@ -2,21 +2,21 @@
 //Variáveis de sessão para parametrização - Serão extraídas do Banco de Dados
 
 session_start("SELECAO");
-$_SESSION["Gnomeprocessoseletivo"]      = "Processo Seletivo para Cursos T&eacute;cnicos na Modalidade a Dist&acirc;ncia - 2012";
+$_SESSION["Gnomeprocessoseletivo"]      = "Processo Seletivo para Alunos - 2013";
 $_SESSION["Gdatainicio"]                = mktime(0, 0, 0, 5, 7, 2012); // 0,0,0, M/D/Y
-$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 5, 9, 2012);
-$_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 1, 6, 2012);
+$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 11, 17, 2013);
+$_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 1, 6, 2013);
 
-$_SESSION["Gvalorboleto"] = "00,00";
+$_SESSION["Gvalorboleto"] = "10,00";
 $_SESSION["Gconvenio"] = "2203078";
-$_SESSION["Gedital"] = "150";
-$_SESSION["Gano"] = "2011";
-$_SESSION["Gpaginaconcurso"] = "http://www.ifbaiano.edu.br/concursos/portal/sociologia2011";
-$_SESSION["Gusrmail"] = "concurso.sociol-poiuy@ifbaiano.edu.br";
-$_SESSION["Gpwdmail"] = "12345678.90909090";
+$_SESSION["Gedital"] = "162";
+$_SESSION["Gano"] = "2012";
+$_SESSION["Gpaginaconcurso"] = "http://www.ifbaiano.edu.br/concursos/portal/discente2013/";
+$_SESSION["Gusrmail"] = "devteste@ifbaiano.edu.br";
+$_SESSION["Gpwdmail"] = "dev123*@";
 
 //ATENÇÃO: Lembrar de dar permissão de escrita na pasta do servidor WEB
-$_SESSION["Gcaminhoupload"]= "E:/home/ifbaiano/Web/concursos/aplicacoes/2011_sociologia/administracao/pagamento/retorno/";
+$_SESSION["Gcaminhoupload"]= "E:/home/ifbaiano/Web/concursos/aplicacoes/2013_discente/administracao/pagamento/";
 
 //Atribuído da página parametrizada responsável pelo cadastro,edição e impressão do candidato 
 $_SESSION["Gpaginaeditar"]	="alu-editar.php";		   
@@ -75,7 +75,7 @@ $_SESSION["Gpaginacadastro"]	="alu-cadastro.php";
 									<li><a href="index.php?sc=Inscricao">Nova Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="index.php?sc=Alterar">Alterar / Imprimir Inscri&ccedil;&atilde;o</a></li>
 									<li><a href="index.php?sc=Recuperar">Recuperar Senha</a></li>
-									<li><a href="index.php?sc=Boleto">2&#170; via Boleto</a></li>
+                                                                        <li><a href="index.php?sc=Boleto">2&#170; via Boleto</a></li>
 									<li><a href="<?php echo ($_SESSION["Gpaginaconcurso"]);?>">P&aacute;gina do Concurso</a></li>
 								</ul>
 							</div>

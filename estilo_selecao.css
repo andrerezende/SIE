@@ -317,6 +317,17 @@ ul.menu {
 	border-right-color:#aade64;
 	border-right-width:2px;
 }
+#formularioQuestionario {
+	border-bottom:solid;
+	border-bottom-color:#aade64;
+	border-bottom-width:2px;
+	border-left:solid;
+	border-left-color:#aade64;
+	border-left-width:2px;
+	border-right:solid;
+	border-right-color:#aade64;
+	border-right-width:2px;
+}
 
 #formularioInscricao input {
 

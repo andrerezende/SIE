@@ -11,13 +11,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title> <?php echo ($_SESSION["Gnomeprocessoseletivo"]);?> </title>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html" charset="ISO-8859-1" />
 	<link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.price_format.1.4.js"></script>
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
+            function setValue(valor){
+    document.getElementById("localprova").value = valor;
+   // return document.getElementById("localprova").options.value;
+}
+function localProva(texto){
+    //var i = window.document.forminscricao.curso.selectedIndex; 
+    var curso = texto;
+    var proeja = curso.search("PROEJA");
+    
+    if(proeja==-1){
+            //document.getElementById("localprova").disabled=false;
+        //document.getElementById("localprova").style.visibility="visible";
+        document.getElementById("divLocalProva").style.opacity = 1;
+    }else{
+        
+        
+           
+        
+        document.getElementById("divLocalProva").style.opacity = 0.4;
+        
+        document.getElementById("localprova").readonly=true;
+            //document.getElementById("localprova").style.visibility="hidden";
+     setValue(document.getElementById("campus").value);
+  
+}
+}
+function idade(data)
+            {
+                data = data.split("/");
+               
+                dia = data[0]; 
+                mes = data[1];
+                ano = data[2];
 
+                anoAtual = new Date();
+
+                ano = parseInt( ano );
+                anoAtual = <? echo date("Y"); ?>;
+
+                idade = ( anoAtual - ano );
+                if(idade<18){
+                    alert("Atencao! Menores de 18 nao podem se inscrever em cursos PROEJA.");
+                    document.getElementById("datanascimento").value ="" ;                    
+                }
+
+
+
+            }
         function enableCombos() {
 		//alert("entreou");
 		document.getElementById('isencao').disabled=false;
@@ -297,7 +344,7 @@
 		// Verifica se os valores dos dígitos verificadores conferem
 		DV = DIGITO[9] * 10 + DIGITO[10];
 		if (DV != DV_INFORMADO) {
-			alert('CPF invalido');
+			alert('CPF invalido!');
 			campo.value = '';
 			campo.focus();
 			return false;
@@ -568,7 +615,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right'><label for=datanascimento>Data de Nascimento:</label></td>
 				<td>
-					<input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="10" maxlength="10" alt="Data de Nascimento" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" value="<?php echo ($objinscrito[0]->getdatanascimento()); ?>" />
+                                    <input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="10" maxlength="10" alt="Data de Nascimento" onblur="idade(this.value);" onkeypress="Mascara('DATA',this,event); return Onlynumber(event); idade(this.value);" value="<?php echo ($objinscrito[0]->getdatanascimento()); ?>" />
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
@@ -795,7 +842,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right' width="200px"><label for=curso>Curso:</label></td>
 				<td colspan='2'>
-					<select name="curso" class=".text" id="curso" tabindex=26>
+                                    <select name="curso" class=".text" id="curso" tabindex=26 onchange="localProva(this.options[this.selectedIndex].text);">
 						<?php
 						$cod_campus_selecionado = $objinscrito[0]->getcampus();
 						$codigoCurso = $objinscrito[0]->getcurso();
@@ -825,7 +872,7 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<tr>
-				<td align='right' width="200px"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
+				<td align='right' width="200px"><div id="divLocalProva"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
 				<td colspan='2'>
 					<select id="localprova" name="localprova" tabindex="27">
 						<option value="0" selected="selected">Escolha um Local de prova</option>
@@ -851,7 +898,8 @@ if (count($objinscrito) == 0){
 						}
 						?>
 					</select>
-					<span class="textoSobrescrito">*</span>
+                                   
+					<span class="textoSobrescrito">*</span> </div>
 				</td>
 			</tr>
 

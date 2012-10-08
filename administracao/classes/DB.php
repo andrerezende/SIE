@@ -2,7 +2,7 @@
 class DB {
 	private static $instance = null;
         private $dbHost          = "localhost";
-	private $dbDatabase      = "ead";
+	private $dbDatabase      = "ifbaiano48";
 	private $dbUser          = "root";
 	private $dbPassword      = "";
 
