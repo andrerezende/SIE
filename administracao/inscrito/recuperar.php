@@ -82,6 +82,19 @@ else :
 	$emailInscrito = strtolower($objinscrito[0]->getemail());
 	$nomeInscrito = $objinscrito[0]->getnome();
 	$senhaInscrito = $objinscrito[0]->getsenha();
+	
+	$retorno = false;
+	$destinatario = $emailInscrito;
+	$assunto = "Recupera Senha - Processo Seletivo";
+	$corpo = "IF Baiano - Processo Seletivo,\n\nSeguem os dados do candidato:\n\nNome: ".$nomeInscrito."\nSenha: ".$senhaInscrito."";
+	$headers = "MIME-Version: 1.1\r\n";
+	$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+	$headers .= "From: estudante@concursos.ifbaiano.edu.br\r\n";
+	$headers .= "Return-Path: estudante@concursos.ifbaiano.edu.br\r\n";
+	$result = mail($emailInscrito,$assunto,$corpo,$headers); 
+	
+	//Alterado por: André
+	/*
 	$servidorSMTP = 'smtp.ifbaiano.edu.br';
 	$usuarioSMTP = $_SESSION["Gusrmail"];
 	$senhaSMTP = $_SESSION["Gpwdmail"];
@@ -105,7 +118,8 @@ else :
 		->setPriority(2)
 	;
 
-	$result = $mailer->send($mensagem);
+	$result = $mailer->send($mensagem); */
+	
 	if ($result) {
 		echo("<p class='textoDestaque2'>A senha foi enviada ao seu email.</p>");
 	} else {
