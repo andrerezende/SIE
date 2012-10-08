@@ -4,7 +4,7 @@ class DB {
         private $dbHost          = "localhost";
 	private $dbDatabase      = "ifbaiano48";
 	private $dbUser          = "root";
-	private $dbPassword      = "";
+	private $dbPassword      = "123456";
 
 	public static function getInstance(){
 		if (DB::$instance == null) {
