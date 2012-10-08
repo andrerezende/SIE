@@ -65,7 +65,7 @@ if ($data_fim < $data_atual) {
 
                 idade = ( anoAtual - ano );
                 while(idade<18){
-                    alert("Atencao! Menores de 18 nao podem se inscrever em cursos PROEJA.");
+                    alert("Atencao! Para os cursos PROEJA, o candidato deverá ter completado 18 anos até a data da matricula");
                     document.getElementById("datanascimento").focus(); 
                     break;
                 }
