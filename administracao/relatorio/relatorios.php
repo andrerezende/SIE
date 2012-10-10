@@ -1,8 +1,11 @@
 <?php session_start("SELECAO"); ?>
 <?php
-
 ob_start();
 session_start();
+
+if (!$_SESSION['validacao']) :
+	header("Location:../login/login.php");
+else :
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
@@ -75,11 +78,7 @@ session_start();
 }
 	</script>
 </head>
-<?php
-if ($_SESSION['validacao']) :
-	header("Location:../login/login.php");
-else :
-?>
+
 <body>
 <div id="tudo" align='center'>
 <div id="conteudoGeral">
@@ -242,4 +241,4 @@ else :
 </div></div></div>
 </body>
 </html>
-<?php endif;?>
+<?php endif; ?>
