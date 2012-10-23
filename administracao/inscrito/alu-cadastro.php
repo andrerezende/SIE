@@ -379,19 +379,38 @@ if ($data_fim < $data_atual) {
                         }
                     });
                 });
+                
+//                Desabilita campos etnia e renda na entrada
+                $("#vaga_etnia").attr("disabled", true);
+                $("#vaga_renda").attr("disabled", true);
+                $("#vaga_etnia").val("");
+                $("#vaga_renda").val("");
 
                 $("#vaga_especial").change(function() {
                     if ($(this).val() == "SIM") {
                         $("#vaga_rede_publica").val("NAO");
+                        
+                        $("#vaga_etnia").attr("disabled", true);
+                        $("#vaga_renda").attr("disabled", true);
+                        $("#vaga_etnia").val("");
+                        $("#vaga_renda").val("");
                     }
                 });
 
                 $("#vaga_rede_publica").change(function() {
                     if ($(this).val() == "SIM") {
                         $("#vaga_especial").val("NAO");
+                        
+                        $("#vaga_etnia").attr("disabled", false);
+                        $("#vaga_renda").attr("disabled", false);
+                    } else {
+                        $("#vaga_etnia").attr("disabled", true);
+                        $("#vaga_renda").attr("disabled", true);
+                        $("#vaga_etnia").val("");
+                        $("#vaga_renda").val("");
                     }
                 });
-
+                
                 
                 $("#especial_prova_descricao").attr("disabled", true);
                 $("#especial_descricao").attr("disabled", true);
@@ -841,10 +860,11 @@ if ($data_fim < $data_atual) {
                         <td height="28" align='right'><label for=vaga_etnia>Informe sua Etnia:</label></td>
                         <td>
                             <select name="vaga_etnia" id="vaga_etnia" tabindex=33>
-                                <option value="OUTRA ETNIA" selected="selected" >OUTRA ETNIA</option>
+                                <option value="" selected="selected" ></option>
                                 <option value="PRETO">PRETO</option>
                                 <option value="PARDO">PARDO</option>
                                 <option value="INDIGENA">IND&Iacute;GENA</option>
+                                <option value="OUTRA ETNIA">OUTRA ETNIA</option>
                             </select>
                         </td>
                     </tr>
@@ -853,12 +873,14 @@ if ($data_fim < $data_atual) {
                         <td height="28" align='right'><label for=vaga_renda>Qual a renda total de sua fam&iacute;lia (soma aproximada dos rendimentos de todos que residem na sua casa)?</label></td>
                         <td>
                             <select name="vaga_renda" id="vaga_renda" tabindex=34>
-                                <option value="(1) ate R$ 465,00" selected="selected" >at&eacute; R$ 465,00</option>
-                                <option value="(2) entre R$ 465,00 e R$ 930,00">entre R$ 465,00 e R$ 930,00</option>
-                                <option value="(3) entre R$ 930,00 e R$ 1.395,00">entre R$ 930,00 e R$ 1.395,00</option>
-                                <option value="(4) entre R$ 1.395,00 e R$ 2.325,00">entre R$ 1.395,00 e R$ 2.325,00</option>
-                                <option value="(5) entre R$ 2.325,000 e R$ 4.650,00">entre R$ 2.325,000 e R$ 4.650,00</option>
-                                <option value="(6) mais de R$ 4.650,00">mais de R$ 4.650,00</option>
+                                
+                                <option value="" selected="selected" ></option>
+                                <option value="(1) ate R$ 465,00" >(1) at&eacute; R$ 465,00</option>
+                                <option value="(2) entre R$ 465,00 e R$ 930,00">(2) entre R$ 465,00 e R$ 930,00</option>
+                                <option value="(3) entre R$ 930,00 e R$ 1.395,00">(3) entre R$ 930,00 e R$ 1.395,00</option>
+                                <option value="(4) entre R$ 1.395,00 e R$ 2.325,00">(4) entre R$ 1.395,00 e R$ 2.325,00</option>
+                                <option value="(5) entre R$ 2.325,000 e R$ 4.650,00">(5) entre R$ 2.325,000 e R$ 4.650,00</option>
+                                <option value="(6) mais de R$ 4.650,00">(6) mais de R$ 4.650,00</option>
                             </select>
                         </td>
                     </tr>
