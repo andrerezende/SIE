@@ -301,10 +301,24 @@ if (count($objinscrito) == 0) {
             </td>
         </tr>
 
+        <tr>
+            <td height="29" align='right'><label for=vaga_etnia>Etnia:</label></td>
+            <td>
+                <input style="text-transform:uppercase" name="vaga_etnia" id="vaga_etnia" disabled="disabled" tabindex=30 size="30" value="<?php echo ($objinscrito[0]->getvagaetnia()); ?>" />
+            </td>
+        </tr>
+                    
+        <tr>
+            <td height="29" align='right'><label for=vaga_renda>Renda familiar:</label></td>
+            <td>
+                <input style="text-transform:uppercase" name="vaga_renda" id="vaga_etnia" disabled="disabled" tabindex=31 size="100%" value="<?php echo ($objinscrito[0]->getvagarenda()); ?>" />
+            </td>
+        </tr>            
+                    
         <tr style="display: none">
             <td height="28" align='right'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
             <td>
-                <input style="text-transform:uppercase" name="vaga_rural" id="vaga_rural" disabled="disabled" tabindex=30 size="3" value="<?php echo ($objinscrito[0]->getvagarural()); ?>" />
+                <input style="text-transform:uppercase" name="vaga_rural" id="vaga_rural" disabled="disabled" tabindex=32 size="3" value="<?php echo ($objinscrito[0]->getvagarural()); ?>" />
             </td>
         </tr>
 
