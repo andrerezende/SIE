@@ -515,13 +515,13 @@ if (count($objinscrito) == 0){
 		<table width="760px" border="0" align="center">
 			<tr>
 				<td align='right'>
-					<input name="id" id="id" type="hidden" value="<?php echo $objinscrito[0]->getid(); ?>" />
+					<input name="id" id="id" type="hidden" value="<?php echo ($objinscrito[0]->getid()); ?>" />
 					<label for=numinscricao>N&uacute;mero de Inscri&ccedil;&atilde;o:</label>
 				</td>
 				<td>
 					<span class="textoDestaque3">
 						<?php echo $objinscrito[0]->getnuminscricao(); ?>
-						<input name="numinscricao" id="numinscricao" type="hidden" value="<?php echo $objinscrito[0]->getnuminscricao(); ?>" />
+						<input name="numinscricao" id="numinscricao" type="hidden" value="<?php echo ($objinscrito[0]->getnuminscricao()); ?>" />
 					</span>
 				</td>
 			</tr>
