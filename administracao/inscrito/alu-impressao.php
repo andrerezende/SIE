@@ -64,12 +64,12 @@ if (count($objinscrito) == 0) {
 		<table width="820px" border="0" align="center">
 			<tr>
 				<td align='right'>
-					<input name="id" id="id" type="hidden" disabled="true" value="<?php echo $objinscrito[0]->getid(); ?>" />
+					<input name="id" id="id" type="hidden" disabled="true" value="<?php echo ($objinscrito[0]->getid()); ?>" />
 					<label for=numinscricao>N&uacute;mero de Inscri&ccedil;&atilde;o:</label>
 				</td>
 				<td>
 					<span class="textoDestaque3">
-						<input name="numinscricao" id="numinscricao" readonly="readonly" style="font-size: 16px;" value="<?php echo $objinscrito[0]->getnuminscricao(); ?>" />
+						<input name="numinscricao" id="numinscricao" readonly="readonly" style="font-size: 16px;" value="<?php echo ($objinscrito[0]->getnuminscricao()); ?>" />
 					</span>
 				</td>
 			</tr>
