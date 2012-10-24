@@ -77,6 +77,8 @@ $inscrito->setespecialprovadescricao($especial_prova_descricao);
 $inscrito->setvagaespecial($vaga_especial);
 $inscrito->setvagaredepublica($vaga_rede_publica);
 $inscrito->setvagarural($vaga_rural);
+$inscrito->setvagaetnia($vaga_etnia);
+$inscrito->setvagarenda($vaga_renda);
 $inscrito->setcampus($campus);
 //$inscrito->setdatacadastro($data_cadastro);
 //$inscrito->setultimaalteracao($ultima_alteracao);
