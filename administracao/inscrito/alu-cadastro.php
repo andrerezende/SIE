@@ -905,7 +905,7 @@ if ($data_fim < $data_atual) {
                         <td>
                             <select name="vaga_renda" id="vaga_renda" tabindex=34>
                                 <option value="" selected="selected" ></option>
-                                <option value="(1)&#32;at&eacute;&#32;R$&#32;465,00" >(1)&#32;at&eacute;&#32;R$&#32;465,00</option>
+                                <option value="(1)&#32;at&eacute;&#32;R$&#32;465,00">(1)&#32;at&eacute;&#32;R$&#32;465,00</option>
                                 <option value="(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00">(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00</option>
                                 <option value="(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00">(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00</option>
                                 <option value="(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00">(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00</option>
