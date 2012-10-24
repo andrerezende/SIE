@@ -41,19 +41,55 @@ if ($sc == "") {
 } elseif ($sc == "Requerimento") {
 	$scTitulo = "Requerimento de Inscri&ccedil;&atilde;o";
 	$sc = "administracao/inscrito/<?php echo($pagina_cadastro)?>";
-} elseif ($sc == "Alterar") {
+        
+}
+
+// INÍCIO - PERMITE ALTERAR INSCRIÇÃO DEPOIS DO FECHAMENTO
+//elseif ($sc == "Alterar") {
+//	$scTitulo = "Alterar / Imprimir Inscri&ccedil;&atilde;o";
+//	$sc = "inscricao/alterar_inscricao.php";
+//        
+//} 
+// FIM - PERMITE ALTERAR INSCRIÇÃO DEPOIS DO FECHAMENTO
+
+// INÍCIO - NÃO PERMITE ALTERAR INSCRIÇÃO DEPOIS DO FECHAMENTO
+elseif ($sc == "Alterar") {
 	$scTitulo = "Alterar / Imprimir Inscri&ccedil;&atilde;o";
-	$sc = "inscricao/alterar_inscricao.php";
-} elseif ($sc == "Recuperar Senha") {
+        
+        if ($data_inicio >= $data_atual){
+                //$sc = "inscricao/inscricao_nao_aberta.html";
+                $sc = "inscricao/inscricao_interrompidas.html";
+        }elseif ($data_fim >= $data_atual){
+		$sc = "inscricao/alterar_inscricao.php";
+        }else{
+		$sc = "inscricao/inscricao_encerrada.html";
+	}
+}
+// FIM - NÃO PERMITE ALTERAR INSCRIÇÃO DEPOIS DO FECHAMENTO
+
+ elseif ($sc == "Recuperar Senha") {
 	$scTitulo = "Recuperar Senha";
 	$sc = "inscricao/recuperar_senha.html";
 } elseif ($sc == "Recuperar") {
 	$scTitulo = "Recuperar Senha";
 	$sc = "inscricao/recuperar_senha.php";
-} elseif ($sc == "Boleto") {
+} 
+// INÍCIO - NÃO PERMITE EMITIR BOLETO DEPOIS DO FECHAMENTO
+elseif ($sc == "Boleto") {
 	$scTitulo = "Emiss&atilde;o de Boleto";
-	$sc = "inscricao/emitir_boleto.php";
-}elseif ($sc == "Questionario") {
+	
+        if ($data_inicio >= $data_atual){
+                //$sc = "inscricao/inscricao_nao_aberta.html";
+                $sc = "inscricao/inscricao_interrompidas.html";
+        }elseif ($data_fim >= $data_atual){
+		$sc = "inscricao/emitir_boleto.php";
+        }else{
+		$sc = "inscricao/inscricao_encerrada.html";
+	}
+}
+// FIM - NÃO PERMITE EMITIR BOLETO DEPOIS DO FECHAMENTO
+
+elseif ($sc == "Questionario") {
 	$scTitulo = "Question&aacute;rio Socioecon&ocirc;mico";
 	$sc = "administracao/questionario/questionario.php";
 }
