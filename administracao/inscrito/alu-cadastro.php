@@ -192,11 +192,11 @@ if ($data_fim < $data_atual) {
                     resultado = false;
 		
                 } else if (campus.value == "" || campus.value == "0") {
-                    alert('Informe o Campus e Area!');
+                    alert('Informe o Campus e Curso!');
                     campus.focus();
                     resultado = false;
                 } else if (curso.value == "" || curso.value == "0") {
-                    alert('Informe o Campus e Area!');
+                    alert('Informe o Campus e Curso!');
                     curso.focus();
                     resultado = false;
                 } else if (localprova.value == "" || localprova.value == "0") {
@@ -207,10 +207,13 @@ if ($data_fim < $data_atual) {
                     alert('Informe a necessidade especial!');
                     //			especial_descricao.focus();
                     resultado = false;
-                }
-                else if (flag_especial_prova_descricao.value == "1") {
-                    alert('Informe a condicao especial para realizacao da prova!');
-                    //			especial_prova_descricao.focus();
+                } else if (flag_vaga_etnia.value == "" || flag_vaga_etnia.value == "0") {
+                    alert('Informe sua Etnia!');
+                    vaga_etnia.focus();
+                    resultado = false;
+                } else if (flag_vaga_renda.value == "" || flag_vaga_renda.value == "0") {
+                    alert('Informe sua Renda!');
+                    vaga_renda.focus();
                     resultado = false;
                 }
                 
@@ -380,11 +383,12 @@ if ($data_fim < $data_atual) {
                     });
                 });
                 
-//                Desabilita campos etnia e renda na entrada
+                //Desabilita campos etnia e renda na entrada
                 $("#vaga_etnia").attr("disabled", true);
                 $("#vaga_renda").attr("disabled", true);
-                $("#vaga_etnia").val("");
-                $("#vaga_renda").val("");
+                $("#flag_vaga_etnia").val("1");
+                $("#flag_vaga_renda").val("1");
+
 
                 $("#vaga_especial").change(function() {
                     if ($(this).val() == "SIM") {
@@ -392,8 +396,10 @@ if ($data_fim < $data_atual) {
                         
                         $("#vaga_etnia").attr("disabled", true);
                         $("#vaga_renda").attr("disabled", true);
-                        $("#vaga_etnia").val("");
-                        $("#vaga_renda").val("");
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("1");
+                        $("#flag_vaga_renda").val("1");
                     }
                 });
 
@@ -403,13 +409,37 @@ if ($data_fim < $data_atual) {
                         
                         $("#vaga_etnia").attr("disabled", false);
                         $("#vaga_renda").attr("disabled", false);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("0");
+                        $("#flag_vaga_renda").val("0");
+                        
                     } else {
                         $("#vaga_etnia").attr("disabled", true);
                         $("#vaga_renda").attr("disabled", true);
-                        $("#vaga_etnia").val("");
-                        $("#vaga_renda").val("");
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("1");
+                        $("#flag_vaga_renda").val("1");
                     }
                 });
+                
+                $("#vaga_etnia").change(function() {
+                    if ($(this).val() != "") {
+                        $("#flag_vaga_etnia").val("1");
+                    } else if ($(this).val() == ""){
+                        $("#flag_vaga_etnia").val("0");
+                    }
+                });
+                
+                $("#vaga_renda").change(function() {
+                    if ($(this).val() != "") {
+                        $("#flag_vaga_renda").val("1");
+                    } else if ($(this).val() == ""){
+                        $("#flag_vaga_renda").val("0");
+                    }
+                });
+                
                 
                 
                 $("#especial_prova_descricao").attr("disabled", true);
@@ -852,10 +882,9 @@ if ($data_fim < $data_atual) {
                                 <option value="NAO" selected="selected" >N&Atilde;O</option>
                                 <option value="SIM">SIM</option>
                             </select>
-                            <span class="textoSobrescrito">*</span>
+                            <span class="textoSobrescrito">* Caso escolha SIM, preencha os campos Etnia e Renda Familiar abaixo</span>
                         </td>
                     </tr>
-                    
                     <tr>
                         <td height="28" align='right'><label for=vaga_etnia>Informe sua Etnia:</label></td>
                         <td>
@@ -866,6 +895,8 @@ if ($data_fim < $data_atual) {
                                 <option value="INDIGENA">IND&Iacute;GENA</option>
                                 <option value="OUTRA ETNIA">OUTRA ETNIA</option>
                             </select>
+                            <input type="hidden" name="flag_vaga_etnia" id="flag_vaga_etnia" />
+                            <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
                         </td>
                     </tr>
                     
@@ -873,7 +904,6 @@ if ($data_fim < $data_atual) {
                         <td height="28" align='right'><label for=vaga_renda>Qual a renda total de sua fam&iacute;lia (soma aproximada dos rendimentos de todos que residem na sua casa)?</label></td>
                         <td>
                             <select name="vaga_renda" id="vaga_renda" tabindex=34>
-                                
                                 <option value="" selected="selected" ></option>
                                 <option value="(1) ate R$ 465,00" >(1) at&eacute; R$ 465,00</option>
                                 <option value="(2) entre R$ 465,00 e R$ 930,00">(2) entre R$ 465,00 e R$ 930,00</option>
@@ -882,6 +912,8 @@ if ($data_fim < $data_atual) {
                                 <option value="(5) entre R$ 2.325,000 e R$ 4.650,00">(5) entre R$ 2.325,000 e R$ 4.650,00</option>
                                 <option value="(6) mais de R$ 4.650,00">(6) mais de R$ 4.650,00</option>
                             </select>
+                            <input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
+                            <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
                         </td>
                     </tr>
 
