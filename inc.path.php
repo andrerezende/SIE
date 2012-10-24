@@ -30,7 +30,8 @@ if ($sc == "") {
 	$scTitulo = "Inscri&ccedil;&otilde;es";
 
 	if ($data_inicio >= $data_atual){
-                $sc = "inscricao/inscricao_nao_aberta.html";
+                //$sc = "inscricao/inscricao_nao_aberta.html";
+                $sc = "inscricao/inscricao_interrompidas.html";
         }elseif ($data_fim >= $data_atual){
 		$sc = "inscricao/inscricao_aberta.html";
         }else{
