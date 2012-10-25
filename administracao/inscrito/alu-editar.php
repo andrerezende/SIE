@@ -208,7 +208,15 @@ function idade(data)
 			alert('Informe a condicao especial para realizacao da prova!');
 //			especial_prova_descricao.focus();
 			resultado = false;
-		}
+		} else if (flag_vaga_etnia.value == "" || flag_vaga_etnia.value == "0") {
+                    alert('Informe sua Etnia!');
+                    vaga_etnia.focus();
+                    resultado = false;
+                } else if (flag_vaga_renda.value == "" || flag_vaga_renda.value == "0") {
+                    alert('Informe sua Renda Familiar!');
+                    vaga_renda.focus();
+                    resultado = false;
+                }
                 
                 enableCombos();
                 
@@ -378,17 +386,83 @@ function idade(data)
 			});
 		});
 
-		$("#vaga_especial").change(function() {
-			if ($(this).val() == "SIM") {
-				$("#vaga_rede_publica").val("NAO");
-			}
-		});
+//		$("#vaga_especial").change(function() {
+//			if ($(this).val() == "SIM") {
+//				$("#vaga_rede_publica").val("NAO");
+//			}
+//		});
+                $("#vaga_especial").change(function() {
+                    if ($(this).val() == "SIM") {
+                        $("#vaga_rede_publica").val("NAO");
+                        
+                        $("#vaga_etnia").attr("disabled", true);
+                        $("#vaga_renda").attr("disabled", true);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("1");
+                        $("#flag_vaga_renda").val("1");
+                    }
+                });
 
-		$("#vaga_rede_publica").change(function() {
-			if ($(this).val() == "SIM") {
-				$("#vaga_especial").val("NAO");
-			}
-		});
+//		$("#vaga_rede_publica").change(function() {
+//			if ($(this).val() == "SIM") {
+//				$("#vaga_especial").val("NAO");
+//			}
+//		});
+
+                if ($("#vaga_rede_publica").val() == "NAO") {
+                    $("#vaga_etnia").attr("disabled", true);
+                    $("#vaga_renda").attr("disabled", true);
+                    $("#vaga_etnia").val("0");
+                    $("#vaga_renda").val("0");
+                    $("#flag_vaga_etnia").val("1");
+                    $("#flag_vaga_renda").val("1");
+                } else if ($("#vaga_rede_publica").val() == "SIM") {
+                    $("#vaga_etnia").attr("disabled", false);
+                    $("#vaga_renda").attr("disabled", false);
+//                    $("#vaga_etnia").val("0");
+//                    $("#vaga_renda").val("0");
+                    $("#flag_vaga_etnia").val("1");
+                    $("#flag_vaga_renda").val("1");
+                }
+                
+
+                $("#vaga_rede_publica").change(function() {
+                    if ($(this).val() == "SIM") {
+                        $("#vaga_especial").val("NAO");
+                        
+                        $("#vaga_etnia").attr("disabled", false);
+                        $("#vaga_renda").attr("disabled", false);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("0");
+                        $("#flag_vaga_renda").val("0");
+                        
+                    } else {
+                        $("#vaga_etnia").attr("disabled", true);
+                        $("#vaga_renda").attr("disabled", true);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("1");
+                        $("#flag_vaga_renda").val("1");
+                    }
+                });
+                
+                $("#vaga_etnia").change(function() {
+                    if ($(this).val() != "") {
+                        $("#flag_vaga_etnia").val("1");
+                    } else if ($(this).val() == ""){
+                        $("#flag_vaga_etnia").val("0");
+                    }
+                });
+                
+                $("#vaga_renda").change(function() {
+                    if ($(this).val() != "") {
+                        $("#flag_vaga_renda").val("1");
+                    } else if ($(this).val() == ""){
+                        $("#flag_vaga_renda").val("0");
+                    }
+                });
 
                 
 //                $("#especial_prova_descricao").attr("disabled", true);
