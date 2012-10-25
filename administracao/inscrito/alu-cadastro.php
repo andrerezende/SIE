@@ -212,7 +212,7 @@ if ($data_fim < $data_atual) {
                     vaga_etnia.focus();
                     resultado = false;
                 } else if (flag_vaga_renda.value == "" || flag_vaga_renda.value == "0") {
-                    alert('Informe sua Renda!');
+                    alert('Informe sua Renda Familiar!');
                     vaga_renda.focus();
                     resultado = false;
                 }
