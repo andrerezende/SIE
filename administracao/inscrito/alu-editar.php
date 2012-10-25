@@ -1012,7 +1012,62 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
+                        
+                   
+                        <tr>
+				<td height="28" align='right'><label for=vaga_etnia>Informe sua Etnia:</label></td>
+				<td>
+					<select name="vaga_etnia" id="vaga_etnia" tabindex=33>
+						<?php
+						//$vaga_especial = array("","(1) ATE R$ 465,00","(2) ENTRE R$ 465,00 E R$ 930,00","(3) ENTRE R$ 930,00 E R$ 1.395,00","(4) ENTRE R$ 1.395,00 E R$ 2.325,00","(5) ENTRE R$ 2.325,000 E R$ 4.650,00","(6) MAIS DE R$ 4.650,00");
+						$vaga_especial = array("","PRETO","PARDO","INDIGENA","OUTRA ETNIA");
+                                                $total = count($vaga_especial);
+						$i = 0;
+						while ($total > $i) {
+							if ($vaga_especial[$i] != $objinscrito[0]->getvagaetnia()) {
+								echo(" <option value="."'".$vaga_especial[$i]."'".">".$vaga_especial[$i]."</option>\n");
+							} else {
+								echo(" <option selected value="."'".$vaga_especial[$i]."'".">".$vaga_especial[$i]."</option>\n");
+							}
+							$i = $i + 1;
+						}
+						?>
+					</select>
+					<input type="hidden" name="flag_vaga_etnia" id="flag_vaga_etnia" />
+                                        <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+				</td>
+			</tr>
+                  
 
+                        <tr>
+				<td height="28" align='right'><label for=vaga_renda>Qual a renda total de sua fam&iacute;lia (soma aproximada dos rendimentos de todos que residem na sua casa)?</label></td>
+				<td>
+					<select name="vaga_renda" id="vaga_renda" tabindex=34>
+						<?php
+						$vaga_especial = array("","(1) ATE R$ 465,00","(2) ENTRE R$ 465,00 E R$ 930,00","(3) ENTRE R$ 930,00 E R$ 1.395,00","(4) ENTRE R$ 1.395,00 E R$ 2.325,00","(5) ENTRE R$ 2.325,000 E R$ 4.650,00","(6) MAIS DE R$ 4.650,00");
+                                                //$vaga_especial = array("&#32;","(1)&#32;at&eacute;&#32;R$&#32;465,00","(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00","(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00","(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00","(5)&#32;entre&#32;R$&#32;2.325,000&#32;e&#32;R$&#32;4.650,00","(6)&#32;MAIS&#32;de&#32;R$&#32;4.650,00");
+                                                //$vaga_especial = array("","PRETO","PARDO","INDIGENA","OUTRA ETNIA");
+                                                $total = count($vaga_especial);
+						$i = 0;
+						while ($total > $i) {
+							if ($vaga_especial[$i] != $objinscrito[0]->getvagarenda()) {
+								echo(" <option value="."'".strtoupper($vaga_especial[$i])."'".">".strtoupper($vaga_especial[$i])."</option>\n");
+							} else {
+								echo(" <option selected value="."'".strtoupper($vaga_especial[$i])."'".">".strtoupper($vaga_especial[$i])."</option>\n");
+							}
+							$i = $i + 1;
+						}
+						?>
+					</select>
+					<input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
+                                        <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+				</td>
+			</tr>
+                    
+                    
+                    
+                    
+                    
 			<tr style="display: none">
 				<td height="28" align='right'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
 				<td>
