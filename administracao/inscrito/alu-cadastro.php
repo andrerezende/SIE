@@ -892,8 +892,8 @@ if ($data_fim < $data_atual) {
                                 <option value="" selected="selected" ></option>
                                 <option value="PRETO">PRETO</option>
                                 <option value="PARDO">PARDO</option>
-                                <option value="IND&Iacute;GENA">IND&Iacute;GENA</option>
-                                <option value="OUTRA&#32;ETNIA">OUTRA&#32;ETNIA</option>
+                                <option value="INDIGENA">INDIGENA</option>
+                                <option value="OUTRA ETNIA">OUTRA ETNIA</option>
                             </select>
                             <input type="hidden" name="flag_vaga_etnia" id="flag_vaga_etnia" />
                             <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
@@ -905,12 +905,12 @@ if ($data_fim < $data_atual) {
                         <td>
                             <select name="vaga_renda" id="vaga_renda" tabindex=34>
                                 <option value="" selected="selected" ></option>
-                                <option value="(1)&#32;at&eacute;&#32;R$&#32;465,00">(1)&#32;at&eacute;&#32;R$&#32;465,00</option>
-                                <option value="(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00">(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00</option>
-                                <option value="(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00">(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00</option>
-                                <option value="(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00">(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00</option>
-                                <option value="(5)&#32;entre&#32;R$&#32;2.325,000&#32;e&#32;R$&#32;4.650,00">(5)&#32;entre&#32;R$&#32;2.325,000&#32;e&#32;R$&#32;4.650,00</option>
-                                <option value="(6)&#32;mais&#32;de&#32;R$&#32;4.650,00">(6)&#32;mais&#32;de&#32;R$&#32;4.650,00</option>
+                                <option value="(1) ATE R$ 465,00">(1) ATE R$ 465,00</option>
+                                <option value="(2) ENTRE R$ 465,00 E R$ 930,00">(2) ENTRE R$ 465,00 E R$ 930,00</option>
+                                <option value="(3) ENTRE R$ 930,00 E R$ 1.395,00">(3) ENTRE R$ 930,00 E R$ 1.395,00</option>
+                                <option value="(4) ENTRE R$ 1.395,00 E R$ 2.325,00">(4) ENTRE R$ 1.395,00 E R$ 2.325,00</option>
+                                <option value="(5) ENTRE R$ 2.325,000 E R$ 4.650,00">(5) ENTRE R$ 2.325,000 E R$ 4.650,00</option>
+                                <option value="(6) MAIS DE R$ 4.650,00">(6) MAIS DE R$ 4.650,00</option>
                             </select>
                             <input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
                             <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
