@@ -583,6 +583,7 @@ if (count($objinscrito) == 0){
                 ?>
 	</div>
 	<h2>Ficha de Inscri&ccedil;&atilde;o</h2>
+        <p><span class="textoDestaque">OBSERVA&Ccedil;&Atilde;O: Os campos marcados com um asterisco (*) s&atilde;o de preenchimento obrigat&oacute;rio.</span></p>
 </div>
 <div id="formularioInscricao">
 	<form id='frmeditarinscricao' name='formeditarinscricao' action='atualizar_inscrito.php' method='post' onsubmit='return validar();' >
@@ -1108,7 +1109,7 @@ if (count($objinscrito) == 0){
 						?>
 					</select>
 					<input type="hidden" name="flag_vaga_etnia" id="flag_vaga_etnia" />
-                                        <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                                        <span class="textoSobrescrito">**</span>
 				</td>
 			</tr>
                   
@@ -1118,7 +1119,7 @@ if (count($objinscrito) == 0){
 				<td>
 					<select name="vaga_renda" id="vaga_renda" tabindex=34>
 						<?php
-						$vaga_especial = array("","(1) ATE R$ 465,00","(2) ENTRE R$ 465,00 E R$ 930,00","(3) ENTRE R$ 930,00 E R$ 1.395,00","(4) ENTRE R$ 1.395,00 E R$ 2.325,00","(5) ENTRE R$ 2.325,000 E R$ 4.650,00","(6) MAIS DE R$ 4.650,00");
+						$vaga_especial = array("","1","2");
                                                 //$vaga_especial = array("&#32;","(1)&#32;at&eacute;&#32;R$&#32;465,00","(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00","(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00","(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00","(5)&#32;entre&#32;R$&#32;2.325,000&#32;e&#32;R$&#32;4.650,00","(6)&#32;MAIS&#32;de&#32;R$&#32;4.650,00");
                                                 //$vaga_especial = array("","PRETO","PARDO","INDIGENA","OUTRA ETNIA");
                                                 $total = count($vaga_especial);
@@ -1134,11 +1135,15 @@ if (count($objinscrito) == 0){
 						?>
 					</select>
 					<input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
-                                        <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                                        <span class="textoSobrescrito">**</span>
 				</td>
 			</tr>
                     
-                    
+                        <tr>
+                            <td colspan="2">
+                                <span class="textoSobrescrito"><br />** Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                            </td>
+                        </tr>
                     
                     
                     
