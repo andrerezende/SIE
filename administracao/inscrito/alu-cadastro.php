@@ -534,7 +534,7 @@ if ($data_fim < $data_atual) {
 
             </div>
             <h2>Ficha de Inscri&ccedil;&atilde;o</h2>
-            <p><span class="textoDestaque">OBSERVA&Ccedil;&Atilde;O: Os campos marcados com asterisco (*) s&atilde;o de preenchimento obrigat&oacute;rio.</span></p>
+            <p><span class="textoDestaque">OBSERVA&Ccedil;&Atilde;O: Os campos marcados com um asterisco (*) s&atilde;o de preenchimento obrigat&oacute;rio.</span></p>
         </div>
 
         <div id="formularioInscricao">
@@ -896,7 +896,7 @@ if ($data_fim < $data_atual) {
                                 <option value="OUTRA ETNIA">OUTRA ETNIA</option>
                             </select>
                             <input type="hidden" name="flag_vaga_etnia" id="flag_vaga_etnia" />
-                            <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                            <span class="textoSobrescrito">**</span>
                         </td>
                     </tr>
                     
@@ -905,18 +905,25 @@ if ($data_fim < $data_atual) {
                         <td>
                             <select name="vaga_renda" id="vaga_renda" tabindex=34>
                                 <option value="" selected="selected" ></option>
-                                <option value="(1) ATE R$ 465,00">(1) ATE R$ 465,00</option>
-                                <option value="(2) ENTRE R$ 465,00 E R$ 930,00">(2) ENTRE R$ 465,00 E R$ 930,00</option>
-                                <option value="(3) ENTRE R$ 930,00 E R$ 1.395,00">(3) ENTRE R$ 930,00 E R$ 1.395,00</option>
-                                <option value="(4) ENTRE R$ 1.395,00 E R$ 2.325,00">(4) ENTRE R$ 1.395,00 E R$ 2.325,00</option>
-                                <option value="(5) ENTRE R$ 2.325,000 E R$ 4.650,00">(5) ENTRE R$ 2.325,000 E R$ 4.650,00</option>
-                                <option value="(6) MAIS DE R$ 4.650,00">(6) MAIS DE R$ 4.650,00</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
                             </select>
                             <input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
-                            <span class="textoSobrescrito">Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                            <span class="textoSobrescrito">
+                                **<br />
+                                <b>1</b> - Renda familiar per capita igual ou inferior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio) ou R$ 933,00<br />
+                                <b>2</b> - Renda familiar per capita maior que 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio)<br />
+                               
+                            </span>
                         </td>
                     </tr>
-
+                    
+                    <tr>
+                        <td colspan="2">
+                            <span class="textoSobrescrito"><br />** Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                        </td>
+                    </tr>
+                    
                     <tr style="display: none">
                         <td height="28" align='left'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
                         <td>
