@@ -882,7 +882,11 @@ if ($data_fim < $data_atual) {
                                 <option value="NAO" selected="selected" >N&Atilde;O</option>
                                 <option value="SIM">SIM</option>
                             </select>
-                            <span class="textoSobrescrito">* Caso escolha SIM, preencha os campos Etnia e Renda Familiar abaixo</span>
+                            <span class="textoSobrescrito">
+                                *<br />
+                                <b>SIM</b> - Sistema de Cotas para Escolas P&uacute;blicas. Preencha os campos Etnia e Renda Familiar abaixo.<br />
+                                <b>N&Atilde;O</b> - Ampla Concorr&ecirc;ncia.<br />
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -911,8 +915,8 @@ if ($data_fim < $data_atual) {
                             <input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
                             <span class="textoSobrescrito">
                                 **<br />
-                                <b>1</b> - Renda familiar per capita igual ou inferior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio) ou R$ 933,00<br />
-                                <b>2</b> - Renda familiar per capita maior que 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio)<br />
+                                <b>1</b> - Renda familiar per capita igual ou inferior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio) ou R$ 933,00.<br />
+                                <b>2</b> - Renda familiar per capita maior que 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio).<br />
                                
                             </span>
                         </td>
@@ -920,7 +924,7 @@ if ($data_fim < $data_atual) {
                     
                     <tr>
                         <td colspan="2">
-                            <span class="textoSobrescrito"><br />** Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica</span>
+                            <span class="textoSobrescrito"><br />** Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica.</span>
                         </td>
                     </tr>
                     
