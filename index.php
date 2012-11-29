@@ -3,25 +3,25 @@
 
 session_start("SELECAO");
 $_SESSION["Gnomeprocessoseletivo"]      = "Processo Seletivo para Alunos - 2013";
-$_SESSION["Gdatainicio"]                = mktime(0, 0, 0, 5, 7, 2012); // 0,0,0, M/D/Y
-$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 11, 17, 2013);
-$_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 1, 6, 2013);
+$_SESSION["Gdatainicio"]                = mktime(0, 0, 0, 10, 9, 2012); // 0,0,0, M/D/Y
+$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 11, 30, 2012);
+$_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 10, 23, 2012);
 
 $_SESSION["Gvalorboleto"] = "10,00";
 $_SESSION["Gconvenio"] = "2203078";
 $_SESSION["Gedital"] = "162";
 $_SESSION["Gano"] = "2012";
 $_SESSION["Gpaginaconcurso"] = "http://www.ifbaiano.edu.br/concursos/portal/discente2013/";
-$_SESSION["Gusrmail"] = "devteste@ifbaiano.edu.br";
-$_SESSION["Gpwdmail"] = "dev123*@";
+$_SESSION["Gusrmail"] = "estudante@concursos.ifbaiano.edu.br";
+$_SESSION["Gpwdmail"] = "";
 
 //ATENÇÃO: Lembrar de dar permissão de escrita na pasta do servidor WEB
-$_SESSION["Gcaminhoupload"]= "E:/home/ifbaiano/Web/concursos/aplicacoes/2013_discente/administracao/pagamento/";
+$_SESSION["Gcaminhoupload"]= "http://localhost/2013_discente/administracao/pagamentos/retorno/";
 
 //Atribuído da página parametrizada responsável pelo cadastro,edição e impressão do candidato 
-$_SESSION["Gpaginaeditar"]	="alu-editar.php";		   
-$_SESSION["Gpaginaimpressao"]	="alu-impressao.php";
-$_SESSION["Gpaginacadastro"]	="alu-cadastro.php";
+$_SESSION["Gpaginaeditar"]	="ead-editar.php";		   
+$_SESSION["Gpaginaimpressao"]	="ead-impressao.php";
+$_SESSION["Gpaginacadastro"]	="ead-cadastro.php";
 
 
 ?>
