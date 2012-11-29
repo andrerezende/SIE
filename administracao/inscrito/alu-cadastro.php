@@ -917,7 +917,7 @@ if ($data_fim < $data_atual) {
                             <span class="textoSobrescrito">
                                 **<br />
                                 <b>1</b> - Renda familiar per capita igual ou inferior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio) ou R$ 933,00.<br />
-                                <b>2</b> - Renda familiar per capita superior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio).<br />
+                                <b>2</b> - Renda familiar per capita superior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio) ou R$ 933,00.<br />
                                
                             </span>
                         </td>
