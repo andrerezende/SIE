@@ -2,24 +2,69 @@
 <?php //session_start();?>
 
 <?php	
-	//Trecho que automatiza o encerramento do Per�odo de Isen��o
+	//Trecho que automatiza o encerramento do Período de Isenção
 	$data_fim_isencao  	= $_SESSION["Gdataterminoisencao"];
-	//$data_atual             = strtotime(date("d/m/Y")); 
-        $data_atual             = strtotime("now"); 
-
+        $data_atual             = strtotime("now");
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title> <?php echo ($_SESSION["Gnomeprocessoseletivo"]);?> </title>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html" charset="ISO-8859-1" />
 	<link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.price_format.1.4.js"></script>
-	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>    
+	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
+            function setValue(valor){
+    document.getElementById("localprova").value = valor;
+   // return document.getElementById("localprova").options.value;
+}
+function localProva(texto){
+    //var i = window.document.forminscricao.curso.selectedIndex; 
+    var curso = texto;
+    var proeja = curso.search("PROEJA");
+    
+    if(proeja==-1){
+            //document.getElementById("localprova").disabled=false;
+        //document.getElementById("localprova").style.visibility="visible";
+        document.getElementById("divLocalProva").style.opacity = 1;
+    }else{
+        
+        
+           
+        
+        document.getElementById("divLocalProva").style.opacity = 0.4;
+        
+        document.getElementById("localprova").readonly=true;
+            //document.getElementById("localprova").style.visibility="hidden";
+     setValue(document.getElementById("campus").value);
+  
+}
+}
+function idade(data)
+            {
+                data = data.split("/");
+               
+                dia = data[0]; 
+                mes = data[1];
+                ano = data[2];
 
+                anoAtual = new Date();
+
+                ano = parseInt( ano );
+                anoAtual = <? echo date("Y"); ?>;
+
+                idade = ( anoAtual - ano );
+                if(idade<18){
+                    alert("Atencao! Menores de 18 nao podem se inscrever em cursos PROEJA.");
+                    document.getElementById("datanascimento").value ="" ;                    
+                }
+
+
+
+            }
         function enableCombos() {
 		//alert("entreou");
 		document.getElementById('isencao').disabled=false;
@@ -60,16 +105,9 @@
 		var campus                  = document.getElementById("campus");
 		var curso                   = document.getElementById("curso");
 		var localprova              = document.getElementById("localprova");
+//                var especial_descricao      = document.getElementById("especial_descricao");
                 var flag_especial_descricao = document.getElementById("flag_especial_descricao");
                 var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
-                
-                //lançamento das notas de EAD
-                var mediapor1			= document.getElementById("mediapor1");
-		var mediapor2			= document.getElementById("mediapor2");
-		var mediapor3			= document.getElementById("mediapor3");
-		var mediamat1			= document.getElementById("mediamat1");
-		var mediamat2			= document.getElementById("mediamat2");
-		var mediamat3			= document.getElementById("mediamat3");                   
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -118,15 +156,17 @@
 			alert('Informe corretamente a data de nascimento!');
 			dataNascimento.focus();
 			resultado = false;
-		} else if (dataExpedicao.value == "") {
-			alert('Informe a data de expedicao!');
-			dataExpedicao.focus();
-			resultado = false;
-		} else if (!CheckDate(dataExpedicao)) {
-			alert('Informe corretamente a data de expedicao!');
-			dataExpedicao.focus();
-			resultado = false;
-		} else if(sexo.value == "") {
+		} 
+//                else if (dataExpedicao.value == "") {
+//			alert('Informe a data de expedicao!');
+//			dataExpedicao.focus();
+//			resultado = false;
+//		} else if (!CheckDate(dataExpedicao)) {
+//			alert('Informe corretamente a data de expedicao!');
+//			dataExpedicao.focus();
+//			resultado = false;
+//		} 
+                else if(sexo.value == "") {
 			alert('Informe sexo!');
 			sexo.focus();
 			resultado = false;
@@ -145,41 +185,42 @@
 		} else if (municipio.value == "" || municipio.value == "0") {
 			alert('Informe o Estado e Municipio!');
 			municipio.focus();
-			resultado = false;		
+			resultado = false;
+		
                 } else if (campus.value == "" || campus.value == "0") {
-			alert('Informe o Polo e Area!');
+			alert('Informe o Campus e Area!');
 			campus.focus();
 			resultado = false;
 		} else if (curso.value == "" || curso.value == "0") {
-			alert('Informe o Polo e Area!');
+			alert('Informe o Campus e Area!');
 			curso.focus();
 			resultado = false;
 		} else if (localprova.value == "" || localprova.value == "0") {
-			alert('Informe o Polo e Local de Prova!');
+			alert('Informe o Campus e Local de Prova!');
 			localprova.focus();
 			resultado = false;
 		} else if (flag_especial_descricao.value == "1") {
 			alert('Informe a necessidade especial!');
+//			especial_descricao.focus();
 			resultado = false;
-		} else if (mediapor1.value == "" || mediapor2.value == "" || mediapor3.value == "" || mediamat1.value == "" || mediamat2.value == "" || mediamat3.value == "") {
-			alert('Informe suas notas!');
-			mediapor1.focus();
+		}
+                else if (flag_especial_prova_descricao.value == "1") {
+			alert('Informe a condicao especial para realizacao da prova!');
+//			especial_prova_descricao.focus();
 			resultado = false;
-		} else if (mediapor1.value <= 4.9 || mediapor2.value <= 4.9 || mediapor3.value <= 4.9 || mediamat1.value <= 4.9 || mediamat2.value <= 4.9 || mediamat3.value <= 4.9) {
-                	alert('A nota deve ser maior ou igual a 5.0!');
-			mediapor1.focus();
-			resultado = false;
-		} else if (mediapor1.value > 10.0 || mediapor2.value > 10.0 || mediapor3.value > 10.0 || mediamat1.value > 10.0 || mediamat2.value > 10.0 || mediamat3.value > 10.0) {
-			alert('A nota deve ser menor ou igual a 10.0!');
-			mediapor1.focus();
-			resultado = false;
-		}  
-                
-                if (resultado){
-                    enableCombos();
+		} else if (flag_vaga_etnia.value == "" || flag_vaga_etnia.value == "0") {
+                    alert('Informe sua Etnia!');
+                    vaga_etnia.focus();
+                    resultado = false;
+                } else if (flag_vaga_renda.value == "" || flag_vaga_renda.value == "0") {
+                    alert('Informe sua Renda Familiar!');
+                    vaga_renda.focus();
+                    resultado = false;
                 }
                 
-                return resultado;
+                enableCombos();
+                
+		return resultado;
 	}
 
 	function Mascara(tipo, campo, teclaPress) {
@@ -331,16 +372,7 @@
 	}
 
 	$(document).ready(function() {
-
-                $(".notas").priceFormat({
-		    prefix: '',
-		    limit: 3,
-		    centsLimit: 1,
-		    centsSeparator: '.',
-		    thousandsSeparator: ''
-		});
-                
-                $(".alpha").alpha();
+		$(".alpha").alpha();
 
 		$("#nis").attr("disabled", true);
 		$("#isencao").change(function() {
@@ -354,17 +386,88 @@
 			});
 		});
 
-		$("#vaga_especial").change(function() {
-			if ($(this).val() == "SIM") {
-				$("#vaga_rede_publica").val("NAO");
-			}
-		});
+//		$("#vaga_especial").change(function() {
+//			if ($(this).val() == "SIM") {
+//				$("#vaga_rede_publica").val("NAO");
+//			}
+//		});
+                $("#vaga_especial").change(function() {
+                    if ($(this).val() == "SIM") {
+                        $("#vaga_rede_publica").val("NAO");
+                        
+                        $("#vaga_etnia").attr("disabled", true);
+                        $("#vaga_renda").attr("disabled", true);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("1");
+                        $("#flag_vaga_renda").val("1");
+                    }
+                });
 
-		$("#vaga_rede_publica").change(function() {
-			if ($(this).val() == "SIM") {
-				$("#vaga_especial").val("NAO");
-			}
-		});
+//		$("#vaga_rede_publica").change(function() {
+//			if ($(this).val() == "SIM") {
+//				$("#vaga_especial").val("NAO");
+//			}
+//		});
+
+                if ($("#vaga_rede_publica").val() == "NAO") {
+                    $("#vaga_etnia").attr("disabled", true);
+                    $("#vaga_renda").attr("disabled", true);
+                    $("#vaga_etnia").val("0");
+                    $("#vaga_renda").val("0");
+                    $("#flag_vaga_etnia").val("1");
+                    $("#flag_vaga_renda").val("1");
+                } else if ($("#vaga_rede_publica").val() == "SIM") {
+                    $("#vaga_etnia").attr("disabled", false);
+                    $("#vaga_renda").attr("disabled", false);
+//                    $("#vaga_etnia").val("0");
+//                    $("#vaga_renda").val("0");
+                    $("#flag_vaga_etnia").val("1");
+                    $("#flag_vaga_renda").val("1");
+                }
+                
+
+                $("#vaga_rede_publica").change(function() {
+                    if ($(this).val() == "SIM") {
+                        $("#vaga_especial").val("NAO");
+                        
+                        $("#vaga_etnia").attr("disabled", false);
+                        $("#vaga_renda").attr("disabled", false);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("0");
+                        $("#flag_vaga_renda").val("0");
+                        
+                    } else {
+                        $("#vaga_etnia").attr("disabled", true);
+                        $("#vaga_renda").attr("disabled", true);
+                        $("#vaga_etnia").val("0");
+                        $("#vaga_renda").val("0");
+                        $("#flag_vaga_etnia").val("1");
+                        $("#flag_vaga_renda").val("1");
+                    }
+                });
+                
+                $("#vaga_etnia").change(function() {
+                    if ($(this).val() != "") {
+                        $("#flag_vaga_etnia").val("1");
+                    } else if ($(this).val() == ""){
+                        $("#flag_vaga_etnia").val("0");
+                    }
+                });
+                
+                $("#vaga_renda").change(function() {
+                    if ($(this).val() != "") {
+                        $("#flag_vaga_renda").val("1");
+                    } else if ($(this).val() == ""){
+                        $("#flag_vaga_renda").val("0");
+                    }
+                });
+
+                
+//                $("#especial_prova_descricao").attr("disabled", true);
+//                $("#especial_descricao").attr("disabled", true);
+
 		               
                 $("#especial").change(function() {
 			$("#especial option:selected").each(function() {
@@ -433,7 +536,7 @@
 					$("select[name=municipio]").html(valor);
 				}
 			)
-		})            
+		})
 	})
 	</script>
 </head>
@@ -480,19 +583,20 @@ if (count($objinscrito) == 0){
                 ?>
 	</div>
 	<h2>Ficha de Inscri&ccedil;&atilde;o</h2>
+        <p><span class="textoDestaque">OBSERVA&Ccedil;&Atilde;O: Os campos marcados com um asterisco (*) s&atilde;o de preenchimento obrigat&oacute;rio.</span></p>
 </div>
 <div id="formularioInscricao">
 	<form id='frmeditarinscricao' name='formeditarinscricao' action='atualizar_inscrito.php' method='post' onsubmit='return validar();' >
 		<table width="760px" border="0" align="center">
 			<tr>
 				<td align='right'>
-					<input name="id" id="id" type="hidden" value="<?php echo $objinscrito[0]->getid(); ?>" />
+					<input name="id" id="id" type="hidden" value="<?php echo ($objinscrito[0]->getid()); ?>" />
 					<label for=numinscricao>N&uacute;mero de Inscri&ccedil;&atilde;o:</label>
 				</td>
 				<td>
 					<span class="textoDestaque3">
 						<?php echo $objinscrito[0]->getnuminscricao(); ?>
-						<input name="numinscricao" id="numinscricao" type="hidden" value="<?php echo $objinscrito[0]->getnuminscricao(); ?>" />
+						<input name="numinscricao" id="numinscricao" type="hidden" value="<?php echo ($objinscrito[0]->getnuminscricao()); ?>" />
 					</span>
 				</td>
 			</tr>
@@ -588,7 +692,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right'><label for=datanascimento>Data de Nascimento:</label></td>
 				<td>
-					<input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="10" maxlength="10" alt="Data de Nascimento" onkeypress="Mascara('DATA',this,event); return Onlynumber(event);" value="<?php echo ($objinscrito[0]->getdatanascimento()); ?>" />
+                                    <input name="datanascimento" id="datanascimento" type="text" tabindex=10 size="10" maxlength="10" alt="Data de Nascimento" onblur="idade(this.value);" onkeypress="Mascara('DATA',this,event); return Onlynumber(event); idade(this.value);" value="<?php echo ($objinscrito[0]->getdatanascimento()); ?>" />
 					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
@@ -783,7 +887,7 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<tr>
-				<td align='right' width="200px"><label for=campus>Polo:</label></td>
+				<td align='right' width="200px"><label for=campus>Campus:</label></td>
 				<td colspan='2'>
 					<select id="campus" name="campus" tabindex="25">
 						<option value="0" selected="selected">Escolha um Campus</option>
@@ -815,7 +919,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td align='right' width="200px"><label for=curso>Curso:</label></td>
 				<td colspan='2'>
-					<select name="curso" class=".text" id="curso" tabindex=26>
+                                    <select name="curso" class=".text" id="curso" tabindex=26 onchange="localProva(this.options[this.selectedIndex].text);">
 						<?php
 						$cod_campus_selecionado = $objinscrito[0]->getcampus();
 						$codigoCurso = $objinscrito[0]->getcurso();
@@ -845,7 +949,7 @@ if (count($objinscrito) == 0){
 			</tr>
 
 			<tr>
-				<td align='right' width="200px"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
+				<td align='right' width="200px"><div id="divLocalProva"><label for=localprova>Local de realiza&ccedil;&atilde;o da prova</label></td>
 				<td colspan='2'>
 					<select id="localprova" name="localprova" tabindex="27">
 						<option value="0" selected="selected">Escolha um Local de prova</option>
@@ -871,11 +975,12 @@ if (count($objinscrito) == 0){
 						}
 						?>
 					</select>
-					<span class="textoSobrescrito">*</span>
+                                   
+					<span class="textoSobrescrito">*</span> </div>
 				</td>
 			</tr>
 
-			<tr style="display: none">
+			<tr>
 				<td height="28" align='right'><label for=isencao>Isen&ccedil;&atilde;o de Taxa?</label></td>
 				<td>
 
@@ -914,7 +1019,7 @@ if (count($objinscrito) == 0){
 				</td>
 			</tr>
 
-                        <tr style="display: none">
+			<tr>
 				<td height="28" align='right'><label for=especial_prova>Condi&ccedil;&otilde;es especiais para realiza&ccedil;&atilde;o da prova:</label></td>
 				<td>
 					<select name="especial_prova" id="especial_prova" tabindex=29>
@@ -979,10 +1084,77 @@ if (count($objinscrito) == 0){
 						}
 						?>
 					</select>
-					<span class="textoSobrescrito">*</span>
+					<span class="textoSobrescrito">
+                                            **<br />
+                                            <b>SIM</b> - Sistema de Cotas para Escolas P&uacute;blicas. Preencha os campos Etnia e Renda Familiar abaixo.<br />
+                                            <b>N&Atilde;O</b> - Ampla Concorr&ecirc;ncia.<br />
+                                        </span>
 				</td>
 			</tr>
+                        
+                   
+                        <tr>
+				<td height="28" align='right'><label for=vaga_etnia>Informe sua Etnia:</label></td>
+				<td>
+					<select name="vaga_etnia" id="vaga_etnia" tabindex=33>
+						<?php
+						//$vaga_especial = array("","(1) ATE R$ 465,00","(2) ENTRE R$ 465,00 E R$ 930,00","(3) ENTRE R$ 930,00 E R$ 1.395,00","(4) ENTRE R$ 1.395,00 E R$ 2.325,00","(5) ENTRE R$ 2.325,000 E R$ 4.650,00","(6) MAIS DE R$ 4.650,00");
+						$vaga_especial = array("","PRETO","PARDO","INDIGENA","OUTRA ETNIA");
+                                                $total = count($vaga_especial);
+						$i = 0;
+						while ($total > $i) {
+							if ($vaga_especial[$i] != $objinscrito[0]->getvagaetnia()) {
+								echo(" <option value="."'".$vaga_especial[$i]."'".">".$vaga_especial[$i]."</option>\n");
+							} else {
+								echo(" <option selected value="."'".$vaga_especial[$i]."'".">".$vaga_especial[$i]."</option>\n");
+							}
+							$i = $i + 1;
+						}
+						?>
+					</select>
+					<input type="hidden" name="flag_vaga_etnia" id="flag_vaga_etnia" />
+                                        <span class="textoSobrescrito">**</span>
+				</td>
+			</tr>
+                  
 
+                        <tr>
+				<td height="28" align='right'><label for=vaga_renda>Qual a renda total de sua fam&iacute;lia (soma aproximada dos rendimentos de todos que residem na sua casa)?</label></td>
+				<td>
+					<select name="vaga_renda" id="vaga_renda" tabindex=34>
+						<?php
+						$vaga_especial = array("","1","2");
+                                                //$vaga_especial = array("&#32;","(1)&#32;at&eacute;&#32;R$&#32;465,00","(2)&#32;entre&#32;R$&#32;465,00&#32;e&#32;R$&#32;930,00","(3)&#32;entre&#32;R$&#32;930,00&#32;e&#32;R$&#32;1.395,00","(4)&#32;entre&#32;R$&#32;1.395,00&#32;e&#32;R$&#32;2.325,00","(5)&#32;entre&#32;R$&#32;2.325,000&#32;e&#32;R$&#32;4.650,00","(6)&#32;MAIS&#32;de&#32;R$&#32;4.650,00");
+                                                //$vaga_especial = array("","PRETO","PARDO","INDIGENA","OUTRA ETNIA");
+                                                $total = count($vaga_especial);
+						$i = 0;
+						while ($total > $i) {
+							if ($vaga_especial[$i] != $objinscrito[0]->getvagarenda()) {
+								echo(" <option value="."'".strtoupper($vaga_especial[$i])."'".">".strtoupper($vaga_especial[$i])."</option>\n");
+							} else {
+								echo(" <option selected value="."'".strtoupper($vaga_especial[$i])."'".">".strtoupper($vaga_especial[$i])."</option>\n");
+							}
+							$i = $i + 1;
+						}
+						?>
+					</select>
+					<input type="hidden" name="flag_vaga_renda" id="flag_vaga_renda" />
+                                        <span class="textoSobrescrito">
+                                            **<br />
+                                            <b>1</b> - Renda familiar per capita igual ou inferior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio) ou R$ 933,00.<br />
+                                            <b>2</b> - Renda familiar per capita superior a 1,5 sal&aacute;rio-m&iacute;nimo (um sal&aacute;rio-m&iacute;nimo e meio).<br />
+                                        </span>
+				</td>
+			</tr>
+                    
+                        <tr>
+                            <td colspan="2">
+                                <span class="textoSobrescrito"><br />** Preencher somente se estiver concorrendo &agrave;s vagas reservadas para alunos oriundos da Rede P&uacute;blica.</span>
+                            </td>
+                        </tr>
+                    
+                    
+                    
 			<tr style="display: none">
 				<td height="28" align='right'><label for=vaga_rural>Concorrer &agrave;s vagas reservadas para alunos filhos de Pequenos Produtores Rurais, Assentados, Lavradores e Trabalhadores Rurais:</label></td>
 				<td>
@@ -1013,7 +1185,7 @@ if (count($objinscrito) == 0){
 		                    </td>
 		                </tr>
 			<?php endif;?>
-
+                    
                         <tr>
                                 <td colspan="2" align="center"><h2> Registro de notas</h2> </td>
                         </tr>   
@@ -1041,7 +1213,7 @@ if (count($objinscrito) == 0){
                                     <span class="textoSobrescrito">*</span>
                                 </td>
                         </tr> 
-                                
+
 			<tr>
 				<td colspan="2" align="justify">
 					<hr />
@@ -1054,7 +1226,7 @@ if (count($objinscrito) == 0){
 			<tr>
 				<td colspan="2" align="center">
 					Confirma?
-					<select name="declaracao" id="declaracao" tabindex=39>
+					<select name="declaracao" id="declaracao" tabindex=34>
 						<option value="NAO" selected="selected">N&Atilde;O</option>
 						<option value="SIM">SIM</option>
 					</select>
@@ -1065,7 +1237,7 @@ if (count($objinscrito) == 0){
 
 			<tr>
 				<td colspan='3' align='center'>
-					<input name="Gravar" type="submit" id="Gravar" tabindex=40 value="Enviar" />
+					<input name="Gravar" type="submit" id="Gravar" tabindex=35 value="Enviar" />
 					<input type="button" value="Cancelar" onclick="javascript:redireciona();" />
 				</td>
 			</tr>
