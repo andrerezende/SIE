@@ -4,7 +4,7 @@
 session_start("SELECAO");
 $_SESSION["Gnomeprocessoseletivo"]      = "Processo Seletivo para Alunos - 2013";
 $_SESSION["Gdatainicio"]                = mktime(0, 0, 0, 10, 9, 2012); // 0,0,0, M/D/Y
-$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 11, 30, 2012);
+$_SESSION["Gdatatermino"]               = mktime(18, 1, 0, 11, 30, 2013);
 $_SESSION["Gdataterminoisencao"]        = mktime(18, 1, 0, 10, 23, 2012);
 
 $_SESSION["Gvalorboleto"] = "10,00";
