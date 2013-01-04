@@ -25,6 +25,7 @@ if ($data_fim < $data_atual) {
         <link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
         <script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
+        <script type="text/javascript" src="../../js/jquery.price_format.1.4.js"></script>
         <script language="JavaScript" type="text/JavaScript">
             function setValue(valor){
                 document.getElementById("localprova").options.value = valor;
@@ -111,6 +112,14 @@ if ($data_fim < $data_atual) {
                 //                var especial_descricao      = document.getElementById("especial_descricao");
                 var flag_especial_descricao = document.getElementById("flag_especial_descricao");
                 var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
+                
+                //lançamento das notas de EAD
+                var mediapor1			= document.getElementById("mediapor1");
+		var mediapor2			= document.getElementById("mediapor2");
+		var mediapor3			= document.getElementById("mediapor3");
+		var mediamat1			= document.getElementById("mediamat1");
+		var mediamat2			= document.getElementById("mediamat2");
+		var mediamat3			= document.getElementById("mediamat3")
 
                 resultado = true;
                 if (declaracao.value == "NAO") {
@@ -215,7 +224,20 @@ if ($data_fim < $data_atual) {
                     alert('Informe sua Renda Familiar!');
                     vaga_renda.focus();
                     resultado = false;
-                }
+                    
+                } else if (mediapor1.value == "" || mediapor2.value == "" || mediapor3.value == "" || mediamat1.value == "" || mediamat2.value == "" || mediamat3.value == "") {
+			alert('Informe suas notas!');
+			mediapor1.focus();
+			resultado = false;
+		} else if (mediapor1.value <= 4.9 || mediapor2.value <= 4.9 || mediapor3.value <= 4.9 || mediamat1.value <= 4.9 || mediamat2.value <= 4.9 || mediamat3.value <= 4.9) {
+                	alert('A nota deve ser maior ou igual a 5.0!');
+			mediapor1.focus();
+			resultado = false;
+		} else if (mediapor1.value > 10.0 || mediapor2.value > 10.0 || mediapor3.value > 10.0 || mediamat1.value > 10.0 || mediamat2.value > 10.0 || mediamat3.value > 10.0) {
+			alert('A nota deve ser menor ou igual a 10.0!');
+			mediapor1.focus();
+			resultado = false;
+		}
                 
                 return resultado;
             }
@@ -369,6 +391,15 @@ if ($data_fim < $data_atual) {
             }
 
             $(document).ready(function() {
+		
+                $(".notas").priceFormat({
+		   prefix: '',
+		    limit: 3,
+		    centsLimit: 1,
+		    centsSeparator: '.',
+		    thousandsSeparator: ''
+		});
+                
                 $(".alpha").alpha();
 
                 $("#nis").attr("disabled", true);
@@ -943,43 +974,34 @@ if ($data_fim < $data_atual) {
                     
                     
                     
-                <tr>
-                    <td colspan="2" align="center"><h2> Registro de notas </h2> </td>
-		</tr>                
-                            
-                <tr>
-                        <td align='right' width="200px">Portugu&ecirc;s:</td>
-                        <td>
-                                &emsp;1&deg; Ano: <input class="notas" name="mediapor1" type="text" id="mediapor1" tabindex=32 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
-                                <span class="textoSobrescrito">*</span>
-                                &emsp;2&deg; Ano: <input class="notas" name="mediapor2" type="text" id="mediapor2" tabindex=33 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
-                                <span class="textoSobrescrito">*</span>
-                                &emsp;3&deg; Ano: <input class="notas" name="mediapor3" type="text" id="mediapor3" tabindex=34 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
-                                <span class="textoSobrescrito">*</span>
-                        </td>
-                </tr>
+                    <tr>
+                        <td colspan="2" align="center"><h2> Registro de notas </h2> </td>
+                    </tr>                
 
-                <tr>
-                        <td align='right' width="200px">Matem&aacute;tica:</td>
-                        <td>
-                            &emsp;1&deg; Ano: <input class="notas" name="mediamat1" type="text" id="mediamat1" tabindex=35 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
-                            <span class="textoSobrescrito">*</span>
-                            &emsp;2&deg; Ano: <input class="notas" name="mediamat2" type="text" id="mediamat2" tabindex=36 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
-                            <span class="textoSobrescrito">*</span>
-                            &emsp;3&deg; Ano: <input class="notas" name="mediamat3" type="text" id="mediamat3" tabindex=37 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
-                            <span class="textoSobrescrito">*</span>
-                        </td>
-                </tr>                            
+                    <tr>
+                            <td align='right' width="200px">Portugu&ecirc;s:</td>
+                            <td>
+                                    &emsp;1&deg; Ano: <input class="notas" name="mediapor1" type="text" id="mediapor1" tabindex=32 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 1&deg;" />
+                                    <span class="textoSobrescrito">*</span>
+                                    &emsp;2&deg; Ano: <input class="notas" name="mediapor2" type="text" id="mediapor2" tabindex=33 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 2&deg;" />
+                                    <span class="textoSobrescrito">*</span>
+                                    &emsp;3&deg; Ano: <input class="notas" name="mediapor3" type="text" id="mediapor3" tabindex=34 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Portugu&ecirc;s 3&deg;" />
+                                    <span class="textoSobrescrito">*</span>
+                            </td>
+                    </tr>
 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                    <tr>
+                            <td align='right' width="200px">Matem&aacute;tica:</td>
+                            <td>
+                                &emsp;1&deg; Ano: <input class="notas" name="mediamat1" type="text" id="mediamat1" tabindex=35 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Matem&aacute;tica 1&deg;" />
+                                <span class="textoSobrescrito">*</span>
+                                &emsp;2&deg; Ano: <input class="notas" name="mediamat2" type="text" id="mediamat2" tabindex=36 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Matem&aacute;tica 2&deg;" />
+                                <span class="textoSobrescrito">*</span>
+                                &emsp;3&deg; Ano: <input class="notas" name="mediamat3" type="text" id="mediamat3" tabindex=37 onkeypress="javascript:return Onlynumber(event);" value="" size="5" maxlength="5" alt="Média de Matem&aacute;tica 3&deg;" />
+                                <span class="textoSobrescrito">*</span>
+                            </td>
+                    </tr>                            
+
 
                     <tr>
                         <td colspan="2" align="justify">
