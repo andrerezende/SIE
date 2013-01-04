@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.price_format.1.4.js"></script>
 	<script type="text/javascript" src="../../js/jquery.alphanumeric.pack.js"></script>
+        <script type="text/javascript" src="../../js/jquery.price_format.1.4.js"></script>
 	<script language="JavaScript" type="text/JavaScript">
             function setValue(valor){
     document.getElementById("localprova").value = valor;
@@ -108,6 +109,14 @@ function idade(data)
 //                var especial_descricao      = document.getElementById("especial_descricao");
                 var flag_especial_descricao = document.getElementById("flag_especial_descricao");
                 var flag_especial_prova_descricao = document.getElementById("flag_especial_prova_descricao");
+                
+                //lançamento das notas de EAD
+                var mediapor1			= document.getElementById("mediapor1");
+		var mediapor2			= document.getElementById("mediapor2");
+		var mediapor3			= document.getElementById("mediapor3");
+		var mediamat1			= document.getElementById("mediamat1");
+		var mediamat2			= document.getElementById("mediamat2");
+		var mediamat3			= document.getElementById("mediamat3");
 
 		resultado = true;
 		if (declaracao.value == "NAO") {
@@ -216,7 +225,20 @@ function idade(data)
                     alert('Informe sua Renda Familiar!');
                     vaga_renda.focus();
                     resultado = false;
-                }
+                    
+                } else if (mediapor1.value == "" || mediapor2.value == "" || mediapor3.value == "" || mediamat1.value == "" || mediamat2.value == "" || mediamat3.value == "") {
+			alert('Informe suas notas!');
+			mediapor1.focus();
+			resultado = false;
+		} else if (mediapor1.value <= 4.9 || mediapor2.value <= 4.9 || mediapor3.value <= 4.9 || mediamat1.value <= 4.9 || mediamat2.value <= 4.9 || mediamat3.value <= 4.9) {
+                	alert('A nota deve ser maior ou igual a 5.0!');
+			mediapor1.focus();
+			resultado = false;
+		} else if (mediapor1.value > 10.0 || mediapor2.value > 10.0 || mediapor3.value > 10.0 || mediamat1.value > 10.0 || mediamat2.value > 10.0 || mediamat3.value > 10.0) {
+			alert('A nota deve ser menor ou igual a 10.0!');
+			mediapor1.focus();
+			resultado = false;
+		}
                 
                 enableCombos();
                 
@@ -372,6 +394,15 @@ function idade(data)
 	}
 
 	$(document).ready(function() {
+            
+                $(".notas").priceFormat({
+		    prefix: '',
+		    limit: 3,
+		    centsLimit: 1,
+		    centsSeparator: '.',
+		    thousandsSeparator: ''
+		});
+            
 		$(".alpha").alpha();
 
 		$("#nis").attr("disabled", true);
